@@ -19,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repos\" />
-    <Folder Include="Unit\" />
+    <Folder Include="Repos\EntityRepos\" />
   </ItemGroup>
 
 </Project>

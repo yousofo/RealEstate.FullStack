@@ -1,5 +1,6 @@
 
 using Infrastructure.Data;
+using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace RealEstateFullStackApp.Server
@@ -13,7 +14,7 @@ namespace RealEstateFullStackApp.Server
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(opts=>opts.UseSqlServer("Server=.\\sqlExpress;Database=RealEstateFull;Trusted_Connection=True;Trust Server Certificate=True;"));
 
-
+            builder.Services.AddScoped<UnitOfWork>();
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
