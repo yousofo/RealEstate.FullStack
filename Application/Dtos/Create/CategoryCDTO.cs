@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.Create
 {
-    internal class CategoryCDTO
+    public class CategoryCDTO
     {
     }
 }

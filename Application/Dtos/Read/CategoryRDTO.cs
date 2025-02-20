@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.Read
 {
-    internal class CategoryRDTO
+    public class CategoryRDTO
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.Update
 {
-    internal class LocationUDTO
+    public class LocationUDTO
     {
     }
 }

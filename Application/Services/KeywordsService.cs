@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace Application.Dtos.Create
+using Application.Interfaces;
+namespace Application.Services
 {
-    public class LocationCDTO
+    public class KeywordsService:IKeywordsService
     {
     }
 }
