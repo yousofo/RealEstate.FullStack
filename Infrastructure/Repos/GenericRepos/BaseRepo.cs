@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Repos;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace Infrastructure.Repos.GenericRepos
 {
     public class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : class
     {
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return context.Set<T>().ToList();
+            return await context.Set<T>().ToListAsync();
         }
         public IEnumerable<T> GetPage(int pageNumber, int pageSize = 20)
         {
@@ -27,7 +28,8 @@ namespace Infrastructure.Repos.GenericRepos
         {
             try
             {
-                await context.AddAsync(item);
+                context.Add(item);
+                await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)

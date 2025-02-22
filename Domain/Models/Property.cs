@@ -16,9 +16,9 @@ namespace Domain.Models
         [StringLength(1200)]
         public string Description { get; set; }
         public string PreviewImageLink { get; set; }
-        public IEnumerable<string>? ImageLinks { get; set; }
-        public int LocationId { get; set; }
+        public ICollection<ImageLink>? ImageLinks { get; set; }
+        public int? LocationId { get; set; }
         public Location Location { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public ICollection<Category>? Categories { get; set; }
     }
 }

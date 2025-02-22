@@ -16,13 +16,16 @@ namespace Application.Services
         public async Task<bool> CreateAsync(PropertyCDTO property)
         {
             var prop = mapper.Map<Property>(property);
-            return await unit.Properties.AddAsync(prop);
+            prop.PreviewImageLink = "test link";
+            bool isAdded = await unit.Properties.AddAsync(prop);
+            return isAdded;
         }
 
-        public IEnumerable<PropertyRDTO> GetAll()
+        public async Task<IEnumerable<PropertyRDTO>> GetAllAsync()
         {
-            var allProps = unit.Properties.GetAll();
+            var allProps = await unit.Properties.GetAllAsync();
             return  mapper.Map<IEnumerable<PropertyRDTO>>(allProps);
         }
+
     }
 }

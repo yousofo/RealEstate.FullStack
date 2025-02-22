@@ -9,9 +9,10 @@ namespace RealEstateFullStackApp.Server.Controllers
     public class PropertiesController(IPropertiesService propertyService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task< IActionResult> GetAll()
         {
-            return Ok(propertyService.GetAll());
+            var props =await propertyService.GetAllAsync();
+            return Ok(props);
         }
 
         [HttpPost]

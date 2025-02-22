@@ -10,7 +10,7 @@ namespace Application.Interfaces
 {
     public interface IPropertiesService
     {
-        IEnumerable<PropertyRDTO> GetAll();
+        public Task<IEnumerable<PropertyRDTO>> GetAllAsync();
         Task<bool> CreateAsync(PropertyCDTO property);
     }
 }
