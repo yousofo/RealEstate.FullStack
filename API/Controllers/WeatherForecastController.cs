@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace RealEstateFullStackApp.Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class WeatherForecastController(ILogger<WeatherForecastController> logger) : ControllerBase
     {
         private static readonly string[] Summaries = new[]

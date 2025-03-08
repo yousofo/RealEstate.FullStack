@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from './lib/components/header/header.component';
 import { FooterComponent } from './lib/components/footer/footer.component';
 import { SearchComponent } from './lib/components/search/search.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 interface WeatherForecast {
   date: string;
@@ -15,28 +16,28 @@ interface WeatherForecast {
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,SearchComponent],
+  imports: [HeaderComponent, FooterComponent,SearchComponent,HttpClientModule],
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
   public forecasts: WeatherForecast[] = [];
 
-  //constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    //this.getForecasts();
+    this.getForecasts();
   }
 
-  //getForecasts() {
-  //  this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-  //    (result) => {
-  //      this.forecasts = result;
-  //    },
-  //    (error) => {
-  //      console.error(error);
-  //    }
-  //  );
-  //}
+  getForecasts() {
+    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
+      (result) => {
+        this.forecasts = result;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 
   //title = 'realestatefullstackapp.client';
 }

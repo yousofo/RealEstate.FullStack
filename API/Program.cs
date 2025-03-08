@@ -1,4 +1,5 @@
 
+using API.ServiceExtensions;
 using Application.Dtos;
 using Application.Interfaces;
 using Application.Services;
@@ -16,17 +17,11 @@ namespace RealEstateFullStackApp.Server
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddDbContext<ApplicationDbContext>(opts=>opts.UseSqlServer("Server=.\\sqlExpress;Database=RealEstateFull;Trusted_Connection=True;Trust Server Certificate=True;"));
 
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MapperConfig)));
-
-            builder.Services.AddScoped<IPropertiesService, PropertiesService>();
-            builder.Services.AddScoped<ILocationsService, LocationsService>();
-            builder.Services.AddScoped<IKeywordsService, KeywordsService>();
+            builder.Services.AddCustomDependencies();
 
             builder.Services.AddControllers();
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
@@ -39,6 +34,7 @@ namespace RealEstateFullStackApp.Server
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                
                 app.UseSwaggerUI(opts =>
                 {
                     opts.SwaggerEndpoint("/openapi/v1.json", "name1");

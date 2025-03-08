@@ -11,6 +11,7 @@ namespace Application.Services
     {
         public static async Task<string?> SaveFileAsync(IFormFile image)
         {
+            
             if (image != null && image.Length > 0)
             {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);

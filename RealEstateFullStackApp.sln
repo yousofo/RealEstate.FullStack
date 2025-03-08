@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateFullStackApp.Server", "RealEstateFullStackApp.Server\RealEstateFullStackApp.Server.csproj", "{4DEE4F05-F30A-40BD-B39E-CC542169C6D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{4DEE4F05-F30A-40BD-B39E-CC542169C6D7}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "realestatefullstackapp.client", "realestatefullstackapp.client\realestatefullstackapp.client.esproj", "{DD29DD0E-EB9B-426C-818F-C2FA3CCDC413}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Client", "Client\Client.esproj", "{DD29DD0E-EB9B-426C-818F-C2FA3CCDC413}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{10276F92-5F01-45DF-9991-67573D6DD043}"
 EndProject

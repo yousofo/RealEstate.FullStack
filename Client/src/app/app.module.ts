@@ -10,20 +10,20 @@ import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './lib/components/search/search.component';
 import { PropertyCardComponent } from './lib/components/property-card/property-card.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    SearchComponent,
-    PropertyCardComponent
-  ],
-  imports: [
-    BrowserModule, HttpClientModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+// @NgModule({
+//   declarations: [
+//     AppComponent,
+//     HeaderComponent,
+//     FooterComponent,
+//     HomeComponent,
+//     SearchComponent,
+//     PropertyCardComponent
+//   ],
+//   imports: [
+//     BrowserModule, HttpClientModule,
+//     AppRoutingModule
+//   ],
+//   providers: [],
+//   bootstrap: [AppComponent]
+// })
+// export class AppModule { }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,18 +8,19 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Property
+    public class Property: EntityBase
     {
-        public int Id { get; set; }
-        [StringLength(50)]
-        public string Name { get; set; }
+        [StringLength(150)]
+        public string Title { get; set; }
         public decimal Price { get; set; }
-        [StringLength(1200)]
+        [StringLength(1500)]
         public string Description { get; set; }
+        [StringLength(1500)]
         public string PreviewImageLink { get; set; }
+        [MaxLength(20)]
         public ICollection<ImageLink>? ImageLinks { get; set; }
-        public int? LocationId { get; set; }
+        public int LocationId { get; set; }
         public Location Location { get; set; }
-        public ICollection<Category>? Categories { get; set; }
+        public ICollection<Category> Categories { get; set; }
     }
 }
