@@ -6,7 +6,9 @@ using Application.Services;
 using Infrastructure.Data;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Reflection;
+using static System.Net.WebRequestMethods;
 
 namespace RealEstateFullStackApp.Server
 {
@@ -34,7 +36,7 @@ namespace RealEstateFullStackApp.Server
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
-                
+
                 app.UseSwaggerUI(opts =>
                 {
                     opts.SwaggerEndpoint("/openapi/v1.json", "name1");
@@ -46,10 +48,12 @@ namespace RealEstateFullStackApp.Server
 
             app.UseAuthorization();
 
-
+            //< SpaRoot > ..\Client </ SpaRoot >
+            //   < SpaProxyLaunchCommand > npm start </ SpaProxyLaunchCommand >
+            //   < SpaProxyServerUrl > https://localhost:54376</SpaProxyServerUrl>
             app.MapControllers();
 
-            app.MapFallbackToFile("/index.html");
+            //app.MapFallbackToFile("/index.html");
 
             app.Run();
         }

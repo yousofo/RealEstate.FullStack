@@ -6,11 +6,13 @@ using Infrastructure.UnitOfWork;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Application.Interfaces.Repos;
-using Infrastructure.Repos;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
+using Infrastructure.Auth.Repos;
+using Infrastructure.Auth;
+
 namespace API.ServiceExtensions;
 
 public static class ServiceExtensions

@@ -3,7 +3,7 @@ using Application.Interfaces.Repos;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace Infrastructure.Repos
+namespace Infrastructure.Auth.Repos
 {
     public class AuthRepo(UserManager<AppUser> userManager) : IAuthRepo
     {
@@ -15,7 +15,7 @@ namespace Infrastructure.Repos
 
             if (!isPasswordValid) return null;
 
-            
+
 
             return new LoginRDTO(user.Id, user.Email, user.FirstName, user.LastName, "ttt", 3600);
 
