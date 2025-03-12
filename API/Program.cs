@@ -20,7 +20,7 @@ namespace RealEstateFullStackApp.Server
 
             // Add services to the container.
 
-            builder.Services.AddCustomDependencies();
+            builder.Services.AddCustomDependencies(builder.Configuration);
 
             builder.Services.AddControllers();
 

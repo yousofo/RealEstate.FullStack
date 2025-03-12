@@ -38,7 +38,7 @@ namespace Infrastructure.Auth.Providers
                     signingCredentials: singingCredentials
                 );
 
-            return (new JwtSecurityTokenHandler().WriteToken(token), expiresIn);
+            return (new JwtSecurityTokenHandler().WriteToken(token), expiresIn * 60);
         }
     }
 }

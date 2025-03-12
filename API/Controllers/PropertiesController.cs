@@ -2,9 +2,11 @@
 using Application.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Application.Dtos.Create;
+using Microsoft.AspNetCore.Authorization;
 namespace RealEstateFullStackApp.Server.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class PropertiesController(IPropertiesService propertyService) : ControllerBase
     {
