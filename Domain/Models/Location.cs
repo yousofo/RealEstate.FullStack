@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Location: EntityBase
+    public class Location: AuditableEntity
     {
         [StringLength(100)]
         public string Title { get; set; }

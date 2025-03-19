@@ -53,25 +53,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Locations_Locations_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Locations",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -178,69 +159,24 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Properties",
+                name: "RefreshTokens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false),
-                    PreviewImageLink = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false),
-                    LocationId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpiresOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RevokenOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Properties", x => x.Id);
+                    table.PrimaryKey("PK_RefreshTokens", x => new { x.Id, x.UserId });
                     table.ForeignKey(
-                        name: "FK_Properties_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: true),
-                    PropertyId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Categories_Categories_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Categories_Properties_PropertyId",
-                        column: x => x.PropertyId,
-                        principalTable: "Properties",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImageLinks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Link = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    PropertyId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImageLinks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ImageLinks_Properties_PropertyId",
-                        column: x => x.PropertyId,
-                        principalTable: "Properties",
+                        name: "FK_RefreshTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -285,35 +221,9 @@ namespace Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_ParentId",
-                table: "Categories",
-                column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_PropertyId",
-                table: "Categories",
-                column: "PropertyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_Title",
-                table: "Categories",
-                column: "Title",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImageLinks_PropertyId",
-                table: "ImageLinks",
-                column: "PropertyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_ParentId",
-                table: "Locations",
-                column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Properties_LocationId",
-                table: "Properties",
-                column: "LocationId");
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -335,22 +245,13 @@ namespace Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "ImageLinks");
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Properties");
-
-            migrationBuilder.DropTable(
-                name: "Locations");
         }
     }
 }

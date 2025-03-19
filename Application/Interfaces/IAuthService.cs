@@ -9,6 +9,9 @@ namespace Application.Interfaces
 {
     public interface IAuthService
     {
-        Task<LoginRDTO?> LoginAsync(string username, string password,CancellationToken cancellationToken = default); 
+        Task<LoginReq?> LoginAsync(string username, string password,CancellationToken cancellationToken = default);
+        Task<LoginReq?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default);
+        Task<bool> RevokeRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default);
+
     }
 }

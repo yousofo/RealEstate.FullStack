@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Auth
+namespace Domain.Auth
 {
     public class AppUser : IdentityUser
     {
@@ -14,5 +14,6 @@ namespace Infrastructure.Auth
         public string FirstName { get; set; }
         [StringLength(50)]
         public string LastName { get; set; }
+        public List<RefreshToken> RefreshTokens { get; set; } = [];
     }
 }

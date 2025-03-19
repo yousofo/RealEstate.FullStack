@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.Create
 {
-    public record LoginCDTO(
+    public record LoginReq(
             [Required] string Email,
             [Required] string Password
         );

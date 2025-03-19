@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Property: EntityBase
+    public class Property: AuditableEntity
     {
         [StringLength(150)]
         public string Title { get; set; }

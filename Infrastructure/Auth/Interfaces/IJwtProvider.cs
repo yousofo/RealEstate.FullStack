@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Auth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace Infrastructure.Auth.Interfaces;
 public interface IJwtProvider
 {
     (string token, int expiresIn) GenerateToken(AppUser user);
+    string? ValidateToken(string token);
 }
 

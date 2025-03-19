@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.Read
 {
-    public record LoginRDTO(
+    public record LoginReq(
         string Id,
         string? Email,
         string FirstName,
         string LastName,
         string Token,
-        int ExpiresIn
+        int ExpiresIn,
+        string Refreshtoken,
+        DateTime refreshTokenExpirationDate
     );
 }

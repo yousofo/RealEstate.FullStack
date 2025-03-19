@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.CustomFLuentValidators
 {
-    public class LoginCDTOValidator:AbstractValidator<LoginCDTO>
+    public class LoginCDTOValidator:AbstractValidator<LoginReq>
     {
         public LoginCDTOValidator()
         {

@@ -9,7 +9,10 @@ namespace Application.Interfaces.Repos
 {
     public interface IAuthRepo
     {
-        Task<LoginRDTO?> LoginAsync(string email, string password, CancellationToken cancellationToken = default);
+        Task<LoginReq?> LoginAsync(string email, string password, CancellationToken cancellationToken = default);
+        Task<LoginReq?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default);
+        Task<bool?> RevokeRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default);
+
 
     }
 }

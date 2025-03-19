@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class ImageLink :EntityBase
+    public class ImageLink :AuditableEntity
     {
         [StringLength(500)]
         public string Link { get; set; }

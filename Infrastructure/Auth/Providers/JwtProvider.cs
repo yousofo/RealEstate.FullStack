@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Auth.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,33 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Auth.Providers
 {
-    public class JwtProvider : IJwtProvider
+    public class JwtProvider(IConfiguration configuration) : IJwtProvider
     {
+        public string? ValidateToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    IssuerSigningKey = symmetricSecurityKey,
+                    ValidateIssuerSigningKey= true,
+                    ValidateIssuer=false,
+                    ValidateAudience=false,
+                    ClockSkew=TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                return jwtToken.Claims.First(e=>e.Type==JwtRegisteredClaimNames.Sub).Value ;//user id
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public (string token, int expiresIn) GenerateToken(AppUser user)
         {
             Claim[] claims = [
@@ -23,22 +49,22 @@ namespace Infrastructure.Auth.Providers
             ];
             
             //encryption 
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("uvnGJQgmd4uOyyzQpDVk8fQ7KwCFiFFI"));
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
 
             var singingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
-            var expiresIn = 30;
+            var expiryMinutes = int.Parse(configuration["Jwt:ExpiryMinutes"]!);
 
             //whats going to be inside the generated token
             var token = new JwtSecurityToken(
-                    issuer: "RealEstateApp",
-                    audience: "RealEstateApp users",
+                    issuer: configuration["Jwt:Issuer"],
+                    audience: configuration["Jwt:audience"],
                     claims: claims,
-                    expires: DateTime.Now.AddMinutes(expiresIn),
+                    expires: DateTime.Now.AddMinutes(expiryMinutes),
                     signingCredentials: singingCredentials
                 );
 
-            return (new JwtSecurityTokenHandler().WriteToken(token), expiresIn * 60);
+            return (new JwtSecurityTokenHandler().WriteToken(token), expiryMinutes * 60);
         }
     }
 }
