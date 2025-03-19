@@ -1,4 +1,4 @@
-﻿using Application.Dtos.Create;
+﻿using Application.Dtos.Auth;
 using FluentValidation;
 
 namespace API.CustomFLuentValidators

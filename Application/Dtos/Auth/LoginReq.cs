@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dtos.Create
+namespace Application.Dtos.Auth
 {
     public record LoginReq(
             [Required] string Email,

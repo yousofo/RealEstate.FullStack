@@ -1,4 +1,4 @@
-﻿using Application.Dtos.Read;
+﻿using Application.Dtos.Auth;
 using Application.Interfaces.Repos;
 using Domain.Models;
 using Infrastructure.Auth.Interfaces;
@@ -10,7 +10,7 @@ namespace Infrastructure.Auth.Repos
     public class AuthRepo(UserManager<AppUser> userManager, IJwtProvider jwtProvider) : IAuthRepo
     {
         private readonly int _refreshTokenExpiryDays = 14;
-        public async Task<LoginReq?> LoginAsync(string email, string password, CancellationToken cancellationToken = default)
+        public async Task<LoginRes?> LoginAsync(string email, string password, CancellationToken cancellationToken = default)
         {
             AppUser? user = await userManager.FindByEmailAsync(email);
             if (user is null) return null;
@@ -31,7 +31,7 @@ namespace Infrastructure.Auth.Repos
             
             await userManager.UpdateAsync(user);
 
-            return new LoginReq(user.Id,
+            return new LoginRes(user.Id,
                 user.Email,
                 user.FirstName,
                 user.LastName,
@@ -43,7 +43,7 @@ namespace Infrastructure.Auth.Repos
         }
         
 
-        public async Task<LoginReq?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
+        public async Task<LoginRes?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
         {
             var userId = jwtProvider.ValidateToken(token);
             if (userId is null) return null;
@@ -70,7 +70,7 @@ namespace Infrastructure.Auth.Repos
 
             await userManager.UpdateAsync(user);
 
-            return new LoginReq(user.Id,
+            return new LoginRes(user.Id,
                 user.Email,
                 user.FirstName,
                 user.LastName,

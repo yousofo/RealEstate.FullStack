@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services
+namespace Application.Services.EntityServices
 {
-    public class LocationsService :ILocationsService
+    public class LocationsService : ILocationsService
     {
     }
 }

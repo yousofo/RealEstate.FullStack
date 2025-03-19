@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services
+namespace Application.Services.EntityServices
 {
-    public class PropertiesService(IUnitOfWork unit,IMapper mapper) : IPropertiesService
+    public class PropertiesService(IUnitOfWork unit, IMapper mapper) : IPropertiesService
     {
         public async Task<bool> CreateAsync(PropertyCDTO property)
         {
@@ -24,7 +24,7 @@ namespace Application.Services
         public async Task<IEnumerable<PropertyRDTO>> GetAllAsync()
         {
             var allProps = await unit.Properties.GetAllAsync();
-            return  mapper.Map<IEnumerable<PropertyRDTO>>(allProps);
+            return mapper.Map<IEnumerable<PropertyRDTO>>(allProps);
         }
 
     }

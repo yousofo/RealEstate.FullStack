@@ -11,12 +11,12 @@ namespace Application.Services
 {
     public class AuthService(IAuthRepo authRepo) : IAuthService
     {
-        public async Task<LoginReq?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
+        public async Task<LoginRes?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
         {
             return await authRepo.GetRefreshTokenAsync(token, refreshToken, cancellationToken);
         }
 
-        public async Task<LoginReq?> LoginAsync(string username, string password, CancellationToken cancellationToken = default)
+        public async Task<LoginRes?> LoginAsync(string username, string password, CancellationToken cancellationToken = default)
         {
             return await authRepo.LoginAsync(username, password, cancellationToken);
         }

@@ -18,6 +18,7 @@ using System.Text;
 using Infrastructure.Auth.Interfaces;
 using Infrastructure.Auth.Providers;
 using Application.Options;
+using Application.Services.EntityServices;
 
 namespace API.ServiceExtensions;
 

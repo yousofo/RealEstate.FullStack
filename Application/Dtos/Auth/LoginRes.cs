@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dtos.Read
+namespace Application.Dtos.Auth
 {
-    public record LoginReq(
+    public record LoginRes(
         string Id,
         string? Email,
         string FirstName,

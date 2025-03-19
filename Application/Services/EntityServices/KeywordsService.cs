@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
-namespace Application.Services
+namespace Application.Services.EntityServices
 {
-    public class KeywordsService:IKeywordsService
+    public class KeywordsService : IKeywordsService
     {
     }
 }
