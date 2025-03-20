@@ -17,7 +17,7 @@ interface WeatherForecast {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  standalone: true,
+  // standalone: true,
   imports: [HeaderComponent, FooterComponent,SearchComponent,RouterOutlet,AsideComponent],
   providers: [HttpClient],
   styleUrl: './app.component.css'
