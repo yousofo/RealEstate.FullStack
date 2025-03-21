@@ -1,5 +1,7 @@
 <header class="flex justify-between p-4 border">
+
   <button aria-label="Menu"><i class="pi pi-bars"></i></button>
+
   <h1>
     <a
       href="/"
@@ -11,6 +13,9 @@
       <img src="/yosofo-logo.png" class="h-7" alt="Yostate" />
     </a>
   </h1>
+  <!-- <p-button (click)="showDialog()" icon="pi pi-user" label="Login" /> -->
+
+  <p-button icon="pi pi-user" [label]="authService.authState.isAuthenticated ? 'Logout' : 'Login'" (click)="loginService.toggle()" />
   <!-- <nav>
     <ul class="flex gap-4">
       <li><a href="#">Home</a></li>

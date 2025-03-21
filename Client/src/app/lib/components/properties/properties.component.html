@@ -1,0 +1,5 @@
+@for (property of properties(); track $index) {
+    <app-property-card [data]="property"/>
+}@empty {
+    <p>No Properties Found</p>
+}

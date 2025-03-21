@@ -22,7 +22,7 @@ namespace Infrastructure.Seed
                 Email = "test@test.com",
                 NormalizedEmail = "TEST@TEST.COM",
                 EmailConfirmed = true,
-                PasswordHash = "AQAAAAIAAYagAAAAEE7iAGoK16nHp2rWZElaHIXjcIv3nJnC2TCVblYlPBfaEXtv5/fCHjb7wIR6HQX8Ag==",
+                PasswordHash = new PasswordHasher<AppUser>().HashPassword(null,"test"),//"AQAAAAIAAYagAAAAEE7iAGoK16nHp2rWZElaHIXjcIv3nJnC2TCVblYlPBfaEXtv5/fCHjb7wIR6HQX8Ag=="
                 SecurityStamp = "",
                 ConcurrencyStamp = "12121212abc",
                 FirstName = "Youssef",
