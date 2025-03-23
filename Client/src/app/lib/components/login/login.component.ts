@@ -1,9 +1,10 @@
 import { Component, inject, signal,effect } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Dialog } from 'primeng/dialog';
 import { LoginService } from '../../services/popups/login/login.service';
+import { AuthService } from '../../services/auth/auth.service';
  @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,11 +21,15 @@ import { LoginService } from '../../services/popups/login/login.service';
 export class LoginComponent {
   emailInput = '';
   passwordInput = '';
+
   loginService = inject(LoginService);
+  authService = inject(AuthService);
   
-  toggleDialog() {
-    this.loginService.toggle();
+  submit(form : NgForm) {
+    console.log(form)
+    this.authService.login(form.controls['email'].value, form.controls['password'].value);
   }
+
   closeDialog() {
     this.loginService.hide();
   }

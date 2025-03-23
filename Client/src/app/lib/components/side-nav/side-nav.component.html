@@ -1,0 +1,16 @@
+<aside
+  class="flex flex-col gap-4 p-2 bg-sidenav shadow h-full"
+>
+  <nav>
+    <ul class="flex flex-col gap-4 [&>*]:py-2">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+      <li>
+        <a [routerLink]="['/chat-ai']" routerLinkActive="router-link-active"
+          >AI Assistant
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>

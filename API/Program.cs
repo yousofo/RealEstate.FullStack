@@ -49,8 +49,8 @@ public class Program
         app.UseAuthorization();
         app.UseCors(e =>
         {
-            //e.AllowAnyOrigin();
-            e.WithOrigins("http://localhost:54376", "http://localhost:54376", "http://localhost:54376");
+            e.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            //e.WithOrigins("http://localhost:54376", "http://localhost:54376", "http://localhost:54376");
         });
 
         //< SpaRoot > ..\Client </ SpaRoot >

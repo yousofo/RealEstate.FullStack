@@ -6,6 +6,7 @@ import { PropertiesPageComponent } from './app/pages/properties-page/properties-
 import { SignUpPageComponent } from './app/pages/sign-up-page/sign-up-page.component';
 import { UserPageComponent } from './app/pages/user-page/user-page.component';
 import { NotFoundPageComponent } from './app/pages/not-found-page/not-found-page.component';
+import { ChatAiPageComponent } from './app/pages/chat-ai-page/chat-ai-page.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path: 'about-us',
     component: AboutUsPageComponent,
+  },
+  {
+    path: 'chat-ai',
+    component: ChatAiPageComponent,
   },
   {
     path: 'properties',

@@ -1,8 +1,7 @@
-<header class="flex justify-between p-4 border">
-
-  <button aria-label="Menu"><i class="pi pi-bars"></i></button>
-
-  <h1>
+<header
+  class="grid grid-cols-3 [&>*]:flex justify-between p-2 shadow-lg bg-header"
+>
+  <h1 class="items-center gap-2">
     <a
       href="/"
       aria-label="Home"
@@ -10,12 +9,56 @@
       routerLinkActive="router-link-active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <img src="/yosofo-logo.png" class="h-7" alt="Yostate" />
+      <img src="/yosofo-logo.png" class="h-4" alt="Yostate" />
     </a>
   </h1>
-  <!-- <p-button (click)="showDialog()" icon="pi pi-user" label="Login" /> -->
 
-  <p-button icon="pi pi-user" [label]="authService.authState.isAuthenticated ? 'Logout' : 'Login'" (click)="loginService.toggle()" />
+  <p-floatlabel variant="on" >
+    <input
+      pInputText
+      id="on_label"
+      [(ngModel)]="searchInput"
+      autocomplete="off"
+      class="p-2 shadow w-full border border-gray-500 rounded-lg"
+    />
+    <label for="on_label">On Label</label>
+  </p-floatlabel>
+
+
+  <div class="justify-end gap-3 items-center">
+    <!-- login -->
+    @if(authService.authState.isAuthenticated){ }@else{
+    <p-button
+      class="justify-end"
+      styleClass=" !rounded-sm btn-primary font-bold"
+      size="small"
+      label="Login"
+      (click)="loginService.toggle()"
+    />
+    <p-button
+      class="justify-end"
+      styleClass=" !rounded-sm btn-purple"
+      size="small"
+      label="Sign Up"
+      (click)="loginService.toggle()"
+    />
+    }
+
+    <!-- user icon -->
+    @if(authService.authState.isAuthenticated){
+    <img
+      src="{{ authService.authState.user?.image ?? '/placeholders/user.jpg' }}"
+      alt="user image"
+      srcset=""
+    />
+    }@else{
+    <button class="cursor-pointer px-2" aria-label="User">
+      <i (click)="menu.toggle($event)" class="pi pi-user !text-xl"></i>
+    </button>
+    }
+    <p-menu #menu [model]="items" [popup]="true" styleClass="mt-2" />
+  </div>
+
   <!-- <nav>
     <ul class="flex gap-4">
       <li><a href="#">Home</a></li>

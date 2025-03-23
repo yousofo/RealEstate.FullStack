@@ -5,8 +5,9 @@ import { FooterComponent } from './lib/components/footer/footer.component';
 import { SearchComponent } from './lib/components/search/search.component';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { AsideComponent } from './lib/components/aside/aside.component';
-import { LoginComponent } from "./lib/components/login/login.component";
+import { SideNavComponent } from './lib/components/side-nav/side-nav.component';
+import { LoginComponent } from './lib/components/login/login.component';
+import { ChatAIComponent } from './lib/components/chat-ai/chat-ai.component';
 
 interface WeatherForecast {
   date: string;
@@ -19,15 +20,23 @@ interface WeatherForecast {
   selector: 'app-root',
   templateUrl: './app.component.html',
   // standalone: true,
-  imports: [HeaderComponent, FooterComponent, SearchComponent, RouterOutlet, AsideComponent, LoginComponent],
+  imports: [
+    HeaderComponent,
+    FooterComponent,
+    SearchComponent,
+    RouterOutlet,
+    SideNavComponent,
+    LoginComponent,
+    ChatAIComponent,
+    SideNavComponent
+],
   providers: [HttpClient],
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   public forecasts: WeatherForecast[] = [];
 
   private http = inject(HttpClient);
-  
 
   ngOnInit() {
     this.getForecasts();

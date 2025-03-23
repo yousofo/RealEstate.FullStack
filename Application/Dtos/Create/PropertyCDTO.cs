@@ -9,7 +9,7 @@ namespace Application.Dtos.Create
 {
     public class PropertyCDTO
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
         public IFormFile? PreviewImage { get; set; }
