@@ -13,7 +13,7 @@
     </a>
   </h1>
 
-  <p-floatlabel variant="on" >
+  <!-- <p-floatlabel variant="on" >
     <input
       pInputText
       id="on_label"
@@ -22,8 +22,22 @@
       class="p-2 shadow w-full border border-gray-500 rounded-lg"
     />
     <label for="on_label">On Label</label>
-  </p-floatlabel>
+  </p-floatlabel> -->
 
+  <p-inputgroup styleClass="border1 border-gray-500 rounded-lg">
+    <!-- <p-floatlabel variant="on" > -->
+    <input pInputText [(ngModel)]="searchInput" class="bg-transparent" placeholder="search"  />
+    <p-inputgroup-addon>
+      <p-button
+        icon="pi pi-search"
+        severity="secondary"
+        variant="text"
+        class="h-full"
+      />
+    </p-inputgroup-addon>
+
+    <!-- </p-floatlabel> -->
+  </p-inputgroup>
 
   <div class="justify-end gap-3 items-center">
     <!-- login -->

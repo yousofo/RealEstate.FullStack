@@ -1,14 +1,21 @@
-<aside
-  class="flex flex-col gap-4 p-2 bg-sidenav shadow h-full"
->
+<aside class="flex flex-col gap-4 p-2 bg-sidenav shadow h-full">
   <nav>
-    <ul class="flex flex-col gap-4 [&>*]:py-2">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
+    <ul
+      class="flex flex-col gap-4 [&>*]:py-2 text-secondary [&_a]:flex  [&_a]:gap-2 [&_a]:items-center"
+    >
       <li>
-        <a [routerLink]="['/chat-ai']" routerLinkActive="router-link-active"
-          >AI Assistant
+        <a href="#"><i class="pi pi-home"></i><span>Home</span></a>
+      </li>
+      <li>
+        <a href="#"><i class="pi pi-info-circle"></i><span>About</span></a>
+      </li>
+      <li>
+        <a href="#"><i class="pi pi-phone"></i><span>Contact</span></a>
+      </li>
+      <li>
+        <a [routerLink]="['/chat-ai']" routerLinkActive="router-link-active">
+          <i class="pi pi-users"></i>
+          <span>AI Assistant</span>
         </a>
       </li>
     </ul>

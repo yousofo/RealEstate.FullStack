@@ -20,7 +20,7 @@ const MyPreset = definePreset(Aura, {
       bgDark: '#adadb8',
       hoverLight: '#f7f7f8',
       hoverDark: '#adadb8',
-      activeLight: '#53535f', 
+      activeLight: '#53535f',
       activeDark: '#adadb8',
     },
     secondary: {
@@ -136,7 +136,7 @@ export const appConfig: ApplicationConfig = {
         options: {
           cssLayer: {
             name: 'primeng',
-            // order: 'primeng, styles, another-css-library',
+            order: 'tailwindBase, primeng, styles',
           },
         },
       },

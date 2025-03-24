@@ -8,6 +8,10 @@ import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 @Component({
   selector: 'app-header',
@@ -20,7 +24,7 @@ import { FloatLabel } from 'primeng/floatlabel';
     ButtonModule,
     MenuModule,
     FormsModule,
-    FloatLabel,
+    FloatLabel,InputGroupModule,InputGroupAddonModule,InputTextModule
   ],
 })
 export class HeaderComponent implements OnInit {
