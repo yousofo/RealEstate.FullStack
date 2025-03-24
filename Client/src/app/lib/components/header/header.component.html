@@ -26,13 +26,14 @@
 
   <p-inputgroup styleClass="border1 border-gray-500 rounded-lg">
     <!-- <p-floatlabel variant="on" > -->
-    <input pInputText [(ngModel)]="searchInput" class="bg-transparent" placeholder="search"  />
+    <input pInputText [(ngModel)]="searchService.input" class="bg-transparent" placeholder="search"  />
     <p-inputgroup-addon>
       <p-button
         icon="pi pi-search"
         severity="secondary"
         variant="text"
         class="h-full"
+        
       />
     </p-inputgroup-addon>
 

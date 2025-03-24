@@ -11,7 +11,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { SearchService } from '../../services/search/search.service';
 
 @Component({
   selector: 'app-header',
@@ -24,16 +24,20 @@ import { InputTextModule } from 'primeng/inputtext';
     ButtonModule,
     MenuModule,
     FormsModule,
-    FloatLabel,InputGroupModule,InputGroupAddonModule,InputTextModule
+    FloatLabel,
+    InputGroupModule,
+    InputGroupAddonModule,
+    InputTextModule,
   ],
 })
 export class HeaderComponent implements OnInit {
   isDiscount: boolean = false;
   items: MenuItem[] | undefined;
-  searchInput: string = '';
-  
+  // searchInput: string = '';
+
   loginService = inject(LoginService);
   authService = inject(AuthService);
+  searchService = inject(SearchService);
 
   ngOnInit() {
     console.log('from header');
