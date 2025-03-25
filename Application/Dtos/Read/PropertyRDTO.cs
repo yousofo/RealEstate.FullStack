@@ -14,8 +14,10 @@ namespace Application.Dtos.Read
         public decimal Price { get; set; }
         public string Description { get; set; }
         public string PreviewImageLink { get; set; }
+        public string Status { get; set; }
         public Location Location { get; set; }
         public IEnumerable<string>? ImageLinks { get; set; }
+        public IEnumerable<string>? Categories { get; set; }
 
     }
 }

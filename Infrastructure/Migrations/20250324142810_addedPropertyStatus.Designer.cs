@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250324142810_addedPropertyStatus")]
+    partial class addedPropertyStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CategoryProperty", b =>
-                {
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PropertiesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoriesId", "PropertiesId");
-
-                    b.HasIndex("PropertiesId");
-
-                    b.ToTable("CategoryProperty");
-                });
 
             modelBuilder.Entity("Domain.Auth.AppUser", b =>
                 {
@@ -179,6 +167,9 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PropertyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -191,6 +182,8 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ModifiedById");
 
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("PropertyId");
 
                     b.HasIndex("Title")
                         .IsUnique();
@@ -515,21 +508,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CategoryProperty", b =>
-                {
-                    b.HasOne("Domain.Models.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Property", null)
-                        .WithMany()
-                        .HasForeignKey("PropertiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Auth.AppUser", b =>
                 {
                     b.OwnsMany("Domain.Auth.RefreshToken", "RefreshTokens", b1 =>
@@ -585,6 +563,10 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Models.Category", "Parent")
                         .WithMany()
                         .HasForeignKey("ParentId");
+
+                    b.HasOne("Domain.Models.Property", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("PropertyId");
 
                     b.Navigation("CreatedBy");
 
@@ -723,6 +705,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Property", b =>
                 {
+                    b.Navigation("Categories");
+
                     b.Navigation("ImageLinks");
                 });
 #pragma warning restore 612, 618

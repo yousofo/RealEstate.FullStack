@@ -3,7 +3,7 @@ export interface IUser {
     name: string,
     token: string,
     id: string,
-    role: string,
+    role: 'admin' | 'user',
     image: string,
     phone: string,
     address: string,

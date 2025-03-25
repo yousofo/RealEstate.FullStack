@@ -27,5 +27,10 @@ namespace Application.Services.EntityServices
             return mapper.Map<IEnumerable<PropertyRDTO>>(allProps);
         }
 
+        public async Task<IEnumerable<PropertyRDTO>> GetPageAsync(int pageNumber,int pageSize=20)
+        {
+            var allProps = await unit.Properties.GetPageAsync(pageNumber, pageSize);
+            return mapper.Map<IEnumerable<PropertyRDTO>>(allProps);
+        }
     }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -9,5 +10,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink,RouterLinkActive],
 })
 export class SideNavComponent {
-
+  authService=inject(AuthService);
 }

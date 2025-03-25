@@ -7,6 +7,9 @@ import { SignUpPageComponent } from './app/pages/sign-up-page/sign-up-page.compo
 import { UserPageComponent } from './app/pages/user-page/user-page.component';
 import { NotFoundPageComponent } from './app/pages/not-found-page/not-found-page.component';
 import { ChatAiPageComponent } from './app/pages/chat-ai-page/chat-ai-page.component';
+import { AdminPropertiesPageComponent } from './app/pages/admin/admin-properties-page/admin-properties-page.component';
+import { AdminUsersPageComponent } from './app/pages/admin/admin-users-page/admin-users-page.component';
+import { AdminIssuesPageComponent } from './app/pages/admin/admin-issues-page/admin-issues-page.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +39,18 @@ export const routes: Routes = [
   {
     path: 'users/user/:id',
     component: UserPageComponent,
+  },
+  {
+    path: 'admin/properties',
+    component: AdminPropertiesPageComponent,
+  },
+  {
+    path: 'admin/users',
+    component: AdminUsersPageComponent,
+  },
+  {
+    path: 'admin/issues',
+    component: AdminIssuesPageComponent,
   },
   {
     path: '**',

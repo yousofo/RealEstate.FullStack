@@ -1,4 +1,5 @@
-﻿using Domain.Shared;
+﻿using Domain.Enums;
+using Domain.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +18,9 @@ namespace Domain.Models
         public string Description { get; set; }
         [StringLength(1500)]
         public string PreviewImageLink { get; set; }
+
+        public PropertyStatusEnum Status { get; set; }
+
         [MaxLength(20)]
         public ICollection<ImageLink>? ImageLinks { get; set; }
         public int LocationId { get; set; }

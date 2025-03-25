@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250319185021_PropertiesLocationsCategoriesImagelinks")]
-    partial class PropertiesLocationsCategoriesImagelinks
+    [Migration("20250325083736_fixedCategoryPropertyRelationMM")]
+    partial class fixedCategoryPropertyRelationMM
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CategoryProperty", b =>
+                {
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PropertiesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoriesId", "PropertiesId");
+
+                    b.HasIndex("PropertiesId");
+
+                    b.ToTable("CategoryProperty");
+                });
 
             modelBuilder.Entity("Domain.Auth.AppUser", b =>
                 {
@@ -111,13 +126,32 @@ namespace Infrastructure.Migrations
                             LastName = "Elmoussaoui",
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.COM",
-                            NormalizedUserName = "YOUSSEF",
+                            NormalizedUserName = "YOUSSEF1",
                             PasswordHash = "AQAAAAIAAYagAAAAEE7iAGoK16nHp2rWZElaHIXjcIv3nJnC2TCVblYlPBfaEXtv5/fCHjb7wIR6HQX8Ag==",
                             PhoneNumber = "123456789",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UserName = "youssef"
+                            UserName = "youssef1"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "12121212bca",
+                            Email = "admin@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Youssef",
+                            LastName = "Elmoussaoui",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@TEST.COM",
+                            NormalizedUserName = "YOUSSEF2",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE7iAGoK16nHp2rWZElaHIXjcIv3nJnC2TCVblYlPBfaEXtv5/fCHjb7wIR6HQX8Ag==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "youssef2"
                         });
                 });
 
@@ -148,9 +182,6 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PropertyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -163,8 +194,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ModifiedById");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("PropertyId");
 
                     b.HasIndex("Title")
                         .IsUnique();
@@ -299,6 +328,9 @@ namespace Infrastructure.Migrations
                         .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -340,6 +372,32 @@ namespace Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Employee",
+                            NormalizedName = "EMPLOYEE"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "4",
+                            Name = "Seller",
+                            NormalizedName = "SELLER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -427,6 +485,18 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        },
+                        new
+                        {
+                            UserId = "2",
+                            RoleId = "3"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -446,6 +516,21 @@ namespace Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CategoryProperty", b =>
+                {
+                    b.HasOne("Domain.Models.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Property", null)
+                        .WithMany()
+                        .HasForeignKey("PropertiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Auth.AppUser", b =>
@@ -503,10 +588,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Models.Category", "Parent")
                         .WithMany()
                         .HasForeignKey("ParentId");
-
-                    b.HasOne("Domain.Models.Property", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("PropertyId");
 
                     b.Navigation("CreatedBy");
 
@@ -645,8 +726,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Property", b =>
                 {
-                    b.Navigation("Categories");
-
                     b.Navigation("ImageLinks");
                 });
 #pragma warning restore 612, 618

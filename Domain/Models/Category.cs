@@ -16,5 +16,6 @@ public class Category :AuditableEntity
     public int? ParentId { get; set; }
     [ForeignKey(nameof(ParentId))]
     public Category? Parent { get; set; }
+    public ICollection<Property> Properties { get; set; }
 }
 

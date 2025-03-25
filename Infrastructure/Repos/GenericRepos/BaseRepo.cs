@@ -12,13 +12,14 @@ namespace Infrastructure.Repos.GenericRepos
 {
     public class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : class
     {
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await context.Set<T>().ToListAsync();
         }
-        public IEnumerable<T> GetPage(int pageNumber, int pageSize = 20)
+
+        public virtual IEnumerable<T> GetPageQuery(int pageNumber, int pageSize = 20)
         {
-            return context.Set<T>().Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return  context.Set<T>().Skip((pageNumber - 1) * pageSize).Take(pageSize).AsQueryable();
         }
         public T? GetById(int id)
         {

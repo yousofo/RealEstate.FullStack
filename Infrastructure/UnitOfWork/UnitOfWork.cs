@@ -2,6 +2,7 @@
 using Application.Interfaces.Repos;
 using Domain.Models;
 using Infrastructure.Data;
+using Infrastructure.Repos.EntityRepos;
 using Infrastructure.Repos.GenericRepos;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,14 +15,14 @@ namespace Infrastructure.UnitOfWork
 {
     public class UnitOfWork(ApplicationDbContext context,ILogger<UnitOfWork> logger) : IUnitOfWork
     {
-        BaseRepo<Property> _properties;
+        PropertiesRepo _properties;
         BaseRepo<Location> _locations;
         BaseRepo<Category> _categories;
         public IBaseRepo<Property> Properties
         {
             get
             {
-                _properties ??= new BaseRepo<Property>(context, logger);
+                _properties ??= new PropertiesRepo(context, logger);
                 return _properties;
             }
         }

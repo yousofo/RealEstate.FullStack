@@ -8,7 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { SideNavComponent } from './lib/components/side-nav/side-nav.component';
 import { LoginComponent } from './lib/components/login/login.component';
 import { ChatAIComponent } from './lib/components/chat-ai/chat-ai.component';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 interface WeatherForecast {
   date: string;
   temperatureC: number;
@@ -28,9 +29,9 @@ interface WeatherForecast {
     SideNavComponent,
     LoginComponent,
     ChatAIComponent,
-    SideNavComponent
+    SideNavComponent,ToastModule
 ],
-  providers: [HttpClient],
+  providers: [HttpClient,MessageService],
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
