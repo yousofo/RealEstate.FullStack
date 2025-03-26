@@ -48,7 +48,7 @@ interface ExportColumn {
   imports: [
     TableModule,
     Dialog,
-    Ripple,
+    // Ripple,
     SelectModule,
     ToastModule,
     ToolbarModule,

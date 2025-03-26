@@ -11,7 +11,7 @@ namespace Application.Interfaces.Services.Auth
 {
     public interface IAuthService
     {
-        Task<LoginRes?> LoginAsync(string username, string password, CancellationToken cancellationToken = default);
+        Task<LoginRes?> LoginAsync(string email, string password, CancellationToken cancellationToken = default);
         Task<LoginRes?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default);
         Task<bool> RevokeRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default);
 

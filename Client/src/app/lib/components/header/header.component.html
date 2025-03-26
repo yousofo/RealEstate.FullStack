@@ -61,11 +61,16 @@
 
     <!-- user icon -->
     @if(authService.authState.isAuthenticated){
-    <img
+    <button (click)="menu.toggle($event)"  aria-label="User" class="cursor-pointer flex items-center gap-2">
+      <p>{{ authService.authState.user!.firstName }}</p>
+      <img
       src="{{ authService.authState.user?.image ?? '/placeholders/user.jpg' }}"
       alt="user image"
+      class="w-8 h-8 rounded-full"
       srcset=""
+      
     />
+    </button>
     }@else{
     <button class="cursor-pointer px-2" aria-label="User">
       <i (click)="menu.toggle($event)" class="pi pi-user !text-xl"></i>

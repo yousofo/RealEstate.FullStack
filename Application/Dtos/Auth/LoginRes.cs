@@ -14,6 +14,7 @@ namespace Application.Dtos.Auth
         string Token,
         int ExpiresIn,
         string Refreshtoken,
-        DateTime refreshTokenExpirationDate
+        IEnumerable<string> Roles,
+        DateTime RefreshTokenExpirationDate
     );
 }

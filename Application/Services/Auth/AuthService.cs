@@ -12,7 +12,7 @@ namespace Application.Services.Auth
 {
     public class AuthService(IAuthRepo authRepo) : IAuthService
     {
-        Dictionary<string, string> identityErrorMapping = new()
+        readonly Dictionary<string, string> identityErrorMapping = new()
         {
             { "DefaultError", "general" },
             { "ConcurrencyFailure", "general" },
@@ -44,9 +44,9 @@ namespace Application.Services.Auth
             return await authRepo.GetRefreshTokenAsync(token, refreshToken, cancellationToken);
         }
 
-        public async Task<LoginRes?> LoginAsync(string username, string password, CancellationToken cancellationToken = default)
+        public async Task<LoginRes?> LoginAsync(string email, string password, CancellationToken cancellationToken = default)
         {
-            return await authRepo.LoginAsync(username, password, cancellationToken);
+            return await authRepo.LoginAsync(email, password, cancellationToken);
         }
 
         public async Task<RegisterRes> RegisterAsync(RegisterReq newUser, CancellationToken cancellationToken)
@@ -58,7 +58,7 @@ namespace Application.Services.Auth
                 return new RegisterRes(
                     false,
                     errors.Select(e => new AuthError(
-                        e.Code, 
+                        //e.Code, 
                         GetErrorField(e.Code), 
                         e.Description
                     ))
@@ -74,6 +74,11 @@ namespace Application.Services.Auth
         {
             throw new NotImplementedException();
         }
+
+
+
+
+
         private string GetErrorField(string code)
         {
             var field = identityErrorMapping.GetValueOrDefault(code);

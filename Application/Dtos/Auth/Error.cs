@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Application.Dtos.Auth
 {
     public record AuthError(
-        string Code,
+        //string Code,
         string Field,
         string Description
     );

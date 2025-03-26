@@ -35,24 +35,14 @@ interface WeatherForecast {
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
+  // public forecasts: WeatherForecast[] = [];
 
   private http = inject(HttpClient);
 
   ngOnInit() {
-    this.getForecasts();
+    // this.getForecasts();
   }
 
-  getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
 
   //title = 'realestatefullstackapp.client';
 }

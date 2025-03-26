@@ -19,7 +19,7 @@ namespace Infrastructure.Auth.Repos
             var isPasswordValid = await userManager.CheckPasswordAsync(user, password);
             if (!isPasswordValid) return null;
 
-            var (token, expriesIn) = jwtProvider.GenerateToken(user);
+            var (token, expiresIn) = jwtProvider.GenerateToken(user);
 
             var refreshToken = GenerateRefreshToken();
             var refreshTokenExpirationDate = DateTime.UtcNow.AddDays(_refreshTokenExpiryDays);
@@ -29,20 +29,23 @@ namespace Infrastructure.Auth.Repos
                 Token = refreshToken,
                 ExpiresOn = refreshTokenExpirationDate
             });
-            
+
             await userManager.UpdateAsync(user);
+            var roles = await userManager.GetRolesAsync(user);
 
             return new LoginRes(user.Id,
-                user.Email,
+                Email: user.Email!,
                 user.FirstName,
                 user.LastName,
-                token,
-                expriesIn,
-                refreshToken,
-                refreshTokenExpirationDate);
+                Token:token,
+                ExpiresIn: expiresIn,
+                Refreshtoken:refreshToken,
+                Roles: roles,
+                RefreshTokenExpirationDate: refreshTokenExpirationDate
+            );
 
         }
-        
+
 
         public async Task<LoginRes?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
         {
@@ -50,7 +53,7 @@ namespace Infrastructure.Auth.Repos
             if (userId is null) return null;
 
             var user = await userManager.FindByIdAsync(userId);
-            
+
             if (user is null) return null;
 
             var userRefreshToken = user.RefreshTokens.SingleOrDefault(x => x.Token == refreshToken && x.IsValid);
@@ -70,19 +73,23 @@ namespace Infrastructure.Auth.Repos
             });
 
             await userManager.UpdateAsync(user);
+            
+            var roles = await userManager.GetRolesAsync(user);
 
             return new LoginRes(user.Id,
-                user.Email,
-                user.FirstName,
-                user.LastName,
-                newToken,
-                expriesIn,
-                newRefreshToken,
-                refreshTokenExpirationDate);
+                Email:user.Email!,
+                FirstName:user.FirstName,
+                LastName:user.LastName,
+                Token:newToken,
+                ExpiresIn: expriesIn,
+                Refreshtoken: newRefreshToken,
+                Roles: roles,
+                refreshTokenExpirationDate
+            );
 
         }
 
-        
+
 
         public async Task<bool?> RevokeRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
         {
@@ -112,15 +119,18 @@ namespace Infrastructure.Auth.Repos
                 UserName = newUser.Email,
                 FirstName = newUser.FirstName,
                 LastName = newUser.LastName,
-                PhoneNumber=newUser.PhoneNumber,                
+                PhoneNumber = newUser.PhoneNumber,
             };
             var result = await userManager.CreateAsync(
-                user, 
+                user,
                 userManager.PasswordHasher.HashPassword(user, newUser.Password)
             );
 
+
             if (result.Succeeded)
             {
+                await userManager.AddToRoleAsync(user, "User");
+
                 //await userManager.UpdateAsync(user);
 
                 return null;
@@ -129,7 +139,7 @@ namespace Infrastructure.Auth.Repos
             {
                 return result.Errors;
             }
-        } 
+        }
 
 
         private static string GenerateRefreshToken()
