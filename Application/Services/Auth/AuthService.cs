@@ -12,6 +12,33 @@ namespace Application.Services.Auth
 {
     public class AuthService(IAuthRepo authRepo) : IAuthService
     {
+        Dictionary<string, string> identityErrorMapping = new()
+        {
+            { "DefaultError", "general" },
+            { "ConcurrencyFailure", "general" },
+            { "PasswordTooShort", "password" },
+            { "PasswordRequiresNonAlphanumeric", "password" },
+            { "PasswordRequiresDigit", "password" },
+            { "PasswordRequiresLower", "password" },
+            { "PasswordRequiresUpper", "password" },
+            { "PasswordMismatch", "password" },
+            { "DuplicateUserName", "email" },
+            { "DuplicateEmail", "email" },
+            { "InvalidEmail", "email" },
+            { "InvalidUserName", "username" },
+            { "InvalidRoleName", "role" },
+            { "DuplicateRoleName", "role" },
+            { "UserAlreadyHasPassword", "password" },
+            { "UserLockoutNotEnabled", "general" },
+            { "UserAlreadyInRole", "role" },
+            { "UserNotInRole", "role" },
+            { "LoginAlreadyAssociated", "email" },
+            { "InvalidToken", "general" },
+            { "RecoveryCodeRedemptionFailed", "recovery_code"}
+        };
+
+
+
         public async Task<LoginRes?> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
         {
             return await authRepo.GetRefreshTokenAsync(token, refreshToken, cancellationToken);
@@ -30,12 +57,16 @@ namespace Application.Services.Auth
             {
                 return new RegisterRes(
                     false,
-                    errors.Select(e => e.Description)
+                    errors.Select(e => new AuthError(
+                        e.Code, 
+                        GetErrorField(e.Code), 
+                        e.Description
+                    ))
                 );
             }
             else
             {
-                return new RegisterRes(true,null);
+                return new RegisterRes(true, null);
             }
         }
 
@@ -43,5 +74,18 @@ namespace Application.Services.Auth
         {
             throw new NotImplementedException();
         }
+        private string GetErrorField(string code)
+        {
+            var field = identityErrorMapping.GetValueOrDefault(code);
+            return field ?? "general";
+            //return code switch
+            //{
+            //    "DuplicateUserName" => "email",
+            //    "InvalidEmail" => "email",
+            //    "PasswordTooShort" => "password",
+            //    _ => "general"
+            //};
+        }
+
     }
 }

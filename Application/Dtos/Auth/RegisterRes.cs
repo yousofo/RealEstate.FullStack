@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Application.Dtos.Auth
 {
     public record RegisterRes(
         bool Success,
-        IEnumerable<string>? Errors
+        IEnumerable<AuthError>? Errors
         //string? Id,
         //string? Email,
         //string? FirstName,
