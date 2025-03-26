@@ -16,6 +16,7 @@ namespace Application.Dtos.Read
         public string PreviewImageLink { get; set; }
         public string Status { get; set; }
         public Location Location { get; set; }
+        public string? AddressDescription { get; set; }
         public IEnumerable<string>? ImageLinks { get; set; }
         public IEnumerable<string>? Categories { get; set; }
 

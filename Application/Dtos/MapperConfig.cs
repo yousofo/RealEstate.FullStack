@@ -17,6 +17,12 @@ namespace Application.Dtos
         {
             CreateMap<Property, PropertyCDTO>().ReverseMap();
             CreateMap<Property, PropertyRDTO>().ReverseMap();
+            CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Categories, opt => opt.MapFrom(src => src.Categories.Select(c => c.Title)));
+            //CreateMap<Property, PropertyRDTO>().ForMember(dto =>
+            //    dto.Location, opt=>
+            //        opt.MapFrom(src=>$"{src.Location.Title}")
+            //);
+            CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Categories, opt => opt.MapFrom(src => src.Categories.Select(c => c.Title)));
             CreateMap<Property, PropertyUDTO>().ReverseMap();
 
             CreateMap<Location, LocationCDTO>().ReverseMap();

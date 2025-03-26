@@ -8,7 +8,7 @@ namespace Application.Dtos.Auth
 {
     public record LoginRes(
         string Id,
-        string? Email,
+        string Email,
         string FirstName,
         string LastName,
         string Token,

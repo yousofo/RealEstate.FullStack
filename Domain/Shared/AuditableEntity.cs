@@ -22,7 +22,7 @@ namespace Domain.Shared
 
         [ForeignKey(nameof(ModifiedById))]
         public AppUser? ModifiedBy { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
     }
 }

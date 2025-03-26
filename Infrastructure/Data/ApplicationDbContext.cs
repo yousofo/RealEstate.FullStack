@@ -20,10 +20,11 @@ namespace Infrastructure.Data
 
         //migration: 4 business entities
         public DbSet<Property> Properties { get; set; }
-        public DbSet<Location> Locations { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ImageLink> ImageLinks { get; set; }
-
 
 
 

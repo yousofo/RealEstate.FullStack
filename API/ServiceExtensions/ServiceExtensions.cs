@@ -1,8 +1,5 @@
 ﻿using Application.Dtos;
-using Application.Interfaces;
-using Application.Services;
 using Infrastructure.Data;
-using Infrastructure.UnitOfWork;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Application.Interfaces.Repos;
@@ -19,6 +16,13 @@ using Infrastructure.Auth.Interfaces;
 using Infrastructure.Auth.Providers;
 using Application.Options;
 using Application.Services.EntityServices;
+using Infrastructure.Repos;
+using Application.Interfaces.Repos.Auth;
+using Application.Interfaces.Services.EntityServices;
+using Application.Interfaces.Services.Auth;
+using Application.Services.Auth;
+using Application.Interfaces.Services;
+using Application.Services;
 
 namespace API.ServiceExtensions;
 
@@ -28,8 +32,12 @@ public static class ServiceExtensions
     public static IServiceCollection AddCustomDependencies(this IServiceCollection services, IConfiguration configuration)
     {
 
-        services.AddCustomServices();
-        services.AddCustomRepos();
+        //services.AddCustomServices();
+        services.AddScoped<IServicesManager, ServicesManager>();
+
+        //services.AddCustomRepos();
+        services.AddScoped<IReposManager, ReposManager>();
+
         services.AddCustomFluentValidation();
         services.AddAuthConfig(configuration);
 
@@ -43,20 +51,14 @@ public static class ServiceExtensions
     public static IServiceCollection AddCustomServices(this IServiceCollection services)
     {
 
-        services.AddScoped<IPropertiesService, PropertiesService>();
-        services.AddScoped<ILocationsService, LocationsService>();
-        services.AddScoped<IKeywordsService, KeywordsService>();
-        services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IAuthRepo, AuthRepo>();
-        services.AddScoped<IJwtProvider, JwtProvider>();
+        //services.AddScoped<IJwtProvider, JwtProvider>();
 
         return services;
     }
     public static IServiceCollection AddCustomRepos(this IServiceCollection services)
     {
 
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IAuthRepo, AuthRepo>();
+        //services.AddScoped<IAuthRepo, AuthRepo>();
 
         return services;
     }

@@ -4,7 +4,6 @@ using Application.Dtos;
 using Application.Interfaces;
 using Application.Services;
 using Infrastructure.Data;
-using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection;

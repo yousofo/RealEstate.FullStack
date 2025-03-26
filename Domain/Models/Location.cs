@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Location: AuditableEntity
+    [NotMapped]
+    public class Location
     {
-        [StringLength(100)]
-        public string Title { get; set; }
-        public int? ParentId {  get; set; }
-        [ForeignKey("ParentId")]
-        public Location? Parent { get; set; }
+        public string Country { get; set; }
+        public string State { get; set; }
+        public string City { get; set; }
+
     }
 }

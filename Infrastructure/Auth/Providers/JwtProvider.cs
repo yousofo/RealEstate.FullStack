@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Auth.Providers
 {
-    public class JwtProvider(IConfiguration configuration) : IJwtProvider
+    public class JwtProvider(IConfiguration configuration)  
     {
         public string? ValidateToken(string token)
         {

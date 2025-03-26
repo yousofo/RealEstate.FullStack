@@ -25,6 +25,11 @@ namespace Infrastructure.EntityConfigs
                 .WithMany()
                 .HasForeignKey(e => e.ModifiedById)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(p=>p.City)
+                .WithMany(c=>c.Properties)
+                .HasForeignKey(p => p.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

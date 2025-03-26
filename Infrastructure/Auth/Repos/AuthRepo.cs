@@ -1,13 +1,14 @@
 ﻿using Application.Dtos.Auth;
-using Application.Interfaces.Repos;
+using Application.Interfaces.Repos.Auth;
 using Domain.Models;
 using Infrastructure.Auth.Interfaces;
+using Infrastructure.Auth.Providers;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Cryptography;
 
 namespace Infrastructure.Auth.Repos
 {
-    public class AuthRepo(UserManager<AppUser> userManager, IJwtProvider jwtProvider) : IAuthRepo
+    public class AuthRepo(UserManager<AppUser> userManager, JwtProvider jwtProvider) : IAuthRepo
     {
         private readonly int _refreshTokenExpiryDays = 14;
         public async Task<LoginRes?> LoginAsync(string email, string password, CancellationToken cancellationToken = default)
@@ -101,6 +102,35 @@ namespace Infrastructure.Auth.Repos
 
             return true;
         }
+
+
+        public async Task<IEnumerable<IdentityError>?> RegisterAsync(RegisterReq newUser, CancellationToken cancellationToken)
+        {
+            var user = new AppUser
+            {
+                Email = newUser.Email,
+                UserName = newUser.Email,
+                FirstName = newUser.FirstName,
+                LastName = newUser.LastName,
+                PhoneNumber=newUser.PhoneNumber,                
+            };
+            var result = await userManager.CreateAsync(
+                user, 
+                userManager.PasswordHasher.HashPassword(user, newUser.Password)
+            );
+
+            if (result.Succeeded)
+            {
+                //await userManager.UpdateAsync(user);
+
+                return null;
+            }
+            else
+            {
+                return result.Errors;
+            }
+        } 
+
 
         private static string GenerateRefreshToken()
         {

@@ -34,7 +34,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PropertiesId");
 
-                    b.ToTable("CategoryProperty");
+                    b.ToTable("CategoryProperty", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Auth.AppUser", b =>
@@ -195,7 +195,99 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Title")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("StateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("StateId");
+
+                    b.HasIndex("Name", "StateId")
+                        .IsUnique();
+
+                    b.ToTable("Cities", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ImageLink", b =>
@@ -238,50 +330,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("ImageLinks");
-                });
-
-            modelBuilder.Entity("Domain.Models.Location", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Locations");
+                    b.ToTable("ImageLinks", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Property", b =>
@@ -291,6 +340,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AddressDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CreatedById")
                         .IsRequired()
@@ -306,9 +361,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("LocationId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ModifiedById")
                         .HasColumnType("nvarchar(450)");
@@ -335,13 +387,58 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedById");
+                    b.HasIndex("CityId");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("CreatedById");
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Properties", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("Name", "CountryId")
+                        .IsUnique();
+
+                    b.ToTable("States", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -593,6 +690,50 @@ namespace Infrastructure.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("Domain.Models.City", b =>
+                {
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Models.State", "State")
+                        .WithMany("Cities")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
+
+                    b.Navigation("State");
+                });
+
+            modelBuilder.Entity("Domain.Models.Country", b =>
+                {
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
+                });
+
             modelBuilder.Entity("Domain.Models.ImageLink", b =>
                 {
                     b.HasOne("Domain.Auth.AppUser", "CreatedBy")
@@ -619,8 +760,14 @@ namespace Infrastructure.Migrations
                     b.Navigation("Property");
                 });
 
-            modelBuilder.Entity("Domain.Models.Location", b =>
+            modelBuilder.Entity("Domain.Models.Property", b =>
                 {
+                    b.HasOne("Domain.Models.City", "City")
+                        .WithMany("Properties")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.Auth.AppUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
@@ -630,32 +777,27 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
                         .WithMany()
                         .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Domain.Models.Location", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("City");
 
                     b.Navigation("CreatedBy");
 
                     b.Navigation("ModifiedBy");
-
-                    b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Domain.Models.Property", b =>
+            modelBuilder.Entity("Domain.Models.State", b =>
                 {
+                    b.HasOne("Domain.Models.Country", "Country")
+                        .WithMany("States")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.Auth.AppUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
@@ -663,9 +805,9 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("ModifiedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("CreatedBy");
+                    b.Navigation("Country");
 
-                    b.Navigation("Location");
+                    b.Navigation("CreatedBy");
 
                     b.Navigation("ModifiedBy");
                 });
@@ -721,9 +863,24 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Models.City", b =>
+                {
+                    b.Navigation("Properties");
+                });
+
+            modelBuilder.Entity("Domain.Models.Country", b =>
+                {
+                    b.Navigation("States");
+                });
+
             modelBuilder.Entity("Domain.Models.Property", b =>
                 {
                     b.Navigation("ImageLinks");
+                });
+
+            modelBuilder.Entity("Domain.Models.State", b =>
+                {
+                    b.Navigation("Cities");
                 });
 #pragma warning restore 612, 618
         }

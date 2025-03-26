@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Enums
 {
-    internal class StreetTypeEnum
+    public enum StreetTypeEnum
     {
+
     }
 }
