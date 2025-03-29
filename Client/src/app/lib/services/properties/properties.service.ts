@@ -2,7 +2,6 @@ import { inject, Injectable, Signal, signal } from '@angular/core';
 import { IProperty } from '../../types/properties';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { getEnv } from '../../utils/env/envManager';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +19,7 @@ export class PropertiesService {
   //   this._properties.set(value);
   // }
   ngOnInit(): void {
-    this.httpClient.get<IProperty[]>(`${getEnv('apiUrl')}/api/properties`).subscribe({
+    this.httpClient.get<IProperty[]>('/api/properties').subscribe({
       next: (properties) => {
         console.log(properties);
         this._properties.set(properties);
