@@ -4,23 +4,83 @@ import { AuthService } from '../../services/auth/auth.service';
 import { NgIf } from '@angular/common';
 import { PanelMenu } from 'primeng/panelmenu';
 import { MenuItem, MessageService } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { BadgeModule } from 'primeng/badge';
+import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.css',
-  imports: [RouterLink, RouterLinkActive, NgIf, PanelMenu],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    NgIf,
+    PanelMenu,
+    MenuModule,
+    BadgeModule,
+    RippleModule,
+    AvatarModule,
+  ],
   providers: [MessageService],
 })
 export class SideNavComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
-  items!: MenuItem[];
+  userNavItems!: MenuItem[];
+
+  adminNavItems!: MenuItem[];
 
   ngOnInit() {
-    this.items = [
+    this.userNavItems = [
+      {
+        separator: true,
+      },
+      {
+        label: 'Documents',
+        items: [
+          {
+            label: 'New',
+            icon: 'pi pi-plus',
+            shortcut: '⌘+N',
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-search',
+            shortcut: '⌘+S',
+          },
+        ],
+      },
+      {
+        label: 'Profile',
+        items: [
+          {
+            label: 'Settings',
+            icon: 'pi pi-cog',
+            shortcut: '⌘+O',
+          },
+          {
+            label: 'Messages',
+            icon: 'pi pi-inbox',
+            badge: '2',
+          },
+          {
+            label: 'Logout',
+            icon: 'pi pi-sign-out',
+            shortcut: '⌘+Q',
+          },
+        ],
+      },
+      {
+        separator: true,
+      },
+    ];
+
+    
+    this.adminNavItems = [
       {
         label: 'Router',
         icon: 'pi pi-palette',

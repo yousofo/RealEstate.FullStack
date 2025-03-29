@@ -3,6 +3,7 @@ import { IAuthState, IUser } from '../../types/auth';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { LoginService } from '../popups/login/login.service';
+import { getEnv } from '../../utils/env/envManager';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +42,7 @@ export class AuthService {
     });
 
     this.httpClient
-      .post<IUser>(`${environment.apiUrl}/api/auth/login`, { email, password })
+      .post<IUser>(`${getEnv('apiUrl')}/api/auth/login`, { email, password })
       .subscribe({
         next: (user) => {
           console.log(user);
