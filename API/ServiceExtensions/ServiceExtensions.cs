@@ -43,7 +43,7 @@ public static class ServiceExtensions
 
         services.AddAutoMapper(Assembly.GetAssembly(typeof(MapperConfig)));
 
-        services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer("Server=.\\sqlExpress;Database=RealEstateFull;Trusted_Connection=True;Trust Server Certificate=True;"));
+        services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
 
         return services;
