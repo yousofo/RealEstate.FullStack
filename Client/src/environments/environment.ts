@@ -1,4 +1,4 @@
 export const environment = {
-    apiUrl: 'https://localhost:7290',
+    apiUrl: 'http://youssef7722-001-site1.otempurl.com',
     geminiAiKey: ''
 };

@@ -38,7 +38,7 @@ public class Program
 
             app.UseSwaggerUI(opts =>
             {
-                opts.SwaggerEndpoint("/openapi/v1.json", "name1");
+                opts.SwaggerEndpoint("/openapi/v1.json", "v1");
                 //opts.
             });
         }
@@ -58,7 +58,7 @@ public class Program
         app.MapControllers();
 
         //app.MapFallbackToFile("/index.html");
-        
+
         app.Run();
     }
 }
