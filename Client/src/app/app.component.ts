@@ -32,7 +32,7 @@ interface WeatherForecast {
     SideNavComponent,ToastModule
 ],
   providers: [HttpClient,MessageService],
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   // public forecasts: WeatherForecast[] = [];

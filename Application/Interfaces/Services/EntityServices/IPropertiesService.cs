@@ -10,7 +10,7 @@ namespace Application.Interfaces.Services.EntityServices
 {
     public interface IPropertiesService
     {
-        public Task<IEnumerable<PropertyRDTO>> GetAllAsync();
+        public Task<IEnumerable<PropertyRDTO>> GetAllAsync(int? pageNumber);
         Task<bool> CreateAsync(PropertyCDTO property);
     }
 }

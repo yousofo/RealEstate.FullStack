@@ -4,6 +4,7 @@ using Application.Dtos;
 using Application.Interfaces;
 using Application.Services;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection;
@@ -26,11 +27,16 @@ public class Program
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
         builder.Services.AddLogging();
-        var app = builder.Build();
 
+        var app = builder.Build();
+        
         app.UseDefaultFiles();
         app.MapStaticAssets();
-
+        //app.Run((context) =>
+        //{
+        //    return context.Response.WriteAsync(
+        //        $"Environment: {app.Environment.EnvironmentName} - {app.Environment.IsDevelopment()}");
+        //});
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -42,15 +48,39 @@ public class Program
                 //opts.
             });
         }
+        app.UseCors(e =>
+        {
+            if (app.Environment.IsDevelopment())
+            {
+                e.WithOrigins("http://localhost:54376",
+                    "https://localhost:54376", 
+                    "http://localhost:4200",
+                    "https://localhost:4200",
+                    "http://127.0.0.1:4200", 
+                    "https://127.0.0.1:4200", 
+                    "http://127.0.0.1:54376", 
+                    "https://127.0.0.1:54376",
+                    "https://real-estate-full-stack-yn.vercel.app"
+                    )
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+            }
+            else
+            {
+                e.WithOrigins("https://real-estate-full-stack-yn.vercel.app/")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+            }
+        });
+
+
         app.UseStaticFiles();
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-        app.UseCors(e =>
-        {
-            e.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-            //e.WithOrigins("http://localhost:54376", "http://localhost:54376", "http://localhost:54376");
-        });
+
 
         //< SpaRoot > ..\Client </ SpaRoot >
         //   < SpaProxyLaunchCommand > npm start </ SpaProxyLaunchCommand >

@@ -88,13 +88,32 @@ public static class ServiceExtensions
             opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(opts =>
         {
+            opts.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var token = context.Request.Cookies["Jwt"]; // or whatever cookie name
+                    for(int i = 0; i < context.Request.Cookies.Count; i++)
+                    {
+                        var cookie = context.Request.Cookies.ElementAt(i);
+                        Console.WriteLine($"{cookie.Key} : {cookie.Value}");
+                    }
+                    Console.WriteLine($"token from cookie: {token}");
+
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        context.Token = token;
+                    }
+                    return Task.CompletedTask;
+                }
+            };
             opts.SaveToken = true;
             opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
             {
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = settings.Issuer,//configuration["Jwt:Issuer"],
                 ValidateIssuer = true,
-                ValidAudience =settings.Audience,// configuration["Jwt:Audience"],
+                ValidAudience = settings.Audience,// configuration["Jwt:Audience"],
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))

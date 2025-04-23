@@ -2,7 +2,7 @@ import { inject, Injectable, Signal, signal } from '@angular/core';
 import { IProperty } from '../../types/properties';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-
+import { environment } from '../../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,22 +12,37 @@ export class PropertiesService {
   httpClient = inject(HttpClient);
   // messageService = inject(MessageService);
 
+  constructor() {
+    this.loadData()
+  }
+
   get properties(): Signal<IProperty[]> {
     return this._properties.asReadonly();
   }
+  /**
+   *
+   */
+  
   // set properties(value: IProperty[]) {
   //   this._properties.set(value);
   // }
-  ngOnInit(): void {
-    this.httpClient.get<IProperty[]>('/api/properties').subscribe({
-      next: (properties) => {
-        console.log(properties);
-        this._properties.set(properties);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+  loadData() {    
+    this.httpClient
+      .get<IProperty[]>(environment.apiUrl + '/api/properties', {
+        withCredentials: true,
+      })
+      .subscribe({
+        next: (properties) => {
+          console.log(properties);
+          this._properties.set(properties);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          console.error('done');
+        },
+      });
   }
 
   add(property: IProperty) {
@@ -57,7 +72,9 @@ export class PropertiesService {
     });
   }
   delete(property: IProperty) {
-    let deleteObservable = this.httpClient.delete(`/api/properties/${property.id}`);
+    let deleteObservable = this.httpClient.delete(
+      `/api/properties/${property.id}`
+    );
 
     deleteObservable.subscribe({
       next: () => {
@@ -71,11 +88,11 @@ export class PropertiesService {
         //   detail: 'Failed to delete property',
         // });
       },
-    })
+    });
 
     return deleteObservable;
   }
   filter(predicate: (property: IProperty) => boolean) {
-     this._properties.update(e=>e.filter(predicate));
+    this._properties.update((e) => e.filter(predicate));
   }
 }

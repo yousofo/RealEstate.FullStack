@@ -101,16 +101,17 @@ export class AdminPropertiesPageComponent {
   exportColumns!: ExportColumn[];
 
   constructor(
-    private propertiesService: PropertiesService,
+    public propertiesService: PropertiesService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private cd: ChangeDetectorRef
   ) {
-    this.loadDemoData();
-
+    this.loadDemoData()
+    console.log("properties page on constructor ")
   }
 
   ngOnInit() {
+    
   }
 
   exportCSV() {
@@ -119,6 +120,7 @@ export class AdminPropertiesPageComponent {
 
   loadDemoData() {
     effect(() => {
+      console.log(this.properties())
       this.properties.set(this.propertiesService.properties());
     });
     // this.propertyService.getProperties().then((data) => {

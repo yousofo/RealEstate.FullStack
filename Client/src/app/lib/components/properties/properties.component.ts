@@ -1,9 +1,10 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, input, OnInit, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IFetchCount } from '../../types/fetch';
 import { IProperty } from '../../types/properties';
 import { PropertyCardComponent } from '../property-card/property-card.component';
+import { PropertiesService } from '../../services/properties/properties.service';
 
 @Component({
   selector: 'app-properties',
@@ -13,25 +14,21 @@ import { PropertyCardComponent } from '../property-card/property-card.component'
   imports: [PropertyCardComponent],
 })
 export class PropertiesComponent implements OnInit {
+  properties = signal<IProperty[]>([]);
+
+
   fetchConfig = input<IFetchCount>({
     pageCount: 9,
   });
 
-  properties = signal<IProperty[]>([]);
 
-  httpClient = inject(HttpClient);
+  propertiesService = inject(PropertiesService);
 
+
+  
   ngOnInit(): void {
-    this.httpClient
-      .get<IProperty[]>(`${environment.apiUrl}/api/properties`)
-      .subscribe({
-        next: (properties) => {
-          console.log(properties);
-          this.properties.set(properties);
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+    effect(e=>{
+      this.properties.set(this.propertiesService.properties());
+    })
   }
 }

@@ -23,9 +23,9 @@ namespace Application.Services.EntityServices
             return isAdded;
         }
 
-        public async Task<IEnumerable<PropertyRDTO>> GetAllAsync()
+        public async Task<IEnumerable<PropertyRDTO>> GetAllAsync(int? pageNumber)
         {
-            var allProps = await manager.Properties.GetAllQuery().ToListAsync();
+            var allProps = await manager.Properties.GetAllQuery(pageNumber).ToListAsync();
             return mapper.Map<IEnumerable<PropertyRDTO>>(allProps);
         }
 

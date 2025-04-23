@@ -8,7 +8,7 @@ namespace Application.Interfaces.Repos.GenericRepos
 {
     public interface IBaseRepo<T> where T : class
     {
-        public IQueryable<T> GetAllQuery();
+        public IQueryable<T> GetAllQuery(int? pageNumber);
         public IQueryable<T> GetPageQuery(int pageNumber, int pageSize = 20);
         public T? GetById(int id);
         public Task<bool> AddAsync(T item);

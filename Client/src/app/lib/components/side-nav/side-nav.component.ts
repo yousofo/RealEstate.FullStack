@@ -43,9 +43,12 @@ export class SideNavComponent {
         label: 'Documents',
         items: [
           {
-            label: 'New',
+            label: 'Properties',
             icon: 'pi pi-plus',
             shortcut: '⌘+N',
+            command: () => {
+              this.router.navigate(['/admin/properties']);
+            },
           },
           {
             label: 'Search',
@@ -79,7 +82,6 @@ export class SideNavComponent {
       },
     ];
 
-    
     this.adminNavItems = [
       {
         label: 'Router',

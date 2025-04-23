@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repos.EntityRepos
 {
-    public class PropertiesRepo(ApplicationDbContext context, ILogger logger) : BaseRepo<Property>(context, logger),IPropertiesRepo
+    public class PropertiesRepo(ApplicationDbContext context, ILogger logger) : BaseRepo<Property>(context, logger), IPropertiesRepo
     {
-        public override IQueryable<Property> GetAllQuery()
+        public override IQueryable<Property> GetAllQuery(int? pageNumber)
         {
             return context.Properties
                 .Include(p => p.Categories)
                 .Include(p => p.ImageLinks)
+                .Skip((pageNumber is null ? 0 : (((int)pageNumber - 1) * 20))).Take(20)
                 .Select(p => new Property
                 {
                     Id = p.Id,
@@ -37,7 +38,8 @@ namespace Infrastructure.Repos.EntityRepos
                     CityId = p.CityId,
                     City = p.City,
                     Categories = p.Categories,
-                }).AsQueryable();
+                })
+                .AsQueryable();
         }
         public override IQueryable<Property> GetPageQuery(int pageNumber, int pageSize = 20)
         {
@@ -53,7 +55,8 @@ namespace Infrastructure.Repos.EntityRepos
                     PreviewImageLink = p.PreviewImageLink,
                     Status = p.Status,
                     AddressDescription = p.AddressDescription,
-                    Location = new Location {
+                    Location = new Location
+                    {
                         Country = p.City.State.Country.Name,
                         State = p.City.State.Name,
                         City = p.City.Name,

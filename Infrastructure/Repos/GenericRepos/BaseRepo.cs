@@ -12,7 +12,7 @@ namespace Infrastructure.Repos.GenericRepos
 {
     public class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : class
     {
-        public virtual IQueryable<T> GetAllQuery()
+        public virtual IQueryable<T> GetAllQuery(int? pageNumber)
         {
             return context.Set<T>().AsQueryable();
         }

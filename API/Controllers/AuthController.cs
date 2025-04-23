@@ -17,25 +17,57 @@ namespace API.Controllers
     public class AuthController(IServicesManager manager, UserManager<AppUser> userManager) : ControllerBase
     {
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginReq request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login([FromBody] LoginReq request, CancellationToken cancellationToken)
         {
             var result = await manager.Auth.LoginAsync(request.Email, request.Password, cancellationToken);
-            return result is null ? BadRequest("invalid email or password") : Ok(result);
+
+            if(result is  null)
+            {
+                return BadRequest("invalid email or password");
+            }
+
+            Response.Cookies.Append("Jwt", result.Token, new CookieOptions
+            {
+                HttpOnly = true,
+                //Secure = true,               // true if HTTPS
+                SameSite = SameSiteMode.Lax, // for cross-origin
+                Expires = DateTimeOffset.UtcNow.AddDays(7),
+                //Domain = "localhost", // for cross-origin,
+                //Path = "/",                   // this is fine
+                //Expires = DateTimeOffset.UtcNow + TimeSpan.FromHours(3)
+            });
+            Console.WriteLine(result.Token);
+            return Ok(result);
+
         }
 
+
+
+
+
+
         [HttpPost("refresh")]
-        public async Task<IActionResult> RefreshAsync([FromBody] RefreshTokenReq request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Refresh ([FromBody] RefreshTokenReq request, CancellationToken cancellationToken)
         {
             var result = await manager.Auth.GetRefreshTokenAsync(request.Token, request.RefreshToken, cancellationToken);
             return result is null ? BadRequest("invalid email or password") : Ok(result);
         }
 
+
+
+
+
+
         [HttpPut("revoke-refresh-token")]
-        public async Task<IActionResult> RevokeRefreshTokenAsync([FromBody] RefreshTokenReq request, CancellationToken cancellationToken)
+        public async Task<IActionResult> RevokeRefreshToken ([FromBody] RefreshTokenReq request, CancellationToken cancellationToken)
         {
             var isRevoked = await manager.Auth.RevokeRefreshTokenAsync(request.Token, request.RefreshToken, cancellationToken);
             return isRevoked ? Ok(isRevoked) : BadRequest("failed");
         }
+
+
+
+
 
         [HttpGet("users")]
         public async Task<IActionResult> GetAllUsers()
@@ -47,7 +79,7 @@ namespace API.Controllers
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterReq request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register ([FromBody] RegisterReq request, CancellationToken cancellationToken)
         {
             var result = await manager.Auth.RegisterAsync(request, cancellationToken);
             return result is null ? BadRequest("failed") : Ok(result);

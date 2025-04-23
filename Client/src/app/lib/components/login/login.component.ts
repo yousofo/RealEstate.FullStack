@@ -27,7 +27,8 @@ export class LoginComponent {
   
   submit(form : NgForm) {
     console.log(form)
-    this.authService.login(form.controls['email'].value, form.controls['password'].value);
+    // this.authService.login(form.controls['email'].value, form.controls['password'].value);
+    this.authService.login("test@test.com", "test");
   }
 
   closeDialog() {
