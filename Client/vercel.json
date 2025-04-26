@@ -4,7 +4,7 @@
       "source": "/",
       "destination": "/browser"
     },
-    { "source": "/:name", "destination": "/browser/:name" },
+    { "source": "/:name", "destination": "/browser/" },
     { "source": "/:name/:path*", "destination": "/browser/:name/:path*" }
   ]
 }
