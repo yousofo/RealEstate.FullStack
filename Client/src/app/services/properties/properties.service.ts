@@ -2,7 +2,7 @@ import { inject, Injectable, Signal, signal } from '@angular/core';
 import { IProperty } from '../../types/properties';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })

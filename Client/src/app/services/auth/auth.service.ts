@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IAuthState, IUser } from '../../types/auth';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { LoginService } from '../popups/login/login.service';
 
 @Injectable({
