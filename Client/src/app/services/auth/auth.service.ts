@@ -31,6 +31,11 @@ export class AuthService {
     });
   }
 
+  /**
+   * 
+   * .prop(e=>e.roles.role.name)
+   */
+
   login(email: string, password: string) {
     console.log(email, password);
     this._authState.set({

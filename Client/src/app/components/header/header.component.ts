@@ -17,7 +17,7 @@ import { SearchService } from '../../services/search/search.service';
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  styleUrl: './header.component.scss',
   imports: [
     RouterLink,
     RouterLinkActive,

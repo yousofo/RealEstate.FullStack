@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-admin-users-page',
   standalone: false,
   templateUrl: './admin-users-page.component.html',
-  styleUrl: './admin-users-page.component.css'
+  styleUrl: './admin-users-page.component.scss'
 })
 export class AdminUsersPageComponent {
 

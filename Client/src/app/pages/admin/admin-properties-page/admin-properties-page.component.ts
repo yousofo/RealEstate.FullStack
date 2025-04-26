@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { PropertiesService } from '../../../lib/services/properties/properties.service';
+import { PropertiesService } from '../../../services/properties/properties.service';
 import { TableModule } from 'primeng/table';
 import { Dialog } from 'primeng/dialog';
 import { Ripple } from 'primeng/ripple';
@@ -29,7 +29,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
-import { IProperty } from '../../../lib/types/properties';
+import { IProperty } from '../../../types/properties';
 
 interface Column {
   field: string;
@@ -70,7 +70,7 @@ interface ExportColumn {
   providers: [MessageService, ConfirmationService],
   
   templateUrl: './admin-properties-page.component.html',
-  styleUrl: './admin-properties-page.component.css',
+  styleUrl: './admin-properties-page.component.scss',
   styles: [
     `
       :host ::ng-deep .p-dialog .property-image {

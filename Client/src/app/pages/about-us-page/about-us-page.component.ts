@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-about-us-page',
   standalone: false,
   templateUrl: './about-us-page.component.html',
-  styleUrl: './about-us-page.component.css'
+  styleUrl: './about-us-page.component.scss'
 })
 export class AboutUsPageComponent {
 

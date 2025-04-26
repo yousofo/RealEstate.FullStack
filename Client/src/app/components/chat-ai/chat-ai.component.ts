@@ -13,7 +13,7 @@ interface ChatMessage {
 @Component({
   selector: 'app-chat-ai',
   templateUrl: './chat-ai.component.html',
-  styleUrls: ['./chat-ai.component.css'],
+  styleUrls: ['./chat-ai.component.scss'],
   standalone: true,
   imports: [FormsModule, NgFor, NgClass, NgIf, DatePipe],
 })

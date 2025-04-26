@@ -13,7 +13,7 @@ import { AvatarModule } from 'primeng/avatar';
   selector: 'app-side-nav',
   standalone: true,
   templateUrl: './side-nav.component.html',
-  styleUrl: './side-nav.component.css',
+  styleUrl: './side-nav.component.scss',
   imports: [
     RouterLink,
     RouterLinkActive,

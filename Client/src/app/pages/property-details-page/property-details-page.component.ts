@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-property-details-page',
   standalone: false,
   templateUrl: './property-details-page.component.html',
-  styleUrl: './property-details-page.component.css'
+  styleUrl: './property-details-page.component.scss'
 })
 export class PropertyDetailsPageComponent {
 

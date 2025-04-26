@@ -1,13 +1,13 @@
 //import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { HeaderComponent } from './lib/components/header/header.component';
-import { FooterComponent } from './lib/components/footer/footer.component';
-import { SearchComponent } from './lib/components/search/search.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { SearchComponent } from './components/search/search.component';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { SideNavComponent } from './lib/components/side-nav/side-nav.component';
-import { LoginComponent } from './lib/components/login/login.component';
-import { ChatAIComponent } from './lib/components/chat-ai/chat-ai.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { LoginComponent } from './components/login/login.component';
+import { ChatAIComponent } from './components/chat-ai/chat-ai.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 interface WeatherForecast {
@@ -20,7 +20,6 @@ interface WeatherForecast {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  // standalone: true,
   imports: [
     HeaderComponent,
     FooterComponent,

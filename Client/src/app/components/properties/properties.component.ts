@@ -1,5 +1,5 @@
 import { Component, effect, inject, input, OnInit, signal } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IFetchCount } from '../../types/fetch';
 import { IProperty } from '../../types/properties';
@@ -10,7 +10,7 @@ import { PropertiesService } from '../../services/properties/properties.service'
   selector: 'app-properties',
   standalone: true,
   templateUrl: './properties.component.html',
-  styleUrl: './properties.component.css',
+  styleUrl: './properties.component.scss',
   imports: [PropertyCardComponent],
 })
 export class PropertiesComponent implements OnInit {
