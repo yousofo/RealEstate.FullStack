@@ -4,7 +4,16 @@
       "source": "/",
       "destination": "/browser"
     },
-    { "source": "/:name.{scss,json,css,js}", "destination": "/browser/:name.$1" },
-    { "source": "/:name", "destination": "/browser" }
+    {
+      "source": "/:file",
+      "has": [
+        { "type": "header", "key": "Accept", "value": "text/css|application/json|application/javascript" }
+      ],
+      "destination": "/browser/:file"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/browser"
+    }
   ]
 }
