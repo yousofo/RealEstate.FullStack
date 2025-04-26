@@ -12,7 +12,10 @@
       "destination": "/browser/:file"
     },
     {
-      "source": "/:path*",
+      "source": "/:file",
+      "has": [
+        { "type": "header", "key": "Accept", "value": "text/html" }
+      ],
       "destination": "/browser"
     }
   ]
