@@ -6,19 +6,13 @@
     },
     {
       "source": "/:file",
-      "has": [
-        {
-          "type": "header",
-          "key": "Accept",
-          "value": "text/css|application/json|application/javascript|text/plain|text/javascript|image/vnd.microsoft.icon"
-        }
-      ],
-      "destination": "/browser/:file"
+      "has": [{ "type": "header", "key": "Accept", "value": "text/html" }],
+      "destination": "/browser"
     },
     {
       "source": "/:file",
-      "has": [{ "type": "header", "key": "Accept", "value": "text/html" }],
-      "destination": "/browser"
+      "missing": [{ "type": "header", "key": "Accept", "value": "text/html" }],
+      "destination": "/browser/:file"
     }
   ]
 }
