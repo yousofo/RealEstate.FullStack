@@ -7,15 +7,17 @@
     {
       "source": "/:file",
       "has": [
-        { "type": "header", "key": "Accept", "value": "text/css|application/json|application/javascript|text/plain" }
+        {
+          "type": "header",
+          "key": "Accept",
+          "value": "text/css|application/json|application/javascript|text/plain|text/javascript|image/vnd.microsoft.icon"
+        }
       ],
       "destination": "/browser/:file"
     },
     {
       "source": "/:file",
-      "has": [
-        { "type": "header", "key": "Accept", "value": "text/html" }
-      ],
+      "has": [{ "type": "header", "key": "Accept", "value": "text/html" }],
       "destination": "/browser"
     }
   ]
