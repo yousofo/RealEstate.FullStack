@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250325144204_SeedUsersWithRoles")]
-    partial class SeedUsersWithRoles
+    [Migration("20250508161040_SeedRoles")]
+    partial class SeedRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,46 +98,6 @@ namespace Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "12121212abc",
-                            Email = "test@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Youssef",
-                            LastName = "Elmoussaoui",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "TEST@TEST.COM",
-                            NormalizedUserName = "YOUSSEF1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE7iAGoK16nHp2rWZElaHIXjcIv3nJnC2TCVblYlPBfaEXtv5/fCHjb7wIR6HQX8Ag==",
-                            PhoneNumber = "123456789",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "youssef1"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "12121212bca",
-                            Email = "admin@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Youssef",
-                            LastName = "Elmoussaoui",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@TEST.COM",
-                            NormalizedUserName = "YOUSSEF2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE7iAGoK16nHp2rWZElaHIXjcIv3nJnC2TCVblYlPBfaEXtv5/fCHjb7wIR6HQX8Ag==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "youssef2"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -278,18 +238,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "1",
-                            RoleId = "1"
-                        },
-                        new
-                        {
-                            UserId = "2",
-                            RoleId = "3"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

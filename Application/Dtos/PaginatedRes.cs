@@ -8,12 +8,12 @@ namespace Application.Dtos
 {
     public class PaginatedRes<T>
     {
-        public int TotalItems { get; set; }    
+        public int TotalCount { get; set; }    
         public int PageSize { get; set; }         
-        public int CurrentPage { get; set; }
-        public int TotalPages => (int)Math.Ceiling(TotalItems / (double)PageSize);
-        public bool HasPrevious => CurrentPage > 1;
-        public bool HasNext => CurrentPage < TotalPages;
-        public IEnumerable<T> Data { get; set; } = [];
+        public int PageNumber { get; set; }
+        public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
+        public bool HasPrevious => PageNumber > 1;
+        public bool HasNext => PageNumber < TotalPages;
+        public IEnumerable<T> Items { get; set; } = [];
     }
 }

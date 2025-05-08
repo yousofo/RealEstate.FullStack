@@ -16,7 +16,8 @@ namespace Domain.Auth
         [StringLength(50)]
         public string LastName { get; set; } = "";
 
-        public ICollection<Property> Properties { get; set; } = []; 
+        public ICollection<Property> Properties { get; set; } = [];
+        public Album Album { get; set; }
         public List<RefreshToken> RefreshTokens { get; set; } = [];
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces.Repos.EntityRepos;
 using Infrastructure.Data;
-using Infrastructure.Repos.GenericRepos;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

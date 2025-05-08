@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Shared
 {
-    public abstract class AuditableEntity : EntityBase
+    public abstract class AuditableEntity : BaseEntity
     {
         public DateTime CreatedOn { get; set; }
         public string CreatedById { get; set; }

@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces.Repos.Auth;
 using Application.Interfaces.Repos.EntityRepos;
-using Application.Interfaces.Repos.GenericRepos;
-using Domain.Models;
+ using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

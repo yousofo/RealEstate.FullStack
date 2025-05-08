@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Domain.Auth
 {
     [Owned]
-    public class RefreshToken : EntityBase
+    public class RefreshToken : BaseEntity
     {
         public string UserId { get; set; }
         //[ForeignKey("UserId")]

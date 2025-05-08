@@ -18,13 +18,16 @@ namespace Infrastructure.Data
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor httpContextAccessor) : IdentityDbContext<AppUser>(options)
     {
 
-        //migration: 4 business entities
+        ////migration: 4 business entities
         public DbSet<Property> Properties { get; set; }
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<State> States { get; set; }
-        public DbSet<City> Cities { get; set; }
+        public DbSet<Video> Videos { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Album> Albums { get; set; }
+        ////public DbSet<Country> Countries { get; set; }
+        ////public DbSet<State> States { get; set; }
+        ////public DbSet<City> Cities { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<ImageLink> ImageLinks { get; set; }
+        //public DbSet<ImageLink> ImageLinks { get; set; }
 
 
 
@@ -36,7 +39,7 @@ namespace Infrastructure.Data
 
 
 
-            //migration: 4
+            ////migration: 4
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
 
@@ -51,7 +54,7 @@ namespace Infrastructure.Data
 
 
 
-            //migration: 2 // for seeding roles
+            //migration: 2 // for SeedRoles
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole<string> { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
                 new IdentityRole<string> { Id = "2", Name = "Employee", NormalizedName = "EMPLOYEE" },
@@ -61,7 +64,7 @@ namespace Infrastructure.Data
 
 
 
-            //migration: 3 // for seeding users & roles
+            ////migration: 3 // for SeedUserRoles
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
                 var userSeed = new UserSeed();

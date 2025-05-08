@@ -13,12 +13,12 @@ namespace Application.Dtos.Read
         public string Title { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
-        public string PreviewImageLink { get; set; }
+        public string Thumbnail { get; set; }
         public string Status { get; set; }
         public Location Location { get; set; }
         public string? AddressDescription { get; set; }
-        public IEnumerable<string>? ImageLinks { get; set; }
-        public IEnumerable<string>? Categories { get; set; }
+        public Album Album { get; set; }
+        public string Category { get; set; }
 
     }
 }

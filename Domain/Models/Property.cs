@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Auth;
+using Domain.Enums;
 using Domain.Shared;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,24 @@ namespace Domain.Models
         [StringLength(1500)]
         public string Description { get; set; }
         [StringLength(1500)]
-        public string PreviewImageLink { get; set; }
+        public string Thumbnail { get; set; }
         public PropertyStatusEnum Status { get; set; }
         public string? AddressDescription { get; set; }
-        public Location Location { get; set; }
 
+
+
+        //public Location Location { get; set; }
+        //public int CityId { get; set; }
+        //public City City { get; set; }
+
+
+
+        public AppUser AppUser { get; set; }
+        public string AppUserId { get; set; }
 
         [MaxLength(20)]
-        public ICollection<ImageLink>? ImageLinks { get; set; }
-        public int CityId { get; set; }
-        public City City { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public Album Album { get; set; }
+        public Category Category { get; set; }
+        public int CategoryId { get; set; }
     }
 }

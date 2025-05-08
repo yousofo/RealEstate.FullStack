@@ -52,14 +52,8 @@ public class Program
         {
             if (app.Environment.IsDevelopment())
             {
-                e.WithOrigins("http://localhost:54376",
-                    "https://localhost:54376", 
-                    "http://localhost:4200",
-                    "https://localhost:4200",
-                    "http://127.0.0.1:4200", 
-                    "https://127.0.0.1:4200", 
-                    "http://127.0.0.1:54376", 
-                    "https://127.0.0.1:54376",
+                e.WithOrigins(
+                    "http://localhost:3000",
                     "https://real-estate-full-stack-yn.vercel.app"
                     )
                 .AllowAnyMethod()

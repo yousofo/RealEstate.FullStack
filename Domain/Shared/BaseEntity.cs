@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Shared
 {
-    public abstract class EntityBase
+    public abstract class BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

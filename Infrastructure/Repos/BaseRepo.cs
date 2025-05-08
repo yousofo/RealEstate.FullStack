@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Repos.GenericRepos;
+﻿using Application.Dtos;
+using Application.Interfaces.Repos;
 using Application.ReadOptions;
 using Domain.Enums;
 using Domain.Shared;
@@ -12,15 +13,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Udemy.Infrastructure.Extensions;
 
-namespace Infrastructure.Repos.GenericRepos
+namespace Infrastructure.Repos
 {
     public class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : AuditableEntity
     {
         public virtual IQueryable<T> GetAllQuery(PaginatedSearchReq searchReq, DeletionType deletionType = DeletionType.NotDeleted, bool trackChanges = false)
         {
             IQueryable<T> query = context.Set<T>();
-
-            //if deletion type not specified
 
             if (deletionType != DeletionType.All)
             {
@@ -32,20 +31,30 @@ namespace Infrastructure.Repos.GenericRepos
             return trackChanges ? query : query.AsNoTracking();
         }
 
-        public virtual IQueryable<T> GetPageQuery(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false)
+        public async virtual Task<PaginatedRes<T>> GetPageAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false)
         {
-            var query = GetAllQuery(searchReq, deletionType, trackChanges)
-                .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
-                .Take(searchReq.PageSize);
+            var query = GetAllQuery(searchReq, deletionType, trackChanges);
 
-            throw new NotImplementedException();
-            //return  context.Set<T>().Skip((pageNumber - 1) * pageSize).Take(pageSize).AsQueryable();
+            var pageItems = await query
+                .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
+                .Take(searchReq.PageSize)
+                .ToListAsync();
+
+            var paginatedRes = new PaginatedRes<T>
+            {
+                PageNumber = searchReq.PageNumber,
+                PageSize = searchReq.PageSize,
+                TotalCount = await query.CountAsync(),
+                Items = pageItems
+            };
+
+            return paginatedRes;
         }
         public T? GetById(int id, DeletionType deletionType, bool trackChanges = false)
         {
             return context.Set<T>().Find(id);
         }
-        public async Task<bool> AddAsync(T item, DeletionType deletionType, bool trackChanges = false)
+        public async Task<bool> AddAsync(T item, bool trackChanges = false)
         {
             try
             {
@@ -60,7 +69,7 @@ namespace Infrastructure.Repos.GenericRepos
             }
 
         }
-        public void Update(T item, DeletionType deletionType, bool trackChanges = false)
+        public void Update(T item, bool trackChanges = false)
         {
             context.Update(item);
         }

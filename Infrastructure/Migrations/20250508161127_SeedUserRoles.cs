@@ -7,7 +7,7 @@
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedUsersWithRoles : Migration
+    public partial class SeedUserRoles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,5 +1,4 @@
-﻿using Application.Interfaces.Repos.GenericRepos;
-using Domain.Models;
+﻿using Domain.Models;
 
 namespace Application.Interfaces.Repos.EntityRepos
 {
