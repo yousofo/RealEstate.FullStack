@@ -32,6 +32,8 @@ namespace Application.Services.EntityServices
         public async Task<IEnumerable<PropertyRDTO>> GetPageAsync(int pageNumber,int pageSize=20)
         {
             var allProps = await manager.Properties.GetPageQuery(pageNumber, pageSize).ToListAsync();
+            Console.WriteLine("\n\n--------\n\n");
+            Console.WriteLine(allProps);
             return mapper.Map<IEnumerable<PropertyRDTO>>(allProps);
         }
     }

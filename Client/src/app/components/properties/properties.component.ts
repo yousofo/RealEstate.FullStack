@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, OnInit, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IFetchCount } from '../../types/fetch';
@@ -24,11 +24,16 @@ export class PropertiesComponent implements OnInit {
 
   propertiesService = inject(PropertiesService);
 
-
+/**
+ *
+ */
+constructor() {
+  //  effect(e=>{
+  //   this.properties.set(this.propertiesService.properties());
+  // })
+}
   
   ngOnInit(): void {
-    effect(e=>{
-      this.properties.set(this.propertiesService.properties());
-    })
+    
   }
 }
