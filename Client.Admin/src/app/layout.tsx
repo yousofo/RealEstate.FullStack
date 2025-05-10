@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
- import "./globals.css";
- import StoreProvider from "@/store/storeProvider";
- import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
- import { ThemeProvider } from '@mui/material/styles';
-import theme from "./theme";
+import "./globals.css";
+import StoreProvider from "@/store/storeProvider";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ToastContainer } from "react-toastify";
+import NavigationTracker from "@/components/shared/NavigationTracker";
+//  import { ThemeProvider } from '@mui/material/styles';
+// import theme from "./theme";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -29,19 +31,20 @@ export default function RootLayout({
     return (
         <html lang="en">
             <StoreProvider>
-			<body
+                <body
                     className={`${geistSans.variable} ${geistMono.variable} antialiased`}
                 >
-					<AppRouterCacheProvider options={{ enableCssLayer: true }}>
-					<ThemeProvider theme={theme}>
-                    {children}
+                    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+                        {/* <ThemeProvider theme={theme}> */}
+                        {children}
 
-					</ThemeProvider>
+                        {/* </ThemeProvider> */}
 
-					</AppRouterCacheProvider>
+                        <NavigationTracker />
+                        <ToastContainer />
+                    </AppRouterCacheProvider>
                 </body>
-			</StoreProvider>
-                
-         </html>
+            </StoreProvider>
+        </html>
     );
 }

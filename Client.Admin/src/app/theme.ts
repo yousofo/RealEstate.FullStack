@@ -1,8 +1,12 @@
 "use client";
 import { createTheme } from "@mui/material/styles";
+import store from "@/store/store";
 
 const theme = createTheme({
     cssVariables: true,
+    palette: {
+        mode: store.getState().theme.mode, 
+      },
     typography: {
         fontFamily: "var(--font-roboto)",
     },

@@ -4,7 +4,9 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
- 
+import clientFetch from "@/utils/client-fetch";
+import { toast } from "react-toastify";
+
 const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "title", headerName: "First name", width: 130 },
@@ -29,16 +31,25 @@ const columns: GridColDef[] = [
 
 const paginationModel = { page: 0, pageSize: 5 };
 
-const Properties = () => {
-    const [properties, setProperties] = useState([]);
+
+const Customers = () => {
+  const [properties, setProperties] = useState([]);
 
     useEffect(() => {
+        
         console.log("env", process.env.NEXT_PUBLIC_API_URL);
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`)
+        clientFetch("customers")
             .then((res) => res.json())
             .then((data) => {
                 setProperties(data);
                 console.log(data);
+            })
+            .catch((err) => {
+                toast.error("Error fetching data", {
+                    autoClose: false,
+                    className: "shadow-lg! shadow-red-200! border-red-100! border-2",
+                });
+                console.log("Error fetching data", err);
             });
     }, []);
     return (
@@ -52,11 +63,12 @@ const Properties = () => {
                     checkboxSelection
                     sx={{ border: 0 }}
                 />
+                <div className="">
+                    hi
+                </div>
             </Paper>
         </Container>
     );
-};
+}
 
-export default Properties;
-/*
-      */
+export default Customers
