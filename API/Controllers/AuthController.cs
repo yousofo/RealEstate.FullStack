@@ -43,6 +43,13 @@ namespace API.Controllers
 
 
 
+        [HttpPost("signup")]
+        public async Task<IActionResult> SignUp([FromBody] RegisterReq registerReq,CancellationToken cancellationToken)
+        {
+            var registerRes = await manager.Auth.RegisterAsync(registerReq, cancellationToken);
+
+            return registerRes.Success ? Ok(registerRes) : BadRequest(registerRes);
+        }
 
 
 

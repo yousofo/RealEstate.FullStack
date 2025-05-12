@@ -54,6 +54,8 @@ public class Program
             {
                 e.WithOrigins(
                     "http://localhost:3000",
+                    "http://localhost:5094",
+                    "http://localhost:54376",
                     "https://real-estate-full-stack-yn.vercel.app"
                     )
                 .AllowAnyMethod()

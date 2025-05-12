@@ -1,1 +1,113 @@
-<p>sign-up-page works!</p>
+<div
+  class="text-center flex flex-col gap-6 items-center justify-center h-full max-w-sm mx-auto"
+>
+  <section class="flex flex-col gap-3">
+    <h2 class="text-2xl font-bold text-primary">Create your account</h2>
+    <p class="text-secondary">
+      Welcome! Please fill out the form to get started.
+    </p>
+  </section>
+
+  <form
+    id="signUpForm"
+    #signUpForm="ngForm"
+    (ngSubmit)="onSubmit(signUpForm)"
+    class="grid grid-cols-1 gap-2 w-full"
+  >
+    <div class="flex gap-2 [&>*]:w-full">
+      <input
+        type="text"
+        required
+        ngModel
+        pInputText
+        name="firstName"
+        placeholder="First Name"
+      />
+      <input
+        type="text"
+        required
+        ngModel
+        pInputText
+        name="lastName"
+        placeholder="Last Name"
+      />
+    </div>
+    <input
+      type="text"
+      required
+      ngModel
+      pInputText
+      name="userName"
+      placeholder="Username"
+    />
+    <input
+      type="email"
+      ngModel
+      email
+      pInputText
+      required
+      name="email"
+      placeholder="Email Address"
+    />
+    <input
+      type="text"
+      ngModel
+      #phone
+      required
+      maxlength="12"
+      (invalid)="handleError(phone, phoneError)"
+       
+       pInputText
+       pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+      name="phoneNumber"
+      placeholder="Phone Number"
+    />
+    <p #phoneError class="text-xs text-red-500 text-start mb-2 hidden">pattern must be: XXX XXX XXXX</p>
+    <p-password
+      required
+      ngModel
+      styleClass="w-full [&_input]:w-full"
+      [toggleMask]="true"
+      name="password"
+      placeholder="Password"
+    />
+  </form>
+
+  <div class="flex gap-2 w-full items-center">
+    <hr class="border-primary/20 w-full flex-1" />
+    <span class="text-secondary">or</span>
+    <hr class="border-primary/20 w-full flex-1" />
+  </div>
+
+  <section class="flex gap-2 w-full auth-providers text-secondary">
+    <button class="shadow-sm dark:shadow-white/10">
+      <img src="/logos/google-logo.png" alt="" />
+      <span class="text-secondary">Google</span>
+    </button>
+    <button class="shadow-sm dark:shadow-white/10">
+      <img src="/logos/github-logo2.webp" alt="" />
+      <span class="text-secondary">Github</span>
+    </button>
+  </section>
+
+  <button
+    class="bg-[var(--p-primary-text)]/90 text-[var(--p-primary-bg)] py-2 w-full cursor-pointer rounded font-semibold"
+    form="signUpForm"
+    type="submit"
+  >
+    continue
+    <i class="pi pi-arrow-right"></i>
+  </button>
+
+  <section class="w-full text-center text-sm">
+    <hr class="border-primary/20 w-[80%] mb-2 mx-auto" />
+    <div class="flex w-full justify-center">
+      <p class="text-secondary/70">Already have an account?</p>
+      <button
+        class="text-primary/90 underline flex items-center ml-1 cursor-pointer"
+      >
+        Sign In
+      </button>
+    </div>
+  </section>
+</div>

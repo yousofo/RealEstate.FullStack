@@ -2,8 +2,13 @@
 @layer tailwindBase {
   @import "tailwindcss/theme.css";
   @import "tailwindcss/preflight.css";
+  //at media of 3xl
+  
 }
-
+@theme {
+  --color-primary: var(--p-primary-color);
+  --color-secondary: var(--p-secondary-color);
+}
 @layer styles {
   /* @tailwind utilities; */
   @import "tailwindcss/utilities.css";
@@ -39,9 +44,8 @@
   .bg-secondary {
     background-color: var(--p-secondary-bg);
   }
-  .bg-body {
-    background-color: var(--p-body-bg);
-  }
+
+ 
   .bg-header {
     background-color: var(--p-header-bg);
   }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { NgIf } from '@angular/common';
@@ -8,6 +8,7 @@ import { MenuModule } from 'primeng/menu';
 import { BadgeModule } from 'primeng/badge';
 import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
+import { UiStateService } from '../../services/UiState/ui-state.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -27,98 +28,168 @@ import { AvatarModule } from 'primeng/avatar';
   providers: [MessageService],
 })
 export class SideNavComponent {
-  authService = inject(AuthService);
+  UiStateService = inject(UiStateService);
+
   router = inject(Router);
 
   userNavItems!: MenuItem[];
 
   adminNavItems!: MenuItem[];
 
-  ngOnInit() {
+
+  constructor(public authService: AuthService) {
+    effect(() => {
+      // this.isOwner.set(this.authService.isOwner);
+      console.log('isOwner', this.authService.isOwner());
+      this.buildNavItems(this.authService.isOwner());
+    });
+  }
+
+
+ 
+
+
+  buildNavItems(isOwner: boolean = false) {
     this.userNavItems = [
       {
         separator: true,
+        styleClass: 'mt-2',
       },
+      // {
+      //   label: 'Dashboard',
+      //   items: [
+      //     {
+      //       label: 'BI',
+      //       icon: 'pi pi-book',
+      //        command: () => {
+      //         this.UiStateService.closeSideNav();
+      //         this.router.navigate(['/']);
+      //         console.log(this.UiStateService.sideNavOpen());
+      //       },
+      //     },
+      //     {
+      //       label: 'Custom',
+      //       icon: 'pi pi-book',
+      //        command: () => {
+      //         this.UiStateService.closeSideNav();
+      //         this.router.navigate(['/custom']);
+      //       },
+      //     },
+      //   ],
+      // },
+
       {
-        label: 'Documents',
+        label: 'Dashboard',
         items: [
           {
-            label: 'Properties',
-            icon: 'pi pi-plus',
-            shortcut: '⌘+N',
-            command: () => {
-              this.router.navigate(['/admin/properties']);
+            label: 'Home',
+            icon: 'pi pi-chart-bar',
+             command: () => {
+              this.UiStateService.closeSideNav();
+              this.router.navigate(['/']);
+              console.log(this.UiStateService.sideNavOpen());
             },
           },
           {
-            label: 'Search',
-            icon: 'pi pi-search',
-            shortcut: '⌘+S',
+            label: 'Courses',
+            icon: 'pi pi-video',
+             command: () => {
+              this.UiStateService.closeSideNav();
+              this.router.navigate(['/courses']);
+            },
+            routerLinkActiveOptions: { exact: true },
           },
-        ],
-      },
-      {
-        label: 'Profile',
-        items: [
+
           {
-            label: 'Settings',
+            label: 'Students',
+            icon: 'pi pi-users',
+             command: () => {
+              this.UiStateService.closeSideNav();
+              this.router.navigate(['/students']);
+            },
+            routerLinkActiveOptions: { exact: true },
+          },
+          {
+            label: 'Instructors',
+            icon: 'pi pi-user',
+             command: () => {
+              this.UiStateService.closeSideNav();
+              this.router.navigate(['/instructors']);
+            },
+            routerLinkActiveOptions: { exact: true },
+          },
+          // {
+          //   label: 'Issues',
+          //   icon: 'pi pi-exclamation-triangle',
+          //   routerLink: ['/courses'],
+          //   routerLinkActiveOptions: { exact: true },
+          // },
+          {
+            label: 'Admins',
             icon: 'pi pi-cog',
-            shortcut: '⌘+O',
-          },
-          {
-            label: 'Messages',
-            icon: 'pi pi-inbox',
-            badge: '2',
-          },
-          {
-            label: 'Logout',
-            icon: 'pi pi-sign-out',
-            shortcut: '⌘+Q',
+            visible: isOwner,
+             command: () => {
+              this.UiStateService.closeSideNav();
+              this.router.navigate(['/admins']);
+            },
+            routerLinkActiveOptions: { exact: true },
           },
         ],
-      },
-      {
-        separator: true,
       },
     ];
 
     this.adminNavItems = [
       {
-        label: 'Router',
-        icon: 'pi pi-palette',
+        separator: true,
+        label: 'Dashboard',
+        icon: 'pi pi-chart-bar',
+        // expanded: true,
         items: [
           {
-            label: 'Installation',
-            icon: 'pi pi-eraser',
-            route: '/installation',
+            label: 'Custom',
+            icon: 'pi pi-book',
+            route: '/',
           },
           {
-            label: 'Configuration',
-            icon: 'pi pi-heart',
-            route: '/configuration',
+            label: 'BI',
+            icon: 'pi pi-book',
+            route: 'bi',
           },
         ],
       },
       {
-        label: 'Programmatic',
-        icon: 'pi pi-link',
-        command: () => {
-          this.router.navigate(['/installation']);
-        },
-      },
-      {
-        label: 'External',
-        icon: 'pi pi-home',
+        label: 'Courses',
+        icon: 'pi pi-video',
         items: [
           {
-            label: 'Angular',
-            icon: 'pi pi-star',
-            url: 'https://angular.io/',
+            label: 'all courses',
+            icon: 'pi pi-database',
+            route: '/courses',
+            routerLinkActiveOptions: { exact: true },
           },
+        ],
+      },
+      {
+        label: 'Instructors',
+        icon: 'pi pi-video',
+        items: [
           {
-            label: 'Vite.js',
-            icon: 'pi pi-bookmark',
-            url: 'https://vitejs.dev/',
+            label: 'all courses',
+            icon: 'pi pi-database',
+            route: '/courses',
+            routerLinkActiveOptions: { exact: true },
+          },
+        ],
+      },
+      {
+        label: 'Students',
+        icon: 'pi pi-video',
+        items: [
+          {
+            label: 'all courses',
+            icon: 'pi pi-database',
+            route: '/courses',
+            routerLinkActiveOptions: { exact: true },
           },
         ],
       },

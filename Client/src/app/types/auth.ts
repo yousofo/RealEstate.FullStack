@@ -11,7 +11,17 @@ export interface IUser {
 }
 export interface IAuthState {
     user: IUser | null,
-    loading: boolean,
+    // loading: boolean,
     error: string,
     isAuthenticated: boolean,
+    dialogVisible: boolean,
+}
+
+export interface ISignupRequest {
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    username: string,
+    phone: string,
 }

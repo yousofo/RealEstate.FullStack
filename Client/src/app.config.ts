@@ -10,24 +10,24 @@ import {
 } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
-
+//naming pattern goes 'property' + 'in Dark/Light' => color //textLight = #131313 // => text color in light mode = #131313
 const MyPreset = definePreset(Aura, {
   semantic: {
     primary: {
       textLight: '#0e0e10',
       textDark: '#efeff1',
       bgLight: '#ffffff',
-      bgDark: '#adadb8',
+      bgDark: '#0e0e10',
       hoverLight: '#f7f7f8',
       hoverDark: '#adadb8',
       activeLight: '#53535f',
       activeDark: '#adadb8',
     },
     secondary: {
-      textLight: '#adadb8',
-      textDark: '#DEDEE3',
-      bgLight: '#53535f',
-      bgDark: '#adadb8',
+      textLight: '#10100E',
+      textDark: '#D4D4D9',
+      bgLight: '#E6E6E6',
+      bgDark: '#10100E',
     },
     info: {
       textLight: '#53535f',

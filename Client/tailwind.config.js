@@ -7,7 +7,11 @@ module.exports = {
   //   { pattern: /.*/ }, // <- this forces IntelliSense to suggest ALL classes
   // ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+         '3xl': '1920px', // :D
+      },
+    },
   },
   plugins: [],
 };
