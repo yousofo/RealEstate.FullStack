@@ -1,17 +1,21 @@
 ﻿using Application.ReadOptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/categories")]
-    public class CategoriesController():ControllerBase
+    [Authorize(Roles = "Admin,Owner")]
+    [Route("api/[controller]")]
+    public class RolesController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok();
+            throw new NotImplementedException();
         }
+
+
 
 
         [HttpGet("page")]
@@ -22,7 +26,7 @@ namespace API.Controllers
 
 
         [HttpPost("")]
-        public async Task<IActionResult> Create([FromBody] object categoryCDTO)
+        public async Task<IActionResult> Create([FromBody] object roleCDTO)
         {
             throw new NotImplementedException();
         }
@@ -30,18 +34,17 @@ namespace API.Controllers
 
 
         [HttpPut("")]
-        public async Task<IActionResult> Update([FromBody] object categoryUDTO)
+        public async Task<IActionResult> Update([FromBody] object roleUDTO)
         {
             throw new NotImplementedException();
         }
 
 
 
-        
+
         [HttpPost("assign")]
         public async Task<IActionResult> Assign([FromBody] object userRole)
         {
-            //note: only 1 category per property
             throw new NotImplementedException();
         }
 
