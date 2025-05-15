@@ -5,14 +5,14 @@
       "destination": "/browser"
     },
     {
-      "source": "/:file*",
+      "source": "/:file",
       "has": [{ "type": "header", "key": "Accept", "value": "text/html" }],
       "destination": "/browser"
     },
     {
       "source": "/:file*",
       "missing": [{ "type": "header", "key": "Accept", "value": "text/html" }],
-      "destination": "/browser/:file*"
+      "destination": "/browser/:file"
     }
   ]
 }
