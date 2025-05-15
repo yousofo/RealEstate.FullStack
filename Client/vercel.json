@@ -6,12 +6,12 @@
     },
     {
       "source": "/:file",
-      "has": [{ "type": "header", "key": "Accept", "value": "text/html" }],
+      "has": [{ "type": "header", "key": "Accept", "value": ".*text/html.*" }],
       "destination": "/browser"
     },
     {
       "source": "/:file*",
-      "missing": [{ "type": "header", "key": "Accept", "value": "text/html" }],
+      "missing": [{ "type": "header", "key": "Accept", "value": ".*text/html.*" }],
       "destination": "/browser/:file"
     }
   ]
