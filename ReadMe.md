@@ -51,8 +51,6 @@ featuring:
 
 ## 5. ERD (Entity Relationship Diagram)
 
-To include ERD images in this section:
-
 ![ERD](docs/erd.png)
 
 ---
