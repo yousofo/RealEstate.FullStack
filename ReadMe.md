@@ -1,6 +1,6 @@
-# Real Estate Full Stack App
+# Real Estate Full Stack App (under development)
 
-## 1. Overview (under developments)
+## 1. Overview 
 
 This project is a full-stack real estate application featuring a backend API, a customer-facing frontend, and an admin dashboard. It allows users to browse, search, and inquire about properties, while admins can manage listings and users.
 
