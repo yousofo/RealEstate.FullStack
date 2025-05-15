@@ -1,6 +1,6 @@
 # Real Estate Full Stack App
 
-## 1. Overview
+## 1. Overview (under developments)
 
 This project is a full-stack real estate application featuring a backend API, a customer-facing frontend, and an admin dashboard. It allows users to browse, search, and inquire about properties, while admins can manage listings and users.
 
@@ -53,14 +53,7 @@ featuring:
 
 To include ERD images in this section:
 
-1. Save your ERD image(s) in the project directory, e.g., `docs/erd.png`.
-2. Reference the image using Markdown:
-
-   ```markdown
-   ![ERD](docs/erd.png)
-   ```
-
-3. You can include multiple images if needed.
+![ERD](docs/erd.png)
 
 ---
 
