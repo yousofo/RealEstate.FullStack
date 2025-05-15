@@ -1,5 +1,4 @@
-﻿using Infrastructure.Auth;
-using Microsoft.AspNetCore.Identity;
+﻿ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

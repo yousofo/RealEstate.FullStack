@@ -2,8 +2,7 @@
 //using Application.Dtos.Read;
 using Application.Dtos.RefreshToken;
 using Application.Interfaces.Services;
-using Application.Interfaces.Services.Auth;
-using Application.Services;
+ using Application.Services;
 using Domain.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -26,17 +25,18 @@ namespace API.Controllers
                 return BadRequest("invalid email or password");
             }
 
-            Response.Cookies.Append("Jwt", result.Token, new CookieOptions
-            {
-                HttpOnly = true,
-                //Secure = true,               // true if HTTPS
-                SameSite = SameSiteMode.Lax, // for cross-origin
-                Expires = DateTimeOffset.UtcNow.AddDays(7),
-                //Domain = "localhost", // for cross-origin,
-                //Path = "/",                   // this is fine
-                //Expires = DateTimeOffset.UtcNow + TimeSpan.FromHours(3)
-            });
-            Console.WriteLine(result.Token);
+            //was for XXS attacks
+            //Response.Cookies.Append("Jwt", result.Token, new CookieOptions
+            //{
+            //    HttpOnly = true,
+            //    //Secure = true,               // true if HTTPS
+            //    SameSite = SameSiteMode.Lax, // for cross-origin
+            //    Expires = DateTimeOffset.UtcNow.AddDays(7),
+            //    //Domain = "localhost", // for cross-origin,
+            //    //Path = "/",                   // this is fine
+            //    //Expires = DateTimeOffset.UtcNow + TimeSpan.FromHours(3)
+            //});
+            //Console.WriteLine(result.Token);
             return Ok(result);
 
         }

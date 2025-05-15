@@ -5,6 +5,8 @@ import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { appConfig } from './app.config';
 
+import { register } from 'swiper/element/bundle';
+register();
 bootstrapApplication(AppComponent, appConfig).catch((err) =>
   console.error(err)
 );

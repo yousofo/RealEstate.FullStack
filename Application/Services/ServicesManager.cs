@@ -1,10 +1,7 @@
 ﻿using Application.Interfaces.Repos;
-using Application.Interfaces.Repos.Auth;
-using Application.Interfaces.Repos.EntityRepos;
+ using Application.Interfaces.Repos.EntityRepos;
 using Application.Interfaces.Services;
-using Application.Interfaces.Services.Auth;
 using Application.Interfaces.Services.EntityServices;
-using Application.Services.Auth;
 using Application.Services.EntityServices;
 using AutoMapper;
 using Microsoft.Extensions.Logging;

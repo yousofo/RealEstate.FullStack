@@ -6,14 +6,28 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 // import { LoginService } from '../popups/login/login.service';
 
+
+//dev user
+const DEV_USER:IUser={
+  email: 'H5w0S@example.com',
+  firstName: 'Dev',
+  token: 'token',
+  id: 'id',
+  roles: ['Owner'],
+  image: '',
+  phone: '',
+  address: '',
+  description: ''
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private _authState = signal<IAuthState>({
-    user: null,
+    user: DEV_USER,
     error: '',
-    isAuthenticated: false,
+    isAuthenticated: true,
     dialogVisible: false,
   });
 

@@ -1,0 +1,41 @@
+<div class="h-full flex flex-col p-4 pb-0 overflow-hidden">
+  <div class="flex-1">
+    <swiper-container
+      #swiperContainer
+      allow-touch-move="false"
+      active-index="1"
+      slides-per-view="1"
+      effect="fade"
+      fade-effect-cross-fade="true"
+    >
+      <swiper-slide><app-choose-property-type /></swiper-slide>
+      <swiper-slide><app-choose-property-ownership-type /></swiper-slide>
+      <swiper-slide><app-choose-property-location /></swiper-slide>
+    </swiper-container>
+  </div>
+
+  <p-progressbar
+    styleClass="h-2"
+    [value]="(this.addPropertyService.currentStep() / 3) * 100"
+  >
+    <ng-template #content>
+      <!-- <span>{{value}}/100</span> -->
+    </ng-template>
+  </p-progressbar>
+  <nav class="flex justify-between p-4">
+    <p-button
+      styleClass="underline"
+      variant="text"
+      severity="secondary"
+      label="Back"
+      (click)="slidePrev()"
+    />
+    <p-button
+      severity="primary"
+      styleClass="px-10"
+      [raised]="true"
+      label="Next"
+      (click)="slideNext()"
+    />
+  </nav>
+</div>

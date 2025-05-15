@@ -3,6 +3,7 @@ import { IProperty } from '../../types/properties';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../environments/environment';
+import { finalize } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +14,7 @@ export class PropertiesService {
   // messageService = inject(MessageService);
 
   constructor() {
-    this.loadData()
+    this.loadData();
   }
 
   get properties(): Signal<IProperty[]> {
@@ -22,11 +23,11 @@ export class PropertiesService {
   /**
    *
    */
-  
+
   // set properties(value: IProperty[]) {
   //   this._properties.set(value);
   // }
-  loadData() {    
+  loadData() {
     this.httpClient
       .get<IProperty[]>(environment.apiUrl + '/api/properties', {
         withCredentials: true,
@@ -43,6 +44,12 @@ export class PropertiesService {
           console.error('done');
         },
       });
+  }
+
+  getPropertyTypes() {
+    return this.httpClient
+      .get<string[]>(environment.apiUrl + '/api/properties/types')
+      .pipe(finalize(() => console.log('getPropertyTypes finalized')));
   }
 
   add(property: IProperty) {

@@ -7,21 +7,15 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
-using Infrastructure.Auth.Repos;
-using Domain.Auth;
+ using Domain.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Infrastructure.Auth.Interfaces;
-using Infrastructure.Auth.Providers;
-using Application.Options;
+ using Application.Options;
 using Application.Services.EntityServices;
 using Infrastructure.Repos;
-using Application.Interfaces.Repos.Auth;
-using Application.Interfaces.Services.EntityServices;
-using Application.Interfaces.Services.Auth;
-using Application.Services.Auth;
-using Application.Interfaces.Services;
+ using Application.Interfaces.Services.EntityServices;
+ using Application.Interfaces.Services;
 using Application.Services;
 
 namespace API.ServiceExtensions;
@@ -79,7 +73,7 @@ public static class ServiceExtensions
             .BindConfiguration("Jwt")
             .ValidateDataAnnotations()
             .ValidateOnStart();//throw error if validations failed FROM BEGINING AND NOT DURING RUNTIME
-        var settings = configuration.GetSection("Jwt").Get<JwtOptions>();//meh... maybe bind in more complex apps
+        var settings = configuration.GetSection("Jwt").Get<JwtOptions>();//... maybe bind in more complex apps
 
         services.AddAuthentication(opts =>
         {
@@ -88,25 +82,26 @@ public static class ServiceExtensions
             opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(opts =>
         {
-            opts.Events = new JwtBearerEvents
-            {
-                OnMessageReceived = context =>
-                {
-                    var token = context.Request.Cookies["Jwt"]; // or whatever cookie name
-                    for(int i = 0; i < context.Request.Cookies.Count; i++)
-                    {
-                        var cookie = context.Request.Cookies.ElementAt(i);
-                        Console.WriteLine($"{cookie.Key} : {cookie.Value}");
-                    }
-                    Console.WriteLine($"token from cookie: {token}");
+            //read from cookie => XXS attacks
+            //opts.Events = new JwtBearerEvents
+            //{
+            //    OnMessageReceived = context =>
+            //    {
+            //        var token = context.Request.Cookies["Jwt"]; // or whatever cookie name
+            //        for(int i = 0; i < context.Request.Cookies.Count; i++)
+            //        {
+            //            var cookie = context.Request.Cookies.ElementAt(i);
+            //            Console.WriteLine($"{cookie.Key} : {cookie.Value}");
+            //        }
+            //        Console.WriteLine($"token from cookie: {token}");
 
-                    if (!string.IsNullOrEmpty(token))
-                    {
-                        context.Token = token;
-                    }
-                    return Task.CompletedTask;
-                }
-            };
+            //        if (!string.IsNullOrEmpty(token))
+            //        {
+            //            context.Token = token;
+            //        }
+            //        return Task.CompletedTask;
+            //    }
+            //};
             opts.SaveToken = true;
             opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
             {

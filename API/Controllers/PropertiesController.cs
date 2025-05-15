@@ -38,9 +38,10 @@ namespace RealEstateFullStackApp.Server.Controllers
 
 
         [HttpPost("")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(PropertyCDTO property)
         {
+            var user = User;
             return await manager.Properties.CreateAsync(property) ? Created() : BadRequest();
         }
     }

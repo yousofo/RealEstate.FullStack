@@ -10,47 +10,65 @@ import { ChatAiPageComponent } from './app/pages/chat-ai-page/chat-ai-page.compo
 import { AdminPropertiesPageComponent } from './app/pages/admin/admin-properties-page/admin-properties-page.component';
 import { AdminUsersPageComponent } from './app/pages/admin/admin-users-page/admin-users-page.component';
 import { AdminIssuesPageComponent } from './app/pages/admin/admin-issues-page/admin-issues-page.component';
+import { AddPropertyPageComponent } from './app/pages/add-property-page/add-property-page.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomePageComponent,
-  },
-  {
-    path: 'about-us',
-    component: AboutUsPageComponent,
-  },
-  {
-    path: 'chat-ai',
-    component: ChatAiPageComponent,
-  },
-  {
-    path: 'properties',
-    component: PropertiesPageComponent,
-  },
-  {
-    path: 'property/:id',
-    component: PropertyDetailsPageComponent,
-  },
-  {
-    path: 'sign-up',
-    component: SignUpPageComponent,
-  },
-  {
-    path: 'users/user/:id',
-    component: UserPageComponent,
-  },
-  {
-    path: 'admin/properties',
-    component: AdminPropertiesPageComponent,
-  },
-  {
-    path: 'admin/users',
-    component: AdminUsersPageComponent,
-  },
-  {
-    path: 'admin/issues',
-    component: AdminIssuesPageComponent,
+    children: [
+      {
+        path: '',
+        title: 'Home',
+        component: HomePageComponent,
+      },
+      {
+        path: 'about-us',
+        component: AboutUsPageComponent,
+      },
+      {
+        path: 'chat-ai',
+        component: ChatAiPageComponent,
+      },
+      {
+        path: 'properties',
+        children: [
+          {
+            path: '',
+            title: 'Properties',
+            component: PropertiesPageComponent,
+          },
+          {
+            path: 'property/:id',
+            component: PropertyDetailsPageComponent,
+          },
+        ],
+      },
+      {
+        path: 'add-property',
+        component: AddPropertyPageComponent,
+        title: 'Add Property',
+      },
+      {
+        path: 'sign-up',
+        component: SignUpPageComponent,
+      },
+      {
+        path: 'users/user/:id',
+        component: UserPageComponent,
+      },
+      {
+        path: 'admin/properties',
+        component: AdminPropertiesPageComponent,
+      },
+      {
+        path: 'admin/users',
+        component: AdminUsersPageComponent,
+      },
+      {
+        path: 'admin/issues',
+        component: AdminIssuesPageComponent,
+      },
+    ],
   },
   {
     path: '**',

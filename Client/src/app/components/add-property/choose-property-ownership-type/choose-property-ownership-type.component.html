@@ -1,0 +1,23 @@
+<h2 class="text-xl lg:text-2xl font-bold text-primary mb-10 max-w-3xl mx-auto">
+  What type of onwership will guests have?
+</h2>
+
+<section class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+  @for (item of propertyTypes(); track $index) {
+  <button
+    class="flex flex-col items-start gap-2 border border-primary/30 p-4 rounded cursor-pointer hover:bg-primary/10"
+    [ngClass]="item.value == addPropertyService.ownership() ? 'bg-primary/10' : ''"
+    (click)="selectPropertyType(item)"
+  >
+    <picture>
+      <source srcset="/icons/building.png" type="image/png" />
+      <img
+        class="h-6 lg:h-8 block dark:invert"
+        src="{{ item.image ?? '/icons/building.png' }}"
+        alt="{{ item.title }}"
+      />
+    </picture>
+    <p class="font-semibold">{{ item.title }}</p>
+  </button>
+  }
+</section>

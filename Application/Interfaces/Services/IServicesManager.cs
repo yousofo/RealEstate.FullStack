@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces.Repos.EntityRepos;
-using Application.Interfaces.Services.Auth;
 using Application.Interfaces.Services.EntityServices;
 using System;
 using System.Collections.Generic;

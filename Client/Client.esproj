@@ -1,4 +1,9 @@
 <Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.1738743">
+
+	<PropertyGroup Label="Globals">
+    <ProjectGuid>a9857706-c039-4a3c-8997-3f5756ae92a3</ProjectGuid>
+  </PropertyGroup>
+
   <PropertyGroup>
     <StartupCommand>npm start</StartupCommand>
     <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
@@ -7,11 +12,5 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\Client\browser\</BuildOutputFolder>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="src\app\lib\components\" />
-    <Folder Include="src\app\lib\providers\" />
-    <Folder Include="src\app\lib\services\" />
-    <Folder Include="src\app\lib\utils\" />
-    <Folder Include="src\app\pages\" />
-  </ItemGroup>
+
 </Project>

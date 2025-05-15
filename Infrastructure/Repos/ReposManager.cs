@@ -1,11 +1,9 @@
 ﻿using Application.Interfaces.Repos;
-using Application.Interfaces.Repos.Auth;
 using Application.Interfaces.Repos.EntityRepos;
- using Domain.Models;
-using Infrastructure.Auth.Providers;
-using Infrastructure.Auth.Repos;
+using Domain.Models;
 using Infrastructure.Data;
 using Infrastructure.Repos.EntityRepos;
+using Infrastructure.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
