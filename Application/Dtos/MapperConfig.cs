@@ -27,9 +27,7 @@ namespace Application.Dtos
             //    opt => opt.MapFrom(src => src.Categories.Select(c => c.Title)));
             CreateMap<Property, PropertyUDTO>().ReverseMap();
 
-            CreateMap<Location, LocationCDTO>().ReverseMap();
-            CreateMap<Location, LocationRDTO>().ReverseMap();
-            CreateMap<Location, LocationUDTO>().ReverseMap();
+ 
 
             CreateMap<Category, CategoryCDTO>().ReverseMap();
             CreateMap<Category, CategoryRDTO>().ReverseMap();

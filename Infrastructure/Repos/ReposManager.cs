@@ -20,8 +20,7 @@ namespace Infrastructure.Repos
         Lazy<PropertiesRepo> _properties = new(() => new PropertiesRepo(context, logger));
         Lazy<CategoriesRepo> _categories = new(() => new CategoriesRepo(context, logger));
         Lazy<CountriesRepo> _countries = new(() => new CountriesRepo(context, logger));
-        Lazy<StatesRepo> _states = new(() => new StatesRepo(context, logger));
-        Lazy<CitiesRepo> _cities = new(() => new CitiesRepo(context, logger));
+         Lazy<CitiesRepo> _cities = new(() => new CitiesRepo(context, logger));
         Lazy<AuthRepo> _auth = new(() => new AuthRepo(userManager, new JwtProvider(configuration)));
 
 
@@ -29,8 +28,7 @@ namespace Infrastructure.Repos
         public IPropertiesRepo Properties => _properties.Value;
         public ICategoriesRepo Categories => _categories.Value;
         public ICountriesRepo Countries => _countries.Value;
-        public IStatesRepo States => _states.Value;
-        public ICitiesRepo Cities => _cities.Value;
+         public ICitiesRepo Cities => _cities.Value;
         public IAuthRepo Auth => _auth.Value;
 
 

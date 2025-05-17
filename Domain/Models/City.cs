@@ -11,12 +11,9 @@ namespace Domain.Models
     public class City : AuditableEntity
     {
         public string Name { get; set; }
-
-
-
-
+        [ForeignKey("CountryId")]
+        public Country Country { get; set; }
+        public int CountryId { get; set; }
         public ICollection<Property> Properties { get; set; }
-        public int StateId { get; set; }
-        public State State { get; set; }
     }
 }

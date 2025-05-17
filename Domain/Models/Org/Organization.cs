@@ -16,6 +16,7 @@ namespace Domain.Models.Org
         [StringLength(500)]
         public string Description { get; set; }
         public ICollection<OrganizationRole> Roles { get; set; }
+        public ICollection<Property> Properties { get; set; }
         public ICollection<AppUser> Users { get; set; }
     }
 }

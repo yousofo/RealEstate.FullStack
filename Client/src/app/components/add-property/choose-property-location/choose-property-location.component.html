@@ -1,21 +1,37 @@
-<h2 class="text-xl lg:text-2xl font-bold text-primary mb-10 max-w-3xl mx-auto">
-  Where is your property?
-</h2>
-<p>Property's location will be used for search</p>
-<input
-  type="text"
-  #input
-  class="p-2 shadow w-full border border-[var(--p-info-text)] rounded-lg"
-/>
-<button
-  class="p-2 shadow w-full border border-[var(--p-info-text)] rounded-lg cursor-pointer"
-  appDebounceClick
-  (debouncedClick)="onClick(input.value)"
->
-  Search
-</button>
+<section class="mb-10 max-w-3xl mx-auto">
+  <h2 class="text-xl lg:text-2xl font-bold text-primary mb-2">
+    Where is your property?
+  </h2>
+  <p class="text-secondary/70">
+    Property's location will be used for search and some Lorem ipsum dolor sit
+    amet consectetur.
+  </p>
+</section>
 
-<section class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+<section class="max-w-3xl mx-auto">
+
+  <p-inputgroup>
+    <input #input pInputText placeholder="Keyword" />
+    <p-inputgroup-addon>
+      <p-button
+        icon="pi pi-search"
+        (debouncedClick)="onClick(input.value)"
+        appDebounceClick
+        severity="secondary"
+        variant="text"
+      />
+    </p-inputgroup-addon>
+  </p-inputgroup>
+
+  <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
+        <ng-template #item let-country>
+            <div class="flex items-center gap-2">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                <div>{{ country.name }}</div>
+            </div>
+        </ng-template>
+    </p-listbox>
+
   <!-- @for (item of propertyTypes(); track $index) {
   <button
     class="flex flex-col items-start gap-2 border border-primary/30 p-4 rounded cursor-pointer hover:bg-primary/10"

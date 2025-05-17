@@ -1,5 +1,6 @@
 ﻿using Domain.Auth;
 using Domain.Enums;
+using Domain.Models.Org;
 using Domain.Shared;
 using System;
 using System.Collections.Generic;
@@ -21,22 +22,34 @@ namespace Domain.Models
         [StringLength(1500)]
         public string Thumbnail { get; set; }
         public PropertyStatusEnum Status { get; set; }
-        public string? AddressDescription { get; set; }
-
-
-
-        //public Location Location { get; set; }
-        //public int CityId { get; set; }
-        //public City City { get; set; }
-
-
-
-        public AppUser AppUser { get; set; }
-        public string AppUserId { get; set; }
-
+        public AppUser Owner { get; set; }
+        public string OwnerId { get; set; }
         [MaxLength(20)]
         public Album Album { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
+
+        //
+        public Auction Auction { get; set; }
+
+
+
+
+        //org
+        [ForeignKey("OrganizationId")]
+        public Organization Organization { get; set; }
+        public int? OrganizationId { get; set; }
+
+
+        //location
+        public string? AddressDescription { get; set; }
+        public string? latitude { get; set; }
+        public string? longitude { get; set; }
+        public City City { get; set; }
+        public int CityId { get; set; }
+        public int? RegionId { get; set; }
+        public Region Region { get; set; }
+        
+ 
     }
 }

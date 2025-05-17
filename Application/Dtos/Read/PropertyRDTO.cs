@@ -15,8 +15,7 @@ namespace Application.Dtos.Read
         public string Description { get; set; }
         public string Thumbnail { get; set; }
         public string Status { get; set; }
-        public Location Location { get; set; }
-        public string? AddressDescription { get; set; }
+         public string? AddressDescription { get; set; }
         public Album Album { get; set; }
         public string Category { get; set; }
 

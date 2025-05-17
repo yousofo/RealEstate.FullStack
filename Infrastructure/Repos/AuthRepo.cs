@@ -136,7 +136,7 @@ namespace Infrastructure.Repos
             }
             else
             {
-                throw new Exception(result.Errors);
+                throw new Exception(result.Errors.Select(e=>e.Description).First());
             }
         }
 

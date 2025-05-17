@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.Org;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,17 @@ namespace Domain.Auth
         public string LastName { get; set; } = "";
 
         public ICollection<Property>? Properties { get; set; } = [];
-        public ICollection
+        
         public Album Album { get; set; }
         public List<RefreshToken> RefreshTokens { get; set; } = [];
+        public ICollection<Bid> Bids { get; set; }
+
+
+
+
+        //organizations
+        public ICollection<OrganizationRole> OrganizationRoles { get; set; }
+        [MaxLength(2)]
+        public ICollection<Organization> Organizations { get; set; }
     }
 }

@@ -13,8 +13,7 @@ namespace Application.Interfaces.Repos
         public IPropertiesRepo Properties{ get; }
         public ICategoriesRepo Categories{get;}
         public ICountriesRepo Countries{get;}
-        public IStatesRepo States{get;}
-        public ICitiesRepo Cities{get;}
+         public ICitiesRepo Cities{get;}
         public IAuthRepo Auth{get;}
 
 

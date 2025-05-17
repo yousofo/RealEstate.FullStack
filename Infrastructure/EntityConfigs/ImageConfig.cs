@@ -5,27 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Extensions;
 
 namespace Infrastructure.EntityConfigs
 {
-    public class ImageConfig : IEntityTypeConfiguration<Image>
+    public class ImageConfig :  IEntityTypeConfiguration<Image>
     {
-        public void Configure(EntityTypeBuilder<Image> builder)
+        public   void Configure(EntityTypeBuilder<Image> builder)
         {
+            builder.ConfigureAuditing();
+
             builder.HasOne(v => v.Album)
                 .WithMany(v => v.Images)
                 .HasForeignKey(v => v.AlbumId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(a => a.CreatedBy)
-                 .WithMany() // No navigation property in AppUser
-                 .HasForeignKey(e => e.CreatedById)
-                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
-
-            builder.HasOne(a => a.ModifiedBy)
-                .WithMany()
-                .HasForeignKey(e => e.ModifiedById)
-                .OnDelete(DeleteBehavior.Restrict);
+ 
         }
     }
 }

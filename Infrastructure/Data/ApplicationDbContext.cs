@@ -12,6 +12,7 @@ using Infrastructure.Seed;
 using Domain.Shared;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Domain.Models.Org;
 
 namespace Infrastructure.Data
 {
@@ -23,11 +24,16 @@ namespace Infrastructure.Data
         public DbSet<Video> Videos { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Album> Albums { get; set; }
-        ////public DbSet<Country> Countries { get; set; }
-        ////public DbSet<State> States { get; set; }
-        ////public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Category> Categories { get; set; }
-        //public DbSet<ImageLink> ImageLinks { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<OrganizationRole> OrganizationRoles { get; set; }
+        public DbSet<OrganizationPermission> OrganizationPermissions { get; set; }
+        public DbSet<OrganizationRolePermission> OrganizationRolePermissions { get; set; }
+
+
 
 
 

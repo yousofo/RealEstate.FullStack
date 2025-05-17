@@ -9,15 +9,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EntityConfigs
 {
-    public class CountryConfig : IEntityTypeConfiguration<Country>
+    partial class BidConfig : IEntityTypeConfiguration<Bid>
     {
-        public void Configure(EntityTypeBuilder<Country> builder)
+        public void Configure(EntityTypeBuilder<Bid> builder)
         {
             builder.ConfigureAuditing();
-
- 
-            builder.HasIndex(a => a.Name).IsUnique();
-            builder.HasIndex(a => a.Code).IsUnique();
+            builder.HasOne(b=>b.Customer).WithMany(u=>u.Bids).HasForeignKey(b=>b.CustomerId);
         }
     }
 }

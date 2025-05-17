@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -9,27 +10,19 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EntityConfigs
 {
-    public class PropertyConfig : IEntityTypeConfiguration<Property>
+    public class PropertyConfig :  IEntityTypeConfiguration<Property>
     {
 
-        public void Configure(EntityTypeBuilder<Property> builder)
+        public   void Configure(EntityTypeBuilder<Property> builder)
         {
+            builder.ConfigureAuditing();
             builder.Property(e => e.Price).HasPrecision(18, 4);
 
-            builder.HasOne(e=>e.AppUser)
+            builder.HasOne(e=>e.Owner)
                 .WithMany(e => e.Properties)
-                .HasForeignKey(e => e.AppUserId)
+                .HasForeignKey(e => e.OwnerId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasOne(a => a.CreatedBy)
-                 .WithMany() // No navigation property in AppUser
-                 .HasForeignKey(e => e.CreatedById)
-                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
-
-            builder.HasOne(a => a.ModifiedBy)
-                .WithMany()
-                .HasForeignKey(e => e.ModifiedById)
-                .OnDelete(DeleteBehavior.Restrict);
+ 
 
             //builder.HasOne(p=>p.City)
             //    .WithMany(c=>c.Properties)

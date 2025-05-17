@@ -1,0 +1,372 @@
+[
+  {
+    "Version": 1,
+    "Key": "126814",
+    "Type": "City",
+    "Rank": 31,
+    "LocalizedName": "Mansoura",
+    "EnglishName": "Mansoura",
+    "PrimaryPostalCode": "",
+    "Region": {
+      "ID": "AFR",
+      "LocalizedName": "Africa",
+      "EnglishName": "Africa"
+    },
+    "Country": {
+      "ID": "EG",
+      "LocalizedName": "Egypt",
+      "EnglishName": "Egypt"
+    },
+    "AdministrativeArea": {
+      "ID": "DK",
+      "LocalizedName": "Dakahlia",
+      "EnglishName": "Dakahlia",
+      "Level": 1,
+      "LocalizedType": "Governorate",
+      "EnglishType": "Governorate",
+      "CountryID": "EG"
+    },
+    "TimeZone": {
+      "Code": "EEST",
+      "Name": "Africa/Cairo",
+      "GmtOffset": 3,
+      "IsDaylightSaving": true,
+      "NextOffsetChange": "2025-10-30T21:00:00Z"
+    },
+    "GeoPosition": {
+      "Latitude": 31.041,
+      "Longitude": 31.369,
+      "Elevation": {
+        "Metric": {
+          "Value": 13,
+          "Unit": "m",
+          "UnitType": 5
+        },
+        "Imperial": {
+          "Value": 42,
+          "Unit": "ft",
+          "UnitType": 0
+        }
+      }
+    },
+    "IsAlias": false,
+    "SupplementalAdminAreas": [],
+    "DataSets": [
+      "AirQualityCurrentConditions",
+      "AirQualityForecasts",
+      "DailyPollenForecast",
+      "FutureRadar",
+      "MinuteCast"
+    ]
+  },
+  {
+    "Version": 1,
+    "Key": "124729",
+    "Type": "City",
+    "Rank": 75,
+    "LocalizedName": "Mansoura",
+    "EnglishName": "Mansoura",
+    "PrimaryPostalCode": "",
+    "Region": {
+      "ID": "EUR",
+      "LocalizedName": "Europe",
+      "EnglishName": "Europe"
+    },
+    "Country": {
+      "ID": "CY",
+      "LocalizedName": "Cyprus",
+      "EnglishName": "Cyprus"
+    },
+    "AdministrativeArea": {
+      "ID": "01",
+      "LocalizedName": "Nicosia",
+      "EnglishName": "Nicosia",
+      "Level": 1,
+      "LocalizedType": "District",
+      "EnglishType": "District",
+      "CountryID": "CY"
+    },
+    "TimeZone": {
+      "Code": "EEST",
+      "Name": "Asia/Nicosia",
+      "GmtOffset": 3,
+      "IsDaylightSaving": true,
+      "NextOffsetChange": "2025-10-26T01:00:00Z"
+    },
+    "GeoPosition": {
+      "Latitude": 35.183,
+      "Longitude": 32.633,
+      "Elevation": {
+        "Metric": {
+          "Value": 274,
+          "Unit": "m",
+          "UnitType": 5
+        },
+        "Imperial": {
+          "Value": 898,
+          "Unit": "ft",
+          "UnitType": 0
+        }
+      }
+    },
+    "IsAlias": false,
+    "SupplementalAdminAreas": [],
+    "DataSets": [
+      "AirQualityCurrentConditions",
+      "AirQualityForecasts",
+      "Alerts",
+      "DailyPollenForecast",
+      "ForecastConfidence",
+      "FutureRadar",
+      "MinuteCast"
+    ]
+  },
+  {
+    "Version": 1,
+    "Key": "1417585",
+    "Type": "City",
+    "Rank": 600,
+    "LocalizedName": "Mansoura",
+    "EnglishName": "Mansoura",
+    "PrimaryPostalCode": "",
+    "Region": {
+      "ID": "AFR",
+      "LocalizedName": "Africa",
+      "EnglishName": "Africa"
+    },
+    "Country": {
+      "ID": "DZ",
+      "LocalizedName": "Algeria",
+      "EnglishName": "Algeria"
+    },
+    "AdministrativeArea": {
+      "ID": "13",
+      "LocalizedName": "Tlemcen",
+      "EnglishName": "Tlemcen",
+      "Level": 1,
+      "LocalizedType": "Province",
+      "EnglishType": "Province",
+      "CountryID": "DZ"
+    },
+    "TimeZone": {
+      "Code": "CET",
+      "Name": "Africa/Algiers",
+      "GmtOffset": 1,
+      "IsDaylightSaving": false,
+      "NextOffsetChange": null
+    },
+    "GeoPosition": {
+      "Latitude": 34.865,
+      "Longitude": -1.347,
+      "Elevation": {
+        "Metric": {
+          "Value": 840,
+          "Unit": "m",
+          "UnitType": 5
+        },
+        "Imperial": {
+          "Value": 2755,
+          "Unit": "ft",
+          "UnitType": 0
+        }
+      }
+    },
+    "IsAlias": false,
+    "SupplementalAdminAreas": [],
+    "DataSets": [
+      "AirQualityCurrentConditions",
+      "AirQualityForecasts",
+      "DailyPollenForecast",
+      "ForecastConfidence",
+      "MinuteCast",
+      "Radar"
+    ]
+  },
+  {
+    "Version": 1,
+    "Key": "1278255",
+    "Type": "City",
+    "Rank": 600,
+    "LocalizedName": "Mansoura",
+    "EnglishName": "Mansoura",
+    "PrimaryPostalCode": "",
+    "Region": {
+      "ID": "MEA",
+      "LocalizedName": "Middle East",
+      "EnglishName": "Middle East"
+    },
+    "Country": {
+      "ID": "LB",
+      "LocalizedName": "Lebanon",
+      "EnglishName": "Lebanon"
+    },
+    "AdministrativeArea": {
+      "ID": "BI",
+      "LocalizedName": "Beqaa",
+      "EnglishName": "Beqaa",
+      "Level": 1,
+      "LocalizedType": "Governorate",
+      "EnglishType": "Governorate",
+      "CountryID": "LB"
+    },
+    "TimeZone": {
+      "Code": "EEST",
+      "Name": "Asia/Beirut",
+      "GmtOffset": 3,
+      "IsDaylightSaving": true,
+      "NextOffsetChange": "2025-10-25T21:00:00Z"
+    },
+    "GeoPosition": {
+      "Latitude": 33.679,
+      "Longitude": 35.815,
+      "Elevation": {
+        "Metric": {
+          "Value": 871,
+          "Unit": "m",
+          "UnitType": 5
+        },
+        "Imperial": {
+          "Value": 2856,
+          "Unit": "ft",
+          "UnitType": 0
+        }
+      }
+    },
+    "IsAlias": false,
+    "SupplementalAdminAreas": [],
+    "DataSets": [
+      "AirQualityCurrentConditions",
+      "AirQualityForecasts",
+      "DailyPollenForecast",
+      "ForecastConfidence",
+      "FutureRadar",
+      "MinuteCast"
+    ]
+  },
+  {
+    "Version": 1,
+    "Key": "1583724",
+    "Type": "City",
+    "Rank": 600,
+    "LocalizedName": "Mansoura",
+    "EnglishName": "Mansoura",
+    "PrimaryPostalCode": "",
+    "Region": {
+      "ID": "AFR",
+      "LocalizedName": "Africa",
+      "EnglishName": "Africa"
+    },
+    "Country": {
+      "ID": "MA",
+      "LocalizedName": "Morocco",
+      "EnglishName": "Morocco"
+    },
+    "AdministrativeArea": {
+      "ID": "01",
+      "LocalizedName": "Tanger-Tétouan-Al Hoceïma",
+      "EnglishName": "Tanger-Tétouan-Al Hoceïma",
+      "Level": 1,
+      "LocalizedType": "Region",
+      "EnglishType": "Region",
+      "CountryID": "MA"
+    },
+    "TimeZone": {
+      "Code": "WEST",
+      "Name": "Africa/Casablanca",
+      "GmtOffset": 1,
+      "IsDaylightSaving": true,
+      "NextOffsetChange": null
+    },
+    "GeoPosition": {
+      "Latitude": 35.13,
+      "Longitude": -5.36,
+      "Elevation": {
+        "Metric": {
+          "Value": 1022,
+          "Unit": "m",
+          "UnitType": 5
+        },
+        "Imperial": {
+          "Value": 3352,
+          "Unit": "ft",
+          "UnitType": 0
+        }
+      }
+    },
+    "IsAlias": false,
+    "SupplementalAdminAreas": [],
+    "DataSets": [
+      "AirQualityCurrentConditions",
+      "AirQualityForecasts",
+      "DailyPollenForecast",
+      "ForecastConfidence",
+      "FutureRadar",
+      "MinuteCast",
+      "Radar"
+    ]
+  },
+  {
+    "Version": 1,
+    "Key": "2005522",
+    "Type": "City",
+    "Rank": 600,
+    "LocalizedName": "Mansoura",
+    "EnglishName": "Mansoura",
+    "PrimaryPostalCode": "",
+    "Region": {
+      "ID": "AFR",
+      "LocalizedName": "Africa",
+      "EnglishName": "Africa"
+    },
+    "Country": {
+      "ID": "NE",
+      "LocalizedName": "Niger",
+      "EnglishName": "Niger"
+    },
+    "AdministrativeArea": {
+      "ID": "7",
+      "LocalizedName": "Zinder",
+      "EnglishName": "Zinder",
+      "Level": 1,
+      "LocalizedType": "Region",
+      "EnglishType": "Region",
+      "CountryID": "NE"
+    },
+    "TimeZone": {
+      "Code": "WAT",
+      "Name": "Africa/Niamey",
+      "GmtOffset": 1,
+      "IsDaylightSaving": false,
+      "NextOffsetChange": null
+    },
+    "GeoPosition": {
+      "Latitude": 13.835,
+      "Longitude": 9.578,
+      "Elevation": {
+        "Metric": {
+          "Value": 430,
+          "Unit": "m",
+          "UnitType": 5
+        },
+        "Imperial": {
+          "Value": 1410,
+          "Unit": "ft",
+          "UnitType": 0
+        }
+      }
+    },
+    "IsAlias": false,
+    "SupplementalAdminAreas": [
+      {
+        "Level": 2,
+        "LocalizedName": "Mirria",
+        "EnglishName": "Mirria"
+      }
+    ],
+    "DataSets": [
+      "AirQualityCurrentConditions",
+      "AirQualityForecasts",
+      "MinuteCast"
+    ]
+  }
+]

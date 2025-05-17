@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250508202122_Properties")]
-    partial class Properties
+    [Migration("20250517091850_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,36 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AppUserOrganization", b =>
+                {
+                    b.Property<int>("OrganizationsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("OrganizationsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("AppUserOrganization");
+                });
+
+            modelBuilder.Entity("AppUserOrganizationRole", b =>
+                {
+                    b.Property<int>("OrganizationRolesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("OrganizationRolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("AppUserOrganizationRole");
+                });
 
             modelBuilder.Entity("Domain.Auth.AppUser", b =>
                 {
@@ -171,6 +201,122 @@ namespace Infrastructure.Migrations
                     b.ToTable("Albums");
                 });
 
+            modelBuilder.Entity("Domain.Models.Auction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("EndPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("StartPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("WinnerOrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WinnerUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("PropertyId")
+                        .IsUnique();
+
+                    b.HasIndex("WinnerOrganizationId");
+
+                    b.HasIndex("WinnerUserId");
+
+                    b.ToTable("Auction");
+                });
+
+            modelBuilder.Entity("Domain.Models.Bid", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("AuctionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuctionId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("Bid");
+                });
+
             modelBuilder.Entity("Domain.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -195,9 +341,6 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -209,12 +352,99 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.HasIndex("ParentId");
-
                     b.HasIndex("Title")
                         .IsUnique();
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Domain.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("Domain.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("Domain.Models.Image", b =>
@@ -267,6 +497,145 @@ namespace Infrastructure.Migrations
                     b.ToTable("Images");
                 });
 
+            modelBuilder.Entity("Domain.Models.Org.Organization", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.ToTable("Organizations");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.OrganizationPermission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.ToTable("OrganizationPermissions");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.OrganizationRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("OrganizationRoles");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.OrganizationRolePermission", b =>
+                {
+                    b.Property<int>("OrganizationRoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrganizationRoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("OrganizationRolePermissions");
+                });
+
             modelBuilder.Entity("Domain.Models.Property", b =>
                 {
                     b.Property<int>("Id")
@@ -278,11 +647,10 @@ namespace Infrastructure.Migrations
                     b.Property<string>("AddressDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedById")
@@ -306,9 +674,19 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -323,17 +701,72 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<string>("latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("longitude")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
-
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("CreatedById");
 
                     b.HasIndex("ModifiedById");
 
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("RegionId");
+
                     b.ToTable("Properties");
+                });
+
+            modelBuilder.Entity("Domain.Models.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("Domain.Models.Video", b =>
@@ -565,6 +998,36 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AppUserOrganization", b =>
+                {
+                    b.HasOne("Domain.Models.Org.Organization", null)
+                        .WithMany()
+                        .HasForeignKey("OrganizationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AppUserOrganizationRole", b =>
+                {
+                    b.HasOne("Domain.Models.Org.OrganizationRole", null)
+                        .WithMany()
+                        .HasForeignKey("OrganizationRolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Auth.AppUser", b =>
                 {
                     b.OwnsMany("Domain.Auth.RefreshToken", "RefreshTokens", b1 =>
@@ -621,6 +1084,93 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Models.Auction", b =>
+                {
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
+
+                    b.HasOne("Domain.Models.Org.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId");
+
+                    b.HasOne("Domain.Auth.AppUser", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId");
+
+                    b.HasOne("Domain.Models.Property", "Property")
+                        .WithOne("Auction")
+                        .HasForeignKey("Domain.Models.Auction", "PropertyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Org.Organization", "WinnerOrganization")
+                        .WithMany()
+                        .HasForeignKey("WinnerOrganizationId");
+
+                    b.HasOne("Domain.Auth.AppUser", "WinnerUser")
+                        .WithMany()
+                        .HasForeignKey("WinnerUserId");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("Owner");
+
+                    b.Navigation("Property");
+
+                    b.Navigation("WinnerOrganization");
+
+                    b.Navigation("WinnerUser");
+                });
+
+            modelBuilder.Entity("Domain.Models.Bid", b =>
+                {
+                    b.HasOne("Domain.Models.Auction", "Auction")
+                        .WithMany("Bids")
+                        .HasForeignKey("AuctionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "Customer")
+                        .WithMany("Bids")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Models.Org.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId");
+
+                    b.Navigation("Auction");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("ModifiedBy");
+
+                    b.Navigation("Organization");
+                });
+
             modelBuilder.Entity("Domain.Models.Category", b =>
                 {
                     b.HasOne("Domain.Auth.AppUser", "CreatedBy")
@@ -634,15 +1184,53 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("ModifiedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Domain.Models.Category", "Parent")
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
+                });
+
+            modelBuilder.Entity("Domain.Models.City", b =>
+                {
+                    b.HasOne("Domain.Models.Country", "Country")
+                        .WithMany("Cities")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
                         .WithMany()
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Country");
 
                     b.Navigation("CreatedBy");
 
                     b.Navigation("ModifiedBy");
+                });
 
-                    b.Navigation("Parent");
+            modelBuilder.Entity("Domain.Models.Country", b =>
+                {
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
                 });
 
             modelBuilder.Entity("Domain.Models.Image", b =>
@@ -670,17 +1258,97 @@ namespace Infrastructure.Migrations
                     b.Navigation("ModifiedBy");
                 });
 
-            modelBuilder.Entity("Domain.Models.Property", b =>
+            modelBuilder.Entity("Domain.Models.Org.Organization", b =>
                 {
-                    b.HasOne("Domain.Auth.AppUser", "AppUser")
-                        .WithMany("Properties")
-                        .HasForeignKey("AppUserId")
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.OrganizationPermission", b =>
+                {
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.OrganizationRole", b =>
+                {
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Models.Org.Organization", "Organization")
+                        .WithMany("Roles")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
+
+                    b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.OrganizationRolePermission", b =>
+                {
+                    b.HasOne("Domain.Models.Org.OrganizationRole", "Role")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("OrganizationRoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Org.OrganizationPermission", "Permission")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Domain.Models.Property", b =>
+                {
                     b.HasOne("Domain.Models.Category", "Category")
                         .WithMany("Properties")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.City", "City")
+                        .WithMany("Properties")
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -695,9 +1363,56 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("ModifiedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("AppUser");
+                    b.HasOne("Domain.Models.Org.Organization", "Organization")
+                        .WithMany("Properties")
+                        .HasForeignKey("OrganizationId");
+
+                    b.HasOne("Domain.Auth.AppUser", "Owner")
+                        .WithMany("Properties")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Region", "Region")
+                        .WithMany("Properties")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Category");
+
+                    b.Navigation("City");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("ModifiedBy");
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("Owner");
+
+                    b.Navigation("Region");
+                });
+
+            modelBuilder.Entity("Domain.Models.Region", b =>
+                {
+                    b.HasOne("Domain.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Auth.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Country");
 
                     b.Navigation("CreatedBy");
 
@@ -786,6 +1501,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("Album")
                         .IsRequired();
 
+                    b.Navigation("Bids");
+
                     b.Navigation("Properties");
                 });
 
@@ -796,15 +1513,55 @@ namespace Infrastructure.Migrations
                     b.Navigation("Videos");
                 });
 
+            modelBuilder.Entity("Domain.Models.Auction", b =>
+                {
+                    b.Navigation("Bids");
+                });
+
             modelBuilder.Entity("Domain.Models.Category", b =>
                 {
                     b.Navigation("Properties");
+                });
+
+            modelBuilder.Entity("Domain.Models.City", b =>
+                {
+                    b.Navigation("Properties");
+                });
+
+            modelBuilder.Entity("Domain.Models.Country", b =>
+                {
+                    b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.Organization", b =>
+                {
+                    b.Navigation("Properties");
+
+                    b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.OrganizationPermission", b =>
+                {
+                    b.Navigation("RolePermissions");
+                });
+
+            modelBuilder.Entity("Domain.Models.Org.OrganizationRole", b =>
+                {
+                    b.Navigation("RolePermissions");
                 });
 
             modelBuilder.Entity("Domain.Models.Property", b =>
                 {
                     b.Navigation("Album")
                         .IsRequired();
+
+                    b.Navigation("Auction")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.Region", b =>
+                {
+                    b.Navigation("Properties");
                 });
 #pragma warning restore 612, 618
         }

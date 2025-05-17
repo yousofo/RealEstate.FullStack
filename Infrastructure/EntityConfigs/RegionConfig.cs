@@ -9,15 +9,16 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EntityConfigs
 {
-    public class CountryConfig : IEntityTypeConfiguration<Country>
+    public class RegionConfig : IEntityTypeConfiguration<Region>
     {
-        public void Configure(EntityTypeBuilder<Country> builder)
+        public void Configure(EntityTypeBuilder<Region> builder)
         {
             builder.ConfigureAuditing();
 
- 
-            builder.HasIndex(a => a.Name).IsUnique();
-            builder.HasIndex(a => a.Code).IsUnique();
+            builder.HasMany(r=>r.Properties)
+                .WithOne(p=>p.Region)
+                .HasForeignKey(p=>p.RegionId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
