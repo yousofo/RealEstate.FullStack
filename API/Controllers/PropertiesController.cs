@@ -16,10 +16,10 @@ namespace RealEstateFullStackApp.Server.Controllers
     {
         [HttpGet("")]
         //[Authorize]
-        public async Task<IActionResult> GetAll([FromQuery] PaginatedSearchReq searchReq)
+        public async Task<IActionResult> GetAll( CancellationToken cancellationToken)
         {
 
-            var props = await manager.Properties.GetAllAsync(searchReq, DeletionType.All);
+            var props = await manager.Properties.GetAllAsync(cancellationToken);
 
             return Ok(props);
         }

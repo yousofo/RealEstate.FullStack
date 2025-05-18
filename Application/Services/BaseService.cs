@@ -16,9 +16,9 @@ namespace Application.Services
     public class BaseService<T, RDTO,CDTO,UDTO>(IBaseRepo<T> repo, IMapper mapper):IBaseService<RDTO, CDTO, UDTO> where T : class
     {
        
-        public async Task<IEnumerable<RDTO>> GetAllAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<RDTO>> GetAllAsync(  CancellationToken cancellationToken )
         {
-            var models = await repo.GetAllAsync(  searchReq,   deletionType,   trackChanges ,   cancellationToken );
+            var models = await repo.GetAllAsync( cancellationToken );
 
             return mapper.Map<IEnumerable<RDTO>>(models);
         }

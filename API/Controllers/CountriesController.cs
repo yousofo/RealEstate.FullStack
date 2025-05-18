@@ -12,9 +12,9 @@ namespace API.Controllers
     public class CountriesController(IServicesManager manager) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]PaginatedSearchReq searchReq, DeletionType deletionType, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetAll( CancellationToken cancellationToken = default)
         {
-            var countries = await manager.Countries.GetAllAsync(searchReq, deletionType, false, cancellationToken);
+            var countries = await manager.Countries.GetAllAsync( cancellationToken);
             return Ok(countries);
         }
 

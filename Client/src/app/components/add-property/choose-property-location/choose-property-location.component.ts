@@ -44,18 +44,23 @@ export class ChoosePropertyLocationComponent {
   places = signal<IPlace[]>([]);
 
   ngOnInit() {
-    this.countries = [
-      { name: 'Australia', code: 'AU' },
-      { name: 'Brazil', code: 'BR' },
-      { name: 'China', code: 'CN' },
-      { name: 'Egypt', code: 'EG' },
-      { name: 'France', code: 'FR' },
-      { name: 'Germany', code: 'DE' },
-      { name: 'India', code: 'IN' },
-      { name: 'Japan', code: 'JP' },
-      { name: 'Spain', code: 'ES' },
-      { name: 'United States', code: 'US' },
-    ];
+    this.httpClient
+      .get<Country[]>(`${environment}/api/countries`)
+      .subscribe({
+        next: (data) => {
+          this.countries = data;
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'service unavailable, please try again later',
+            life: 2000,
+          })
+        },
+      });
+      
+    
   }
 
   onClick(query: string) {

@@ -17,9 +17,9 @@ namespace Infrastructure.Repos
 {
     public abstract class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : AuditableEntity
     {
-        public async Task<IEnumerable<T>> GetAllAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await context.Set<T>().ToListAsync();
+            return await context.Set<T>().ToListAsync(cancellationToken);
         }
         public virtual IQueryable<T> GetAllQuery(PaginatedSearchReq searchReq, DeletionType deletionType = DeletionType.NotDeleted, bool trackChanges = false)
         {

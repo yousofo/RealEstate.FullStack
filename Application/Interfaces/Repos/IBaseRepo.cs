@@ -11,7 +11,7 @@ namespace Application.Interfaces.Repos
 {
     public interface IBaseRepo<T> where T : class
     {
-        public Task<IEnumerable<T>> GetAllAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false, CancellationToken cancellationToken = default);
+        public Task<IEnumerable<T>> GetAllAsync( CancellationToken cancellationToken = default);
         public IQueryable<T> GetAllQuery(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false);
         public Task<PaginatedRes<T>> GetPageAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false);
         public T? GetById(int id, DeletionType deletionType, bool trackChanges = false);

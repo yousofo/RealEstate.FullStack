@@ -17,11 +17,6 @@ namespace Application.Services.EntityServices
 {
     public class CountriesService(IReposManager manager, IMapper mapper) : BaseService<Country, CountryRDTO, CountryCDTO, CountryRDTO>(manager.Countries, mapper), ICountriesService
     {
-        public async Task<IEnumerable<CountryRDTO>> GetAllAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false, CancellationToken cancellationToken = default)
-        {
-            var countries = await manager.Countries.GetAllAsync(  searchReq,   deletionType,   trackChanges ,   cancellationToken );
-
-            return mapper.Map<IEnumerable<CountryRDTO>>(countries);
-        }
+         
     }
 }
