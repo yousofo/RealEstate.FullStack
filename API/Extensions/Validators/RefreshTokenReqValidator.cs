@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.ServiceExtensions.Validators;
+namespace API.Extensions.Validators;
 
 public class RefreshTokenReqValidator : AbstractValidator<RefreshTokenReq>
 {

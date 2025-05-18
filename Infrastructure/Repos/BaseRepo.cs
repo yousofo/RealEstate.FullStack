@@ -17,6 +17,10 @@ namespace Infrastructure.Repos
 {
     public class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : AuditableEntity
     {
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await context.Set<T>().ToListAsync();
+        }
         public virtual IQueryable<T> GetAllQuery(PaginatedSearchReq searchReq, DeletionType deletionType = DeletionType.NotDeleted, bool trackChanges = false)
         {
             IQueryable<T> query = context.Set<T>();

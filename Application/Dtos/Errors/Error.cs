@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.Errors
 {
-    public record Error(string Code, string Description)
+    public record Error(string Code, string Message)
     {
-        public static readonly Error None = new(string.Empty, string.Empty);
+        public static readonly Error None = new(string.Empty, string.Empty); //dont remember why or what i did here
     }
 
 

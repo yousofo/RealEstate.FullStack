@@ -1,6 +1,6 @@
 
-using API.ServiceExtensions;
-using Application.Dtos;
+using API.Extensions;
+ using Application.Dtos;
 using Application.Interfaces;
 using Application.Services;
 using Infrastructure.Data;

@@ -18,7 +18,7 @@ using Application.Interfaces.Services.EntityServices;
 using Application.Interfaces.Services;
 using Application.Services;
 
-namespace API.ServiceExtensions;
+namespace API.Extensions;
 
 public static class ServiceExtensions
 {

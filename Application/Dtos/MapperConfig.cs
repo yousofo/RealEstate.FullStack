@@ -28,6 +28,7 @@ namespace Application.Dtos
             CreateMap<Property, PropertyUDTO>().ReverseMap();
 
  
+            CreateMap<Country, CountryRDTO>().ReverseMap();
 
             CreateMap<Category, CategoryCDTO>().ReverseMap();
             CreateMap<Category, CategoryRDTO>().ReverseMap();

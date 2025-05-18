@@ -11,11 +11,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces.Services.EntityServices
 {
-    public interface IPropertiesService
+    public interface IPropertiesService:IBaseService<PropertyRDTO, PropertyCDTO, PropertyCDTO>
     {
-        public Task<IEnumerable<PropertyRDTO>> GetAllAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges =false, CancellationToken cancellationToken = default);
-        
-        public Task<PaginatedRes<PropertyRDTO>> GetPageAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false, CancellationToken cancellationToken = default);
-        Task<bool> CreateAsync(PropertyCDTO property);
+ 
     }
 }
