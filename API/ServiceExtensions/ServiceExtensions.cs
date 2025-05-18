@@ -7,15 +7,15 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
- using Domain.Auth;
+using Domain.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
- using Application.Options;
+using Application.Options;
 using Application.Services.EntityServices;
 using Infrastructure.Repos;
- using Application.Interfaces.Services.EntityServices;
- using Application.Interfaces.Services;
+using Application.Interfaces.Services.EntityServices;
+using Application.Interfaces.Services;
 using Application.Services;
 
 namespace API.ServiceExtensions;
@@ -37,7 +37,20 @@ public static class ServiceExtensions
 
         services.AddAutoMapper(Assembly.GetAssembly(typeof(MapperConfig)));
 
-        services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        //var environment = configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+
+        //if (environment == "Production")
+        //{
+            //NOTE: should be default connection but source is public so... using secrets file for password
+            //services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = configuration["DbConnection"] ?? throw new Exception("connectionString not found");
+            services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(connectionString));
+        //}
+        //else
+        //{
+        //    services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("DevConnection")));
+        //}
+
 
 
         return services;
