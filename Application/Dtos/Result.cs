@@ -11,7 +11,7 @@ namespace Application.Dtos
     public class Result(bool isSuccess, Error error)
     {
         public bool IsSuccess { get; set; }
-        public Error Error { get; set; }
+        public Error? Error { get; set; }
         public override string ToString()
         {
             return JsonSerializer.Serialize(this); //This makes the JSON output more readable by adding indentation (pretty-print).

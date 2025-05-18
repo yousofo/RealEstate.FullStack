@@ -12,25 +12,25 @@ namespace RealEstateFullStackApp.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PropertiesController(IServicesManager manager,ILogger<PropertiesController> logger) : ControllerBase
+    public class PropertiesController(IServicesManager manager, ILogger<PropertiesController> logger) : ControllerBase
     {
         [HttpGet("")]
         //[Authorize]
-        public async Task<IActionResult> GetAll([FromQuery]PaginatedSearchReq searchReq)
+        public async Task<IActionResult> GetAll([FromQuery] PaginatedSearchReq searchReq)
         {
- 
-            var props =await manager.Properties.GetAllAsync(searchReq,DeletionType.All);
 
-             return Ok(props);
+            var props = await manager.Properties.GetAllAsync(searchReq, DeletionType.All);
+
+            return Ok(props);
         }
 
 
 
-        [HttpGet("page/{pageNumber:int}")]
+        [HttpGet("page")]
         public async Task<IActionResult> GetPage([FromQuery] PaginatedSearchReq searchReq)
         {
-            
-            var props = await manager.Properties.GetAllAsync(searchReq,DeletionType.NotDeleted);
+
+            var props = await manager.Properties.GetPageAsync(searchReq, DeletionType.All);
             logger.LogInformation("Properties retrieved");
             return Ok(props);
         }
@@ -41,8 +41,14 @@ namespace RealEstateFullStackApp.Server.Controllers
         //[Authorize]
         public async Task<IActionResult> Create(PropertyCDTO property)
         {
-            var user = User;
-            return await manager.Properties.CreateAsync(property) ? Created() : BadRequest();
+            //var user = User;
+            var result = await manager.Properties.CreateAsync(property);
+            if (result.IsSuccess)
+            {
+                return Created("/",result);
+            }
+
+            return BadRequest(result);
         }
     }
 }

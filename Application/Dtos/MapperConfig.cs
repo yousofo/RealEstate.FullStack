@@ -23,12 +23,11 @@ namespace Application.Dtos
             //    dto.Location, opt=>
             //        opt.MapFrom(src=>$"{src.Location.Title}")
             //);
-            //CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Categories, 
-            //    opt => opt.MapFrom(src => src.Categories.Select(c => c.Title)));
             CreateMap<Property, PropertyUDTO>().ReverseMap();
 
  
             CreateMap<Country, CountryRDTO>().ReverseMap();
+
 
             CreateMap<Category, CategoryCDTO>().ReverseMap();
             CreateMap<Category, CategoryRDTO>().ReverseMap();

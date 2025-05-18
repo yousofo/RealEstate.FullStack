@@ -16,14 +16,15 @@ using System.Threading.Tasks;
 
 namespace Application.Services.EntityServices
 {
-    public class PropertiesService(IReposManager manager, IMapper mapper) : BaseService<Property, PropertyRDTO>(manager.Properties, mapper), IPropertiesService
+    public class PropertiesService(IReposManager manager, IMapper mapper) : BaseService<Property, PropertyRDTO,PropertyCDTO, PropertyRDTO>(manager.Properties, mapper), IPropertiesService
     {
         public async Task<Result> CreateAsync(PropertyCDTO property)
         {
+            
             var prop = mapper.Map<Property>(property);
             prop.Thumbnail = "test link";
             bool isAdded = await manager.Properties.AddAsync(prop);
-            return new Result(isAdded,new ("",""));
+            return new Result(isAdded,null);
         }
     }
 }

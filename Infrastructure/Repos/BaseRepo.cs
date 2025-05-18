@@ -15,9 +15,9 @@ using Udemy.Infrastructure.Extensions;
 
 namespace Infrastructure.Repos
 {
-    public class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : AuditableEntity
+    public abstract class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : AuditableEntity
     {
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false, CancellationToken cancellationToken = default)
         {
             return await context.Set<T>().ToListAsync();
         }
@@ -35,22 +35,22 @@ namespace Infrastructure.Repos
             return trackChanges ? query : query.AsNoTracking();
         }
 
-        public async virtual Task<PaginatedRes<T>> GetPageAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false)
+        public virtual async Task<PaginatedRes<T>> GetPageAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false)
         {
             var query = GetAllQuery(searchReq, deletionType, trackChanges);
 
-            var pageItems = await query
-                .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
-                .Take(searchReq.PageSize)
-                .ToListAsync();
+        var pageItems = await query
+            .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
+            .Take(searchReq.PageSize)
+            .ToListAsync();
 
-            var paginatedRes = new PaginatedRes<T>
-            {
-                PageNumber = searchReq.PageNumber,
-                PageSize = searchReq.PageSize,
-                TotalCount = await query.CountAsync(),
-                Items = pageItems
-            };
+        var paginatedRes = new PaginatedRes<T>
+        {
+            PageNumber = searchReq.PageNumber,
+            PageSize = searchReq.PageSize,
+            TotalCount = await query.CountAsync(),
+            Items = pageItems
+        };
 
             return paginatedRes;
         }

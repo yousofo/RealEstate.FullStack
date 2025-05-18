@@ -9,15 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces.Repos;
+using Application.Interfaces.Services;
 
 namespace Application.Services
 {
-    public class BaseService<T, RDTO>(IBaseRepo<T> repo, IMapper mapper) where T : class
+    public class BaseService<T, RDTO,CDTO,UDTO>(IBaseRepo<T> repo, IMapper mapper):IBaseService<RDTO, CDTO, UDTO> where T : class
     {
-
-        public async Task<IEnumerable<RDTO>> GetAllAsync()
+       
+        public async Task<IEnumerable<RDTO>> GetAllAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false, CancellationToken cancellationToken = default)
         {
-            var models = await repo.GetAllAsync();
+            var models = await repo.GetAllAsync(  searchReq,   deletionType,   trackChanges ,   cancellationToken );
 
             return mapper.Map<IEnumerable<RDTO>>(models);
         }
@@ -36,5 +37,14 @@ namespace Application.Services
 
             return dtosPage;
         }
+
+
+
+        public virtual async Task<Result> CreateAsync(CDTO property)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

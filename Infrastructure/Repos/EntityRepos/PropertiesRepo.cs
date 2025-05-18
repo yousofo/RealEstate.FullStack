@@ -28,6 +28,8 @@ namespace Infrastructure.Repos.EntityRepos
                 .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
                 .Take(searchReq.PageSize)
                 .ToListAsync();
+            logger.LogError($"\n-----------------------------------------\n");
+            logger.LogError($"{pageItems[0].Category.Title}");
 
             var paginatedRes = new PaginatedRes<Property>
             {

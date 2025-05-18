@@ -1,4 +1,7 @@
-﻿using Application.Interfaces.Repos.EntityRepos;
+﻿using Application.Dtos;
+using Application.Interfaces.Repos.EntityRepos;
+using Application.ReadOptions;
+using Domain.Enums;
 using Infrastructure.Data;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,5 +14,6 @@ namespace Infrastructure.Repos.EntityRepos
 {
     public class CitiesRepo(ApplicationDbContext context, ILogger logger) : BaseRepo<City>(context, logger), ICitiesRepo
     {
+         
     }
 }

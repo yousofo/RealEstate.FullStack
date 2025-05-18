@@ -23,6 +23,6 @@ namespace Application.ReadOptions
         }
         public int PageNumber { get; set; } = 1;
         public string? SearchTerm { get; set; } = "";
-        public string? OrderBy { get; set; } = "title";
+        public string? OrderBy { get; set; } = "id";
     }
 }
