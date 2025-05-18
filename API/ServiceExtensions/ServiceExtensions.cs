@@ -37,19 +37,21 @@ public static class ServiceExtensions
 
         services.AddAutoMapper(Assembly.GetAssembly(typeof(MapperConfig)));
 
-        //var environment = configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+        var environment = configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
 
-        //if (environment == "Production")
-        //{
+        if (environment == "Production")
+        {
             //NOTE: should be default connection but source is public so... using secrets file for password
             //services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            var connectionString = configuration["DbConnection"] ?? throw new Exception("connectionString not found");
+            var connectionString = configuration["DbLocalConnection"] ?? throw new Exception("connectionString not found");
             services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(connectionString));
-        //}
-        //else
-        //{
-        //    services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("DevConnection")));
-        //}
+        }
+        else
+        {
+            var connectionString = configuration["DbPublicConnection"] ?? throw new Exception("connectionString not found");
+            services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(connectionString));
+            //services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("DevConnection")));
+        }
 
 
 
