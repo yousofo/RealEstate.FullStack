@@ -9,7 +9,9 @@ import {
   withViewTransitions,
 } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { loadingInterceptor } from './app/interceptors/loading/loading.interceptor';
+import { authInterceptor } from './app/interceptors/auth/auth.interceptor';
 //naming pattern goes 'property' + 'in Dark/Light' => color //textLight = #131313 // => text color in light mode = #131313
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -138,7 +140,10 @@ const MyPreset = definePreset(Aura, {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([
+      loadingInterceptor,
+      authInterceptor
+    ])),
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
     provideAnimationsAsync(),
     providePrimeNG({

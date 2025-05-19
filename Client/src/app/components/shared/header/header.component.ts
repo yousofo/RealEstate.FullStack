@@ -13,6 +13,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ScrollService } from '../../../services/scroll/scroll.service';
 import { UiStateService } from '../../../services/UiState/ui-state.service';
+import { ProgressBar } from 'primeng/progressbar';
+import { LoadingService } from '../../../services/loading/loading.service';
 // import { SearchService } from '../../services/search/search.service';
 @Component({
   selector: 'app-header',
@@ -29,6 +31,7 @@ import { UiStateService } from '../../../services/UiState/ui-state.service';
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
+    ProgressBar
   ],
   host: {
     onscroll: 'onScroll()',
@@ -42,11 +45,12 @@ export class HeaderComponent implements OnInit {
 
   scrollService = inject(ScrollService);
   UiStateService = inject(UiStateService);
+  authService = inject(AuthService);
+  loadingService = inject(LoadingService);
 
   // searchInput: string = '';
 
   // loginService = inject(LoginService);
-  authService = inject(AuthService);
   // searchService = inject(SearchService);
 
   ngOnInit() {

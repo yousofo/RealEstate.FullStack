@@ -56,14 +56,14 @@ public static class ServiceExtensions
 
 
 
-        return services;
+        return services; 
     }
     public static void AddCustomOutputCache(this IServiceCollection services)
     {
 
         services.AddOutputCache(
             opt => opt.AddPolicy("Duration", x => x.Cache()
-            .Expire(TimeSpan.FromMinutes(2))
+            .Expire(TimeSpan.FromDays(1))
             .Tag("DurationTag")
             )
         );

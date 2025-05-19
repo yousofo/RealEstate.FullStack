@@ -17,7 +17,11 @@
         routerLinkActive="router-link-active"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        <img src="/placeholders/logo-placeholder.png" class="max-h-8" alt="My app logo" />
+        <img
+          src="/placeholders/logo-placeholder.png"
+          class="max-h-8"
+          alt="My app logo"
+        />
       </a>
     </h1>
   </div>
@@ -70,10 +74,10 @@
 
     <!-- user icon/user image -->
     @if(authService.authState().isAuthenticated){
-<!-- make text color change -->
-      <a routerLink="/add-property"  class="animate-pulse cursor-pointer" >
-        Add Property
-      </a>
+    <!-- make text color change -->
+    <a routerLink="/add-property" class="animate-pulse cursor-pointer">
+      Add Property
+    </a>
 
     <p-menu #menu [model]="items" [popup]="true" styleClass="mt-2" />
 
@@ -96,7 +100,7 @@
       />
     </button>
     }@else{
-    <button class="cursor-pointer px-2" aria-label="User">
+    <button class="cursor-pointer px-2 opa" aria-label="User">
       <i class="pi pi-user !text-xl"></i>
     </button>
     }
@@ -110,3 +114,10 @@
     </ul>
   </nav> -->
 </header>
+<p-progressbar
+  [class.opacity-0]="!loadingService.loading()"
+  [class.opacity-100]="loadingService.loading()"
+  class="transition-opacity"
+  mode="indeterminate"
+  [style]="{ height: '1px' }"
+/>
