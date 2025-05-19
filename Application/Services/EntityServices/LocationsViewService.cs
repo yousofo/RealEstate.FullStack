@@ -1,8 +1,11 @@
-﻿using Application.Interfaces.Repos;
+﻿using Application.Dtos;
+using Application.Interfaces.Repos;
 using Application.Interfaces.Services;
-using Application.Interfaces.Services.EntityServices;
+using Application.Interfaces.Services.ViewServices;
+using Application.ReadOptions;
 using AutoMapper;
-using Domain.Models;
+using Domain.Enums;
+using Domain.Models.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +14,23 @@ using System.Threading.Tasks;
 
 namespace Application.Services.EntityServices
 {
-    public class LocationsViewService(IReposManager manager,IMapper mapper) :
-        BaseService<LocationView, LocationView, LocationView, LocationView>(manager,mapper), ILocationsViewService
+    public class LocationsViewService(IReposManager manager,IMapper mapper): ILocationsViewService
     {
+        public async Task<IEnumerable<LocationView>> GetAllAsync(CancellationToken cancellationToken)
+        {
+            var models = await manager.LocationsView.GetAllAsync(cancellationToken);
+
+            return models;
+
+
+        }
+
+        public async Task<PaginatedRes<LocationView>> GetPageAsync(PaginatedSearchReq searchReq , CancellationToken cancellationToken  )
+        {
+            var modelsPage = await manager.LocationsView.GetPageAsync(searchReq, cancellationToken);
+
+            return modelsPage;
+
+        }
     }
 }

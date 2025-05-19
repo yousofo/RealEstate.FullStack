@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Models;
 using Domain.Auth;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Domain.Models.Org;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Domain.Models.Views;
 
 namespace Infrastructure.Data
 {

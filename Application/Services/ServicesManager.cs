@@ -1,7 +1,8 @@
 ﻿using Application.Interfaces.Repos;
- using Application.Interfaces.Repos.EntityRepos;
+using Application.Interfaces.Repos.EntityRepos;
 using Application.Interfaces.Services;
 using Application.Interfaces.Services.EntityServices;
+using Application.Interfaces.Services.ViewServices;
 using Application.Services.EntityServices;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -15,13 +16,13 @@ namespace Application.Services
 {
     public class ServicesManager(IReposManager reposManager, IMapper mapper): IServicesManager
     {
-        Lazy<PropertiesService> _properties = new(() => new PropertiesService(reposManager, mapper));
-        Lazy<CategoriesService> _categories = new(() => new CategoriesService(reposManager, mapper));
-        Lazy<CountriesService> _countries = new(() => new CountriesService(reposManager, mapper));
-        Lazy<StatesService> _states = new(() => new StatesService(reposManager, mapper));
-        Lazy<CitiesService> _cities = new(() => new CitiesService(reposManager, mapper));
-        Lazy<CitiesService> _locationsView = new(() => new LocationsViewService(reposManager, mapper));
-        Lazy<AuthService> _auth= new(() => new AuthService(reposManager.Auth));
+        Lazy<IPropertiesService> _properties = new(() => new PropertiesService(reposManager, mapper));
+        Lazy<ICategoriesService> _categories = new(() => new CategoriesService(reposManager, mapper));
+        Lazy<ICountriesService> _countries = new(() => new CountriesService(reposManager, mapper));
+        Lazy<IStatesService> _states = new(() => new StatesService(reposManager, mapper));
+        Lazy<ICitiesService> _cities = new(() => new CitiesService(reposManager, mapper));
+        Lazy<ILocationsViewService> _locationsView = new(() => new LocationsViewService(reposManager, mapper));
+        Lazy<IAuthService> _auth= new(() => new AuthService(reposManager.Auth));
 
 
 
@@ -32,6 +33,6 @@ namespace Application.Services
         public ICitiesService Cities => _cities.Value;
         public IAuthService Auth => _auth.Value;
 
-        public ILocationsViewService LocationsView => throw new NotImplementedException();
+        public ILocationsViewService LocationsView => _locationsView.Value;
     }
 }

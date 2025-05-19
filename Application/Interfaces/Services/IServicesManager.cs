@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Repos.EntityRepos;
 using Application.Interfaces.Services.EntityServices;
+using Application.Interfaces.Services.ViewServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Application.Interfaces.Services
         public ICountriesService Countries{get;}
         public IStatesService States{get;}
         public ICitiesService Cities{get;}
-        public ILocationsViewService Locations{get;}
+        public ILocationsViewService LocationsView { get;}
         public IAuthService Auth{get;}
     }
 }

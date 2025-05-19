@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Services;
+using Application.ReadOptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -8,10 +9,20 @@ namespace API.Controllers
     public class LocationsViewController(IServicesManager manager):ControllerBase
     {
         [HttpGet]
-        public Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-            //var locations = manager
+            var locations = await manager.LocationsView.GetAllAsync(cancellationToken);
+            return Ok(locations);
+        }
+
+
+
+
+        [HttpGet("page")]
+        public async Task<IActionResult> GetPage([FromQuery]PaginatedSearchReq searchReq,CancellationToken cancellationToken)
+        {
+            var locations = await manager.LocationsView.GetPageAsync(searchReq, cancellationToken);
+            return Ok(locations);
         }
     }
 }

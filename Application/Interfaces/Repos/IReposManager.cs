@@ -15,6 +15,7 @@ namespace Application.Interfaces.Repos
         public ICountriesRepo Countries{get;}
          public ICitiesRepo Cities{get;}
         public IAuthRepo Auth{get;}
+        public ILocationsViewRepo LocationsView{get;}
 
 
         Task SaveAsync();

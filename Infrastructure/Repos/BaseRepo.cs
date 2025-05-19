@@ -39,18 +39,18 @@ namespace Infrastructure.Repos
         {
             var query = GetAllQuery(searchReq, deletionType, trackChanges);
 
-        var pageItems = await query
-            .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
-            .Take(searchReq.PageSize)
-            .ToListAsync();
+            var pageItems = await query
+                .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
+                .Take(searchReq.PageSize)
+                .ToListAsync();
 
-        var paginatedRes = new PaginatedRes<T>
-        {
-            PageNumber = searchReq.PageNumber,
-            PageSize = searchReq.PageSize,
-            TotalCount = await query.CountAsync(),
-            Items = pageItems
-        };
+            var paginatedRes = new PaginatedRes<T>
+            {
+                PageNumber = searchReq.PageNumber,
+                PageSize = searchReq.PageSize,
+                TotalCount = await query.CountAsync(),
+                Items = pageItems
+            };
 
             return paginatedRes;
         }

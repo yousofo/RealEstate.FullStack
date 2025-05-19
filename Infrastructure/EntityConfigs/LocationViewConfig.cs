@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Models.Views;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Infrastructure.EntityConfigs
     {
         public void Configure(EntityTypeBuilder<LocationView> builder)
         {
-            builder.ToView("LocationView").HasNoKey();
+            builder.ToView("LocationsView").HasNoKey();
         }
     }
 }

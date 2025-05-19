@@ -3,6 +3,7 @@ using Application.Interfaces.Repos.EntityRepos;
 using Domain.Models;
 using Infrastructure.Data;
 using Infrastructure.Repos.EntityRepos;
+using Infrastructure.Repos.ViewRepos;
 using Infrastructure.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,8 @@ namespace Infrastructure.Repos
         Lazy<CountriesRepo> _countries = new(() => new CountriesRepo(context, logger));
          Lazy<CitiesRepo> _cities = new(() => new CitiesRepo(context, logger));
         Lazy<AuthRepo> _auth = new(() => new AuthRepo(userManager, new JwtProvider(configuration)));
+        Lazy<LocationsViewRepo> _locationView = new(() => new LocationsViewRepo(context, logger));
+        
 
 
 
@@ -30,6 +33,7 @@ namespace Infrastructure.Repos
         public ICountriesRepo Countries => _countries.Value;
          public ICitiesRepo Cities => _cities.Value;
         public IAuthRepo Auth => _auth.Value;
+        public ILocationsViewRepo LocationsView => _locationView.Value;
 
 
 
