@@ -12,6 +12,7 @@ import { IPlace } from './places-response-type';
 import { MessageService } from 'primeng/api';
 import { AddPropertyService } from '../../../services/properties/add-property.service';
 import { IPaginatedResponse } from '../../../services/types/IPaginatedResponse';
+import { NgClass } from '@angular/common';
 
 interface Country {
   name: string;
@@ -36,6 +37,7 @@ interface ILocation {
     ButtonModule,
     ListboxModule,
     FormsModule,
+    NgClass
   ],
   providers: [MessageService],
   templateUrl: './choose-property-location.component.html',

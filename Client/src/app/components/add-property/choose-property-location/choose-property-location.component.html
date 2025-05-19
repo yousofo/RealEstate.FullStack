@@ -12,7 +12,7 @@
   </p>
 </section>
 
-<section class="max-w-3xl mx-auto">
+<section class="max-w-3xl mx-auto h-full">
   <p-inputgroup>
     <input
       #input
@@ -32,10 +32,11 @@
     </p-inputgroup-addon>
   </p-inputgroup>
 
-  <p-listbox
+    <p-listbox
     [options]="locations()"
     [(ngModel)]="selectedCountry"
     optionLabel="name"
+    [lazy]="true"
     class="w-full md:w-56"
   >
     <ng-template #item let-location>
