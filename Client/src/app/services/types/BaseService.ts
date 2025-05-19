@@ -3,9 +3,9 @@ import IPaginatedSearchRequest from './IPaginatedSearchRequest';
 import { IPaginatedResponse } from './IPaginatedResponse';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { finalize } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 
-export default class ServiceBase<T> {
+export default class BaseService<T> {
   apiRoute: string = '';
   get baseUrl(): string {
     return `${environment.apiUrl}/${this.apiRoute}`;
@@ -49,13 +49,13 @@ export default class ServiceBase<T> {
 
   httpClient = inject(HttpClient);
 
-  getPage(searchRequest: IPaginatedSearchRequest = this.pageConfig) {
+  getPage(searchRequest: IPaginatedSearchRequest = this.pageConfig)  {
     this.pageConfig = searchRequest;
 
     // this.checkLoading();
     // console.log(`${this.urls.getPage}?`);
     return this.httpClient
-      .get(
+      .get<IPaginatedResponse<T>>(
         `${this.urls.getPage}?` +
           `pageNumber=${this.pageConfig?.pageNumber ?? 1}&` +
           `pageSize=${this.pageConfig?.pageSize ?? 10}&` +

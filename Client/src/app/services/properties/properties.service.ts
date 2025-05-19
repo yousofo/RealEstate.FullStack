@@ -4,18 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../environments/environment';
 import { finalize } from 'rxjs';
+import BaseService from '../types/BaseService';
 @Injectable({
   providedIn: 'root',
 })
-export class PropertiesService {
+export class PropertiesService extends BaseService<IProperty> {
   private _properties = signal<IProperty[]>([]);
+  override apiRoute = 'api/properties'; 
+   // messageService = inject(MessageService);
 
-  httpClient = inject(HttpClient);
-  // messageService = inject(MessageService);
-
-  constructor() {
-    this.loadData();
-  }
+ 
 
   get properties(): Signal<IProperty[]> {
     return this._properties.asReadonly();

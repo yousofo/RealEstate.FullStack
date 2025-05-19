@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Application.Dtos.Read
          public string? AddressDescription { get; set; }
         public Album Album { get; set; }
         public string Category { get; set; }
+        public LocationView Location { get; set; }
 
     }
 }

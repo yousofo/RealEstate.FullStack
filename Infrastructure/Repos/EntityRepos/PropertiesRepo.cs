@@ -20,7 +20,9 @@ namespace Infrastructure.Repos.EntityRepos
             var query = GetAllQuery(searchReq, deletionType, trackChanges)
                 .Include(p => p.Category)
                 .Include(p => p.Album.Images)
-                .Include(p => p.Album.Videos);
+                .Include(p => p.Album.Videos)
+                .Include(p => p.City)
+                .Include(p => p.Region.Country);
                 //.Include(p => p.City.State.Country)
                 
 

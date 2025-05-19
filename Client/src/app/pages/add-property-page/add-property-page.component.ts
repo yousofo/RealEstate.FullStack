@@ -40,6 +40,7 @@ export class AddPropertyPageComponent {
   addPropertyService = inject(AddPropertyService);
 
   constructor() {
+    this.addPropertyService.currentStep.set(0);
     effect(() => {
       this.swiperElment()?.nativeElement.swiper?.slideTo(
         this.addPropertyService.currentStep()

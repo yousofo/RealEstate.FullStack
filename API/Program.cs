@@ -64,7 +64,7 @@ public class Program
             }
             else
             {
-                e.WithOrigins("https://real-estate-full-stack-yn.vercel.app/")
+                e.WithOrigins("https://real-estate-full-stack-yn.vercel.app")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();

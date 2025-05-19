@@ -34,6 +34,10 @@ constructor() {
 }
   
   ngOnInit(): void {
-    
+    this.propertiesService.getPage().subscribe({
+      next: (properties) => {
+        this.properties.set(properties.items);
+      },
+    })
   }
 }

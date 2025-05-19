@@ -43,7 +43,7 @@ public static class ServiceExtensions
         {
             //NOTE: should be default connection but source is public so... using secrets file for password
             //services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            var connectionString = configuration["DbPublicConnection"] ?? throw new Exception("DbLocalConnection not found");
+            var connectionString = configuration["DbLocalConnection"] ?? throw new Exception("DbLocalConnection not found");
             services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(connectionString));
         }
         else
