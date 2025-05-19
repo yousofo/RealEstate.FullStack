@@ -6,31 +6,45 @@
     Property's location will be used for search and some Lorem ipsum dolor sit
     amet consectetur.
   </p>
+  <p class="text-yellow-500 bg-yellow-500/10 p-2 mt-2 text-sm rounded">
+    only [ Mansoura, Dakahlia, Egypt ] are supported <br /> <br>
+    -- Google's places API is not supported YET --
+  </p>
 </section>
 
 <section class="max-w-3xl mx-auto">
-
   <p-inputgroup>
-    <input #input pInputText placeholder="Keyword" />
+    <input
+      #input
+      pInputText
+      appDebounce
+      (debounced)="getLocations(input.value)"
+      placeholder="Keyword"
+    />
     <p-inputgroup-addon>
       <p-button
         icon="pi pi-search"
-        (debouncedClick)="onClick(input.value)"
-        appDebounceClick
+        (debounced)="getLocations(input.value)"
+        appDebounce
         severity="secondary"
         variant="text"
       />
     </p-inputgroup-addon>
   </p-inputgroup>
 
-  <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
-        <ng-template #item let-country>
-            <div class="flex items-center gap-2">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                <div>{{ country.name }}</div>
-            </div>
-        </ng-template>
-    </p-listbox>
+  <p-listbox
+    [options]="locations()"
+    [(ngModel)]="selectedCountry"
+    optionLabel="name"
+    class="w-full md:w-56"
+  >
+    <ng-template #item let-location>
+      <div class="flex items-center gap-2">
+        <!-- TODO: add flag based on country code  -->
+        <p>{{ getLocationText(location) }}</p>
+      </div>
+    </ng-template>
+  </p-listbox>
 
   <!-- @for (item of propertyTypes(); track $index) {
   <button

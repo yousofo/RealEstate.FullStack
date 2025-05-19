@@ -15,7 +15,7 @@ using Udemy.Infrastructure.Extensions;
 
 namespace Infrastructure.Repos.ViewRepos
 {
-    public class LocationsViewRepo(ApplicationDbContext context, ILogger logger) :BaseViewRepo(context,logger), ILocationsViewRepo
+    public class LocationsViewRepo(ApplicationDbContext context, ILogger logger) :BaseViewRepo<LocationView>(context,logger), ILocationsViewRepo
     {
         
     }
