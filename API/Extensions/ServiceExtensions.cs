@@ -34,6 +34,7 @@ public static class ServiceExtensions
 
         services.AddCustomFluentValidation();
         services.AddAuthConfig(configuration);
+        services.AddCustomOutputCache();
 
         services.AddAutoMapper(Assembly.GetAssembly(typeof(MapperConfig)));
 
@@ -57,12 +58,17 @@ public static class ServiceExtensions
 
         return services;
     }
-    public static IServiceCollection AddCustomServices(this IServiceCollection services)
+    public static void AddCustomOutputCache(this IServiceCollection services)
     {
 
-        //services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddOutputCache(
+            opt => opt.AddPolicy("Duration", x => x.Cache()
+            .Expire(TimeSpan.FromMinutes(2))
+            .Tag("DurationTag")
+            )
+        );
 
-        return services;
+        //return services;
     }
     public static IServiceCollection AddCustomRepos(this IServiceCollection services)
     {

@@ -76,7 +76,7 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
+        app.UseOutputCache();
 
         //< SpaRoot > ..\Client </ SpaRoot >
         //   < SpaProxyLaunchCommand > npm start </ SpaProxyLaunchCommand >

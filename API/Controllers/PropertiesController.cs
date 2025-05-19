@@ -8,6 +8,7 @@ using Application.Dtos.Read;
 using Microsoft.Extensions.Logging;
 using Application.ReadOptions;
 using Domain.Enums;
+using Microsoft.AspNetCore.OutputCaching;
 namespace RealEstateFullStackApp.Server.Controllers
 {
     [ApiController]
@@ -27,6 +28,7 @@ namespace RealEstateFullStackApp.Server.Controllers
 
 
         [HttpGet("page")]
+        [OutputCache(PolicyName ="Duration")]
         public async Task<IActionResult> GetPage([FromQuery] PaginatedSearchReq searchReq)
         {
 
