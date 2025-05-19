@@ -14,6 +14,7 @@ import { AddPropertyService } from '../../services/properties/add-property.servi
 import { ChoosePropertyOwnershipTypeComponent } from '../../components/add-property/choose-property-ownership-type/choose-property-ownership-type.component';
 import { Button } from 'primeng/button';
 import { ChoosePropertyLocationComponent } from "../../components/add-property/choose-property-location/choose-property-location.component";
+import { ChoosePropertyGeolocationComponent } from "../../components/add-property/choose-property-geolocation/choose-property-geolocation.component";
 export interface IPropertyType {
   image: string | null;
   title: string;
@@ -26,7 +27,8 @@ export interface IPropertyType {
     ChoosePropertyTypeComponent,
     ChoosePropertyOwnershipTypeComponent,
     Button,
-    ChoosePropertyLocationComponent
+    ChoosePropertyLocationComponent,
+    ChoosePropertyGeolocationComponent
 ],
   templateUrl: './add-property-page.component.html',
   styleUrl: './add-property-page.component.scss',
@@ -46,7 +48,7 @@ export class AddPropertyPageComponent {
   }
 
   slideNext() {
-    if (this.addPropertyService.currentStep() >= 2) return;
+    if (this.addPropertyService.currentStep() >= 3) return;
     this.addPropertyService.currentStep.update((s) => s + 1);
   }
   slidePrev() {

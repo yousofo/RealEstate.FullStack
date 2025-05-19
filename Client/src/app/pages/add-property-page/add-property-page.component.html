@@ -1,9 +1,10 @@
-<div class="h-full flex flex-col p-4 pb-0 overflow-hidden">
-  <div class="flex-1">
+<div class="h-full flex flex-col p-4 pb-0 overflow-y-hidden">
+  <div class="overflow-y-auto max-w-2xl w-full mx-auto flex-1">
     <swiper-container
       #swiperContainer
       allow-touch-move="false"
       active-index="1"
+      auto-height="true"
       slides-per-view="1"
       effect="fade"
       fade-effect-cross-fade="true"
@@ -11,17 +12,20 @@
       <swiper-slide><app-choose-property-type /></swiper-slide>
       <swiper-slide><app-choose-property-ownership-type /></swiper-slide>
       <swiper-slide><app-choose-property-location /></swiper-slide>
+      <swiper-slide><app-choose-property-geolocation /></swiper-slide>
     </swiper-container>
   </div>
 
-  <p-progressbar
-    styleClass="h-2"
-    [value]="(this.addPropertyService.currentStep() / 3) * 100"
+ <section class="pt-2">
+   <p-progressbar
+    styleClass="h-2 "
+    [value]="(this.addPropertyService.currentStep() / 4) * 100"
   >
     <ng-template #content>
       <!-- <span>{{value}}/100</span> -->
     </ng-template>
   </p-progressbar>
+  
   <nav class="flex justify-between p-4">
     <p-button
       styleClass="underline"
@@ -38,4 +42,5 @@
       (click)="slideNext()"
     />
   </nav>
+ </section>
 </div>
