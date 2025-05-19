@@ -15,6 +15,7 @@ namespace Application.Interfaces.Services
         public ICountriesService Countries{get;}
         public IStatesService States{get;}
         public ICitiesService Cities{get;}
+        public ILocationsViewService Locations{get;}
         public IAuthService Auth{get;}
     }
 }

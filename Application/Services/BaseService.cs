@@ -13,14 +13,21 @@ using Application.Interfaces.Services;
 
 namespace Application.Services
 {
-    public class BaseService<T, RDTO,CDTO,UDTO>(IBaseRepo<T> repo, IMapper mapper):IBaseService<RDTO, CDTO, UDTO> where T : class
+    public class BaseService<T, RDTO, CDTO, UDTO>(IBaseRepo<T> repo, IMapper mapper) : IBaseService<RDTO, CDTO, UDTO> where T : class
     {
-       
-        public async Task<IEnumerable<RDTO>> GetAllAsync(  CancellationToken cancellationToken )
+
+        public async Task<IEnumerable<RDTO>> GetAllAsync(CancellationToken cancellationToken)
         {
-            var models = await repo.GetAllAsync( cancellationToken );
+            var models = await repo.GetAllAsync(cancellationToken);
+
+            if (typeof(T) == typeof(RDTO))
+            {
+                return models.Cast<RDTO>();
+            }
 
             return mapper.Map<IEnumerable<RDTO>>(models);
+
+
         }
 
         public async Task<PaginatedRes<RDTO>> GetPageAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false, CancellationToken cancellationToken = default)
@@ -32,10 +39,16 @@ namespace Application.Services
                 PageNumber = modelsPage.PageNumber,
                 PageSize = modelsPage.PageSize,
                 TotalCount = modelsPage.TotalCount,
-                Items = mapper.Map<IEnumerable<RDTO>>(modelsPage.Items)
             };
 
+            if (typeof(T) != typeof(RDTO))
+            {
+                dtosPage.Items = mapper.Map<IEnumerable<RDTO>>(modelsPage.Items);
+            }
+
+
             return dtosPage;
+
         }
 
 
@@ -45,6 +58,10 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
+        public bool IsSameType(Type o1, Type o2)
+        {
+            return o1 == o2;
+        }
 
     }
 }

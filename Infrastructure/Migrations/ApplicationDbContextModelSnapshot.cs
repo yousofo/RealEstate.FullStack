@@ -363,7 +363,7 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedById")
@@ -386,6 +386,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
@@ -393,6 +396,8 @@ namespace Infrastructure.Migrations
                     b.HasIndex("CreatedById");
 
                     b.HasIndex("ModifiedById");
+
+                    b.HasIndex("RegionId");
 
                     b.ToTable("Cities");
                 });
@@ -492,6 +497,34 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ModifiedById");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("Domain.Models.LocationView", b =>
+                {
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CountryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("LocationView", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Org.Organization", b =>
@@ -647,7 +680,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedById")
@@ -1188,11 +1221,9 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.City", b =>
                 {
-                    b.HasOne("Domain.Models.Country", "Country")
+                    b.HasOne("Domain.Models.Country", null)
                         .WithMany("Cities")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CountryId");
 
                     b.HasOne("Domain.Auth.AppUser", "CreatedBy")
                         .WithMany()
@@ -1205,11 +1236,17 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("ModifiedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("Country");
+                    b.HasOne("Domain.Models.Region", "Region")
+                        .WithMany("Cities")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CreatedBy");
 
                     b.Navigation("ModifiedBy");
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("Domain.Models.Country", b =>
@@ -1345,9 +1382,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Models.City", "City")
                         .WithMany("Properties")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.HasOne("Domain.Auth.AppUser", "CreatedBy")
                         .WithMany()
@@ -1393,7 +1428,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Region", b =>
                 {
                     b.HasOne("Domain.Models.Country", "Country")
-                        .WithMany()
+                        .WithMany("Regions")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1528,6 +1563,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Country", b =>
                 {
                     b.Navigation("Cities");
+
+                    b.Navigation("Regions");
                 });
 
             modelBuilder.Entity("Domain.Models.Org.Organization", b =>
@@ -1558,6 +1595,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Region", b =>
                 {
+                    b.Navigation("Cities");
+
                     b.Navigation("Properties");
                 });
 #pragma warning restore 612, 618

@@ -13,6 +13,7 @@ using Domain.Shared;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Domain.Models.Org;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Data
 {
@@ -34,6 +35,8 @@ namespace Infrastructure.Data
         public DbSet<OrganizationRolePermission> OrganizationRolePermissions { get; set; }
 
 
+        //Views
+        public DbSet<LocationView> LocationViews { get; set; }
 
 
 
@@ -43,8 +46,7 @@ namespace Infrastructure.Data
 
             base.OnModelCreating(builder);
 
-
-
+ 
             ////migration: 4
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 

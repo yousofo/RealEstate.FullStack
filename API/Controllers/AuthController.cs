@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/auth")]
+    [Route("api/[controller]")]
     public class AuthController(IServicesManager manager, UserManager<AppUser> userManager) : ControllerBase
     {
         [HttpPost("login")]

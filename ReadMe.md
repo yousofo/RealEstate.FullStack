@@ -79,5 +79,15 @@ Features:
 ## 6. Notes
 
 - Update environment variables as needed in `.env` files.
+- Create Views in DB:
+  -``CREATE VIEW LocationsView AS
+     SELECT 
+        c.Id AS CountryId, c.Name AS CountryName,
+        r.Id AS RegionId, r.Name AS RegionName,
+        ci.Id AS CityId, ci.Name AS CityName
+     FROM Cities ci
+     JOIN Regions r ON ci.RegionId = r.Id
+     JOIN Countries c ON r.CountryId = c.Id
+	``
 - See individual subfolders for more detailed setup instructions (API, Application, Domain, Infrastructure, Client, client.admin).
 - For questions or issues, please open an issue in this repository.

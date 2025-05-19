@@ -45,8 +45,8 @@ namespace Domain.Models
         public string? AddressDescription { get; set; }
         public string? latitude { get; set; }
         public string? longitude { get; set; }
+        public int? CityId { get; set; }
         public City City { get; set; }
-        public int CityId { get; set; }
         public int? RegionId { get; set; }
         public Region Region { get; set; }
         

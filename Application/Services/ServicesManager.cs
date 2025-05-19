@@ -20,6 +20,7 @@ namespace Application.Services
         Lazy<CountriesService> _countries = new(() => new CountriesService(reposManager, mapper));
         Lazy<StatesService> _states = new(() => new StatesService(reposManager, mapper));
         Lazy<CitiesService> _cities = new(() => new CitiesService(reposManager, mapper));
+        Lazy<CitiesService> _locationsView = new(() => new LocationsViewService(reposManager, mapper));
         Lazy<AuthService> _auth= new(() => new AuthService(reposManager.Auth));
 
 
@@ -30,5 +31,7 @@ namespace Application.Services
         public IStatesService States => _states.Value;
         public ICitiesService Cities => _cities.Value;
         public IAuthService Auth => _auth.Value;
+
+        public ILocationsViewService LocationsView => throw new NotImplementedException();
     }
 }

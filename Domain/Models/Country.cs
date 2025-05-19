@@ -12,5 +12,6 @@ namespace Domain.Models
         public string Name { get; set; }
         public string Code { get; set; }
         public ICollection<City> Cities { get; set; }
+        public ICollection<Region> Regions { get; set; }
      }
 }

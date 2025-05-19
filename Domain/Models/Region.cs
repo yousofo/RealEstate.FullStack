@@ -15,6 +15,7 @@ namespace Domain.Models
         public string Name { get; set; }
 
         public ICollection<Property> Properties { get; set; }
+        public ICollection<City> Cities { get; set; }
 
         [ForeignKey("CountryId")]
         public Country Country { get; set; }
