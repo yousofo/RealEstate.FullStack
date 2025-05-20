@@ -55,12 +55,6 @@ export class LoginComponent {
   }
 
   closeDialog() {
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Info',
-      detail: 'Dialog closed',
-      life: 3000,
-    });
     this.authService.closeDialog();
   }
 }

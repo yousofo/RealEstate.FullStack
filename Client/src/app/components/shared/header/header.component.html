@@ -4,12 +4,12 @@
 >
   <div class="flex items-center gap-2">
     <button
-      class="md:hidden   max-h-min flex items-center text-center"
+      class="md:hidden max-h-min flex items-center text-center"
       (click)="UiStateService.toggleSideNav()"
     >
       <i class="pi pi-bars text-2xl my-auto h-full"></i>
     </button>
-    <h1 class="ms-1  hidden sm:block">
+    <h1 class="ms-1 hidden sm:block">
       <a
         href="/"
         aria-label="Home"
@@ -54,6 +54,14 @@
   </p-inputgroup> -->
 
   <div class="justify-end gap-3 items-center">
+    <a
+      href="/add-property"
+      (click)="addProperty($event)"
+      class="animate-pulse cursor-pointer"
+    >
+      Add Property
+    </a>
+
     <!-- login -->
     @if(authService.isAuthenticated()){ }@else{
     <p-button
@@ -75,10 +83,6 @@
     <!-- user icon/user image -->
     @if(authService.isAuthenticated()){
     <!-- make text color change -->
-    <a routerLink="/add-property" class="animate-pulse cursor-pointer">
-      Add Property
-    </a>
-
 
     <button
       (click)="menu.toggle($event)"
@@ -99,13 +103,21 @@
       />
     </button>
     }@else{
-    <button class="cursor-pointer px-2 opa" aria-label="User" (click)="menu.toggle($event)">
+    <button
+      class="cursor-pointer px-2 opa"
+      aria-label="User"
+      (click)="menu.toggle($event)"
+    >
       <i class="pi pi-user !text-xl"></i>
     </button>
     }
-    
   </div>
-  <p-menu #menu [model]="items"  [popup]="true" styleClass="mt-2 right-2 w-fit" />
+  <p-menu
+    #menu
+    [model]="items"
+    [popup]="true"
+    styleClass="mt-2 right-2 w-fit"
+  />
 
   <!-- <nav>
     <ul class="flex gap-4">

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 // import { LoginService } from '../../services/popups/login/login.service';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -31,7 +31,7 @@ import { LoadingService } from '../../../services/loading/loading.service';
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
-    ProgressBar
+    ProgressBar,
   ],
   host: {
     onscroll: 'onScroll()',
@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
   UiStateService = inject(UiStateService);
   authService = inject(AuthService);
   loadingService = inject(LoadingService);
+  router = inject(Router);
 
   // searchInput: string = '';
 
@@ -81,5 +82,16 @@ export class HeaderComponent implements OnInit {
         ],
       },
     ];
+  }
+
+  addProperty(e: Event) {
+    e.preventDefault();
+
+    if (!this.authService.isAuthenticated()) {
+      this.authService.dialogVisible.set(true);
+      return;
+    }
+    
+    this.router.navigate(['/add-property']);
   }
 }
