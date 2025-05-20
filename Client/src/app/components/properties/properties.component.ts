@@ -5,17 +5,17 @@ import { IFetchCount } from '../../types/fetch';
 import { IProperty } from '../../types/properties';
 import { PropertyCardComponent } from '../property-card/property-card.component';
 import { PropertiesService } from '../../services/properties/properties.service';
+import { Skeleton } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-properties',
-  standalone: true,
-  templateUrl: './properties.component.html',
+   templateUrl: './properties.component.html',
   styleUrl: './properties.component.scss',
-  imports: [PropertyCardComponent],
+  imports: [PropertyCardComponent,Skeleton],
 })
 export class PropertiesComponent implements OnInit {
   properties = signal<IProperty[]>([]);
-
+  placeholderArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   fetchConfig = input<IFetchCount>({
     pageCount: 9,

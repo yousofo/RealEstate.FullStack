@@ -1,8 +1,19 @@
-<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 gap-4">
-    @for (property of properties(); track $index) {
-    <app-property-card [data]="property"/>
-}@empty {
-    <p>No Properties Found</p>
-}
-
+<div
+  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 gap-4"
+>
+  @for (property of properties(); track $index) {
+  <app-property-card [data]="property" />
+  }@empty {
+  <!-- start placeholder -->
+  @for (item of placeholderArray; track $index) {
+  <div class="flex flex-col">
+    <p-skeleton styleClass="rounded-3xl w-full aspect-video h-auto!" />
+    <div class="flex flex-col gap-2 py-4">
+      <p-skeleton styleClass="rounded-3xl w-full" />
+      <p-skeleton styleClass="rounded-3xl w-2/3!" />
+    </div>
+  </div>
+  }
+  <!-- end placeholder -->
+  }
 </div>
