@@ -74,8 +74,16 @@ export class HeaderComponent implements OnInit {
             },
           },
           {
+            label: 'login',
+            icon: 'pi pi-sign-in',
+            visible: !this.authService.isAuthenticated(),
+            command: () => {
+              this.authService.openDieloag()
+            },
+          },
+          {
             label: 'sign up',
-            icon: 'pi pi-sign-out',
+            icon: 'pi pi-user-plus',
             visible: !this.authService.isAuthenticated(),
             routerLink: '/sign-up',
           },
@@ -91,7 +99,7 @@ export class HeaderComponent implements OnInit {
       this.authService.dialogVisible.set(true);
       return;
     }
-    
+
     this.router.navigate(['/add-property']);
   }
 }

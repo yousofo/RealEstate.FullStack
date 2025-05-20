@@ -70,7 +70,7 @@ export class AuthService {
     // this.router.navigate(['/login']);
     storage.removeItem('appSession');
     this.user.set(null);
-
+    this.router.navigate(['/']);
     this.dialogVisible.set(false);
   }
 
@@ -128,30 +128,29 @@ export class AuthService {
           return;
         }
 
-                      this.user.set(user);
-
+        this.user.set(user);
       },
       error: (error) => {
         this.router.navigate(['/login']);
       },
       complete: () => {
         document.getElementById('initial-splash')?.remove();
-       },
+      },
     });
 
     return observable;
   }
 
   validateToken() {
-    this.httpClient.get(
-      `${environment.apiUrl}/api/auth/validate-token`
-    ).subscribe({
-      error:(error) => {
-        console.log('validate token error', error);
-        this.user.set(null);
-        storage.removeItem('appSession');
-      }
-    })
+    this.httpClient
+      .get(`${environment.apiUrl}/api/auth/validate-token`)
+      .subscribe({
+        error: (error) => {
+          console.log('validate token error', error);
+          this.user.set(null);
+          storage.removeItem('appSession');
+        },
+      });
   }
 
   openDieloag() {

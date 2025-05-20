@@ -11,10 +11,13 @@ import { AdminPropertiesPageComponent } from './app/pages/admin/admin-properties
 import { AdminUsersPageComponent } from './app/pages/admin/admin-users-page/admin-users-page.component';
 import { AdminIssuesPageComponent } from './app/pages/admin/admin-issues-page/admin-issues-page.component';
 import { AddPropertyPageComponent } from './app/pages/add-property-page/add-property-page.component';
+import { authGuard } from './app/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
+    // canActivate:[authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
