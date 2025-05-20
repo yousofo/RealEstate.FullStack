@@ -95,6 +95,7 @@ export class AuthService {
         tap({
           next: (user) => {
             if (user.token) {
+              this.router.navigate(['/']);
               this.user.set(user);
 
               this.dialogVisible.set(false);
