@@ -64,10 +64,11 @@ namespace Infrastructure.Data
 
             //migration: 2 // for SeedRoles
             builder.Entity<IdentityRole>().HasData(
-                new IdentityRole<string> { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
-                new IdentityRole<string> { Id = "2", Name = "Employee", NormalizedName = "EMPLOYEE" },
-                new IdentityRole<string> { Id = "3", Name = "User", NormalizedName = "USER" },
-                new IdentityRole<string> { Id = "4", Name = "Seller", NormalizedName = "SELLER" }
+                new IdentityRole<string> { Id = "1", Name = "Owner", NormalizedName = "OWNER" },
+                new IdentityRole<string> { Id = "2", Name = "Admin", NormalizedName = "ADMIN" },
+                new IdentityRole<string> { Id = "3", Name = "Employee", NormalizedName = "EMPLOYEE" },
+                new IdentityRole<string> { Id = "4", Name = "Customer", NormalizedName = "CUSTOMER" },
+                new IdentityRole<string> { Id = "5", Name = "Organization", NormalizedName = "ORGANIZATION" }
             );
 
 

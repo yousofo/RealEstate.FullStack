@@ -55,7 +55,7 @@
 
   <div class="justify-end gap-3 items-center">
     <!-- login -->
-    @if(authService.authState().isAuthenticated){ }@else{
+    @if(authService.isAuthenticated()){ }@else{
     <p-button
       class="justify-end"
       styleClass=" !rounded-sm btn-primary font-bold"
@@ -73,20 +73,19 @@
     }
 
     <!-- user icon/user image -->
-    @if(authService.authState().isAuthenticated){
+    @if(authService.isAuthenticated()){
     <!-- make text color change -->
     <a routerLink="/add-property" class="animate-pulse cursor-pointer">
       Add Property
     </a>
 
-    <p-menu #menu [model]="items" [popup]="true" styleClass="mt-2" />
 
     <button
       (click)="menu.toggle($event)"
       aria-label="User"
       class="cursor-pointer flex items-center gap-2"
     >
-      <p>{{ authService.authState().user?.firstName }}</p>
+      <p>{{ authService.user()?.firstName }}</p>
       <!-- <img
       src="{{ authService.authState().user?.image ?? '/placeholders/user.jpg' }}"
       alt="user image"
@@ -100,10 +99,12 @@
       />
     </button>
     }@else{
-    <button class="cursor-pointer px-2 opa" aria-label="User">
+    <button class="cursor-pointer px-2 opa" aria-label="User" (click)="menu.toggle($event)">
       <i class="pi pi-user !text-xl"></i>
     </button>
     }
+    <p-menu #menu [model]="items" [popup]="true" styleClass="mt-2" />
+
   </div>
 
   <!-- <nav>

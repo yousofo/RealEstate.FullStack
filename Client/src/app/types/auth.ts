@@ -1,21 +1,23 @@
 export interface IUser {
+    id: string,
     email: string,
     firstName: string,
+    lastName: string,
     token: string,
-    id: string,
+    expiresIn: number,
+    refreshToken: string,
     roles: string[],
-    image: string,
-    phone: string,
-    address: string,
-    description: string,
+    refreshTokenExpirationDate: string,
+    // image: string,
+    // phone: string,
+    // address: string,
+    // description: string,
 }
 export interface IAuthState {
     user: IUser | null,
     // loading: boolean,
-    error: string,
-    isAuthenticated: boolean,
-    dialogVisible: boolean,
-}
+     isAuthenticated: boolean,
+ }
 
 export interface ISignupRequest {
     email: string,

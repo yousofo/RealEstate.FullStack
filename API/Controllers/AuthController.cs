@@ -19,12 +19,6 @@ namespace API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginReq request, CancellationToken cancellationToken)
         {
             var result = await manager.Auth.LoginAsync(request.Email, request.Password, cancellationToken);
-
-            if(result is  null)
-            {
-                return BadRequest("invalid email or password");
-            }
-
             //was for XXS attacks
             //Response.Cookies.Append("Jwt", result.Token, new CookieOptions
             //{

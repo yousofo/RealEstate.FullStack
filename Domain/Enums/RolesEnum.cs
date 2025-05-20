@@ -8,9 +8,10 @@ namespace Domain.Enums
 {
     public enum RolesEnum
     {
-        Admin=1,
+        Owner = 1,
+        Admin,
         Employee,
-        User,
-        Seller
+        Customer,
+        Organization
     }
 }

@@ -34,7 +34,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("AppUserOrganization");
+                    b.ToTable("AppUserOrganization", (string)null);
                 });
 
             modelBuilder.Entity("AppUserOrganizationRole", b =>
@@ -49,7 +49,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("AppUserOrganizationRole");
+                    b.ToTable("AppUserOrganizationRole", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Auth.AppUser", b =>
@@ -195,7 +195,7 @@ namespace Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[PropertyId] IS NOT NULL AND [UserId] IS NOT NULL");
 
-                    b.ToTable("Albums");
+                    b.ToTable("Albums", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Auction", b =>
@@ -260,7 +260,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("WinnerUserId");
 
-                    b.ToTable("Auction");
+                    b.ToTable("Auction", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Bid", b =>
@@ -311,7 +311,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("OrganizationId");
 
-                    b.ToTable("Bid");
+                    b.ToTable("Bid", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Category", b =>
@@ -352,7 +352,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Title")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.City", b =>
@@ -399,7 +399,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Country", b =>
@@ -446,7 +446,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Image", b =>
@@ -496,7 +496,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.LocationView", b =>
@@ -567,7 +567,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("Organizations");
+                    b.ToTable("Organizations", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Org.OrganizationPermission", b =>
@@ -605,7 +605,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("OrganizationPermissions");
+                    b.ToTable("OrganizationPermissions", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Org.OrganizationRole", b =>
@@ -648,7 +648,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("OrganizationId");
 
-                    b.ToTable("OrganizationRoles");
+                    b.ToTable("OrganizationRoles", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Org.OrganizationRolePermission", b =>
@@ -663,7 +663,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PermissionId");
 
-                    b.ToTable("OrganizationRolePermissions");
+                    b.ToTable("OrganizationRolePermissions", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Property", b =>
@@ -753,7 +753,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Properties", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Region", b =>
@@ -796,7 +796,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("Regions");
+                    b.ToTable("Regions", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Video", b =>
@@ -854,7 +854,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("Videos");
+                    b.ToTable("Videos", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -1,5 +1,7 @@
 ﻿using Application.Dtos.Auth;
+using Application.Exceptions;
 using Application.Interfaces.Repos;
+using Domain.Enums;
 using Domain.Models;
 using Infrastructure.Utils;
 using Microsoft.AspNetCore.Identity;
@@ -10,13 +12,15 @@ namespace Infrastructure.Repos
     public class AuthRepo(UserManager<AppUser> userManager, JwtProvider jwtProvider) : IAuthRepo
     {
         private readonly int _refreshTokenExpiryDays = 14;
-        public async Task<LoginRes?> LoginAsync(string email, string password, CancellationToken cancellationToken = default)
+        public async Task<LoginRes> LoginAsync(string email, string password, CancellationToken cancellationToken = default)
         {
             AppUser? user = await userManager.FindByEmailAsync(email);
-            if (user is null) return null;
+            if (user is null) throw new BadRequestException("email or pass incorrect");
+            //AQAAAAIAAYagAAAAEKnxVxlk/0Smj677S6OBqx+zWe4QJLQvC2fj2A6+mnhDXYBTRiWuPApdBjJdjcSrvA== //reg
+            var passwordhash = userManager.PasswordHasher.HashPassword(user, password);
 
             var isPasswordValid = await userManager.CheckPasswordAsync(user, password);
-            if (!isPasswordValid) return null;
+            if (!isPasswordValid) throw new BadRequestException("email or pass incorrect");
 
             var (token, expiresIn) = jwtProvider.GenerateToken(user);
 
@@ -120,15 +124,19 @@ namespace Infrastructure.Repos
                 LastName = newUser.LastName,
                 PhoneNumber = newUser.PhoneNumber,
             };
+            var passwordhash = userManager.PasswordHasher.HashPassword(user, newUser.Password);
+
             var result = await userManager.CreateAsync(
                 user,
-                userManager.PasswordHasher.HashPassword(user, newUser.Password)
+                //userManager.PasswordHasher.HashPassword(user, newUser.Password)//what was i drinking
+                newUser.Password
             );
 
 
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "User");
+                var role = RolesEnum.Customer.ToString();
+                await userManager.AddToRoleAsync(user, RolesEnum.Customer.ToString());
 
                 //await userManager.UpdateAsync(user);
 

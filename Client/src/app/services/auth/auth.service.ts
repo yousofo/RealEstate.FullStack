@@ -3,44 +3,47 @@ import { IAuthState, ISignupRequest, IUser } from '../../types/auth';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, tap } from 'rxjs';
+import { storage } from '../../utils/storage/storage.utils';
 // import { LoginService } from '../popups/login/login.service';
 
-
 //dev user
-const DEV_USER:IUser={
+const DEV_USER: IUser = {
+  id: 'id',
   email: 'H5w0S@example.com',
+  lastName: 'User',
   firstName: 'Dev',
   token: 'token',
-  id: 'id',
   roles: ['Owner'],
-  image: '',
-  phone: '',
-  address: '',
-  description: ''
-}
+  expiresIn: 0,
+  refreshToken: '',
+  refreshTokenExpirationDate: '',
+  // image: '',
+  // phone: '',
+  // address: '',
+  // description: '',
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _authState = signal<IAuthState>({
-    user: DEV_USER,
-    error: '',
-    isAuthenticated: true,
-    dialogVisible: false,
+  user = signal<IUser | null>(storage.getItem('appSession')?.user ?? null);
+
+  isAuthenticated = computed(() => {
+    return !!this.user();
   });
+
+  dialogVisible = signal(false);
 
   private httpClient = inject(HttpClient);
   private router = inject(Router);
 
-  get authState(): Signal<IAuthState> {
-    return this._authState.asReadonly();
-  }
+  constructor() {}
 
   public isOwner = computed(() => {
-    console.log('[computed] checking isOwner', this._authState().user?.roles);
-    return this._authState().user?.roles.includes('Owner') ?? false;
+    console.log('[computed] checking isOwner', this.user()?.roles);
+    return this.user()?.roles.includes('Owner') ?? false;
   });
 
   logout() {
@@ -63,62 +66,44 @@ export class AuthService {
     });
 
     this.router.navigate(['/login']);
-    this._authState.set({
-      user: null,
-      error: '',
-      isAuthenticated: false,
-      dialogVisible: false,
-    });
+    this.user.set(null);
+
+    this.dialogVisible.set(false);
   }
 
   signup(signup: ISignupRequest) {
-    return this.httpClient
-      .post<IUser>(`${environment.apiUrl}/api/auth/signup`, signup)
-      .pipe(finalize(() => console.log('finalize done')));
+    return this.httpClient.post<IUser>(
+      `${environment.apiUrl}/api/auth/signup`,
+      signup
+    );
   }
-
 
   login(email: string, password: string) {
     console.log(email, password);
 
     // this.loadingService.start();
 
-    this.httpClient
-      .post<IUser>(`${environment.apiUrl}/api/account/login`, {
+    return this.httpClient
+      .post<IUser>(`${environment.apiUrl}/api/auth/login`, {
         email,
         password,
       })
-      .subscribe({
-        next: (user) => {
-          console.log(user);
-          if (
-            !user?.roles.includes('Admin') &&
-            !user?.roles.includes('Owner')
-          ) {
-            throw new Error('Access Denied');
-          }
+      .pipe(
+        tap({
+          next: (user) => {
+            if (user.token) {
+              this.user.set(user);
 
-          this._authState.set({
-            user: user,
-            error: '',
-            isAuthenticated: true,
-            dialogVisible: false,
-          });
-          console.log('login success', user);
-          this.router.navigate(['/']);
-        },
-        error: (error) => {
-          console.error(error);
+              this.dialogVisible.set(false);
 
-          this._authState.update((pre) => {
-            pre.error = error?.error ?? error.message;
-            return pre;
-          });
-        },
-        complete: () => {
-          // this.loadingService.stop();
-        },
-      });
+              storage.setItem('appSession', {
+                user: user,
+                token: user.token,
+              });
+            }
+          },
+        })
+      );
   }
 
   loadUser() {
@@ -140,44 +125,27 @@ export class AuthService {
           return;
         }
 
-        this._authState.update((pre) => {
-          pre.user = user;
-          pre.isAuthenticated = true;
+                      this.user.set(user);
 
-          return pre;
-        });
       },
       error: (error) => {
         this.router.navigate(['/login']);
-        console.error('rrr');
-        this._authState.update((pre) => {
-          pre.error = error?.error ?? error.message;
-          return pre;
-        });
       },
       complete: () => {
         document.getElementById('initial-splash')?.remove();
-        console.log(this._authState());
-      },
+       },
     });
 
     return observable;
   }
 
   openDieloag() {
-    if (this._authState().isAuthenticated) return;
+    if (this.isAuthenticated()) return;
 
-    this._authState.update((pre) => {
-      pre.dialogVisible = true;
-      return pre;
-    });
-    console.log(this._authState().dialogVisible);
+    this.dialogVisible.set(true);
   }
 
   closeDialog() {
-    this._authState.update((pre) => {
-      pre.dialogVisible = false;
-      return pre;
-    });
+    this.dialogVisible.set(false);
   }
 }

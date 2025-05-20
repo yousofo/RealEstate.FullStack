@@ -1,13 +1,15 @@
-import { Component, inject, signal,effect } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Dialog } from 'primeng/dialog';
-import { LoginService } from '../../../services/popups/login/login.service';
 import { AuthService } from '../../../services/auth/auth.service';
- @Component({
+import { MessageService } from 'primeng/api';
+import { Toast, ToastModule } from 'primeng/toast';
+import { IResult } from '../../../types/fetch';
+import { HttpErrorResponse } from '@angular/common/http';
+@Component({
   selector: 'app-login',
-  standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   imports: [
@@ -17,22 +19,49 @@ import { AuthService } from '../../../services/auth/auth.service';
     ButtonModule,
     InputTextModule,
   ],
+  // providers: [MessageService],
 })
 export class LoginComponent {
   emailInput = '';
   passwordInput = '';
 
-  loginService = inject(LoginService);
   authService = inject(AuthService);
-  
-  submit(form : NgForm) {
-    console.log(form)
+  messageService = inject(MessageService);
+
+  submit(form: NgForm) {
+    console.log(form);
     // this.authService.login(form.controls['email'].value, form.controls['password'].value);
-    this.authService.login("test@test.com", "test");
+    this.authService.login(this.emailInput, this.passwordInput).subscribe({
+      next: (user) => {
+        console.log(user);
+        if (!user?.token) {
+          throw new Error('Access Denied');
+        }
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: (err.error as IResult).error.message,
+          life: 3000,
+        });
+      },
+
+      complete: () => {
+        // this.loadingService.stop();
+      },
+    });
   }
 
   closeDialog() {
-    this.loginService.hide();
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: 'Dialog closed',
+      life: 3000,
+    });
+    this.authService.closeDialog();
   }
 }
 /**

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection;
 using static System.Net.WebRequestMethods;
-
+using API.Extensions.Middlewares;
 namespace RealEstateFullStackApp.Server;
 
 public class Program
@@ -21,13 +21,13 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddCustomDependencies(builder.Configuration);
+         
 
         builder.Services.AddControllers();
 
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
         builder.Services.AddLogging();
-
         var app = builder.Build();
         
         app.UseDefaultFiles();
@@ -76,6 +76,8 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
+
+        app.UseCustomExceptionMiddleware();
         app.UseOutputCache();
 
         //< SpaRoot > ..\Client </ SpaRoot >

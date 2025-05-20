@@ -8,7 +8,7 @@ namespace API.Extensions.Middlewares
 {
     public static class ExceptionMw
     {
-        public static void ConfigureExceptionHandler(this WebApplication app)
+        public static void UseCustomExceptionMiddleware(this WebApplication app)
         {
             app.UseExceptionHandler(appError =>
             {
@@ -33,7 +33,7 @@ namespace API.Extensions.Middlewares
                         await context.Response.WriteAsync(
                             new Result(
                                 false,
-                                new Error(context.Response.StatusCode.ToString(), contextFeature.Error.Message)
+                                new (context.Response.StatusCode.ToString(), contextFeature.Error.Message)
                             ).ToString()
                         );
                     }

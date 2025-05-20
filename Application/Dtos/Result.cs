@@ -10,11 +10,11 @@ namespace Application.Dtos
 {
     public class Result(bool isSuccess, Error error)
     {
-        public bool IsSuccess { get; set; }
-        public Error? Error { get; set; }
+        public bool IsSuccess => isSuccess;
+        public Error? Error => error;
         public override string ToString()
         {
-            return JsonSerializer.Serialize(this); //This makes the JSON output more readable by adding indentation (pretty-print).
+            return JsonSerializer.Serialize(this,JsonSerializerOptions.Web); //This makes the JSON output more readable by adding indentation (pretty-print).
         }
 
     }

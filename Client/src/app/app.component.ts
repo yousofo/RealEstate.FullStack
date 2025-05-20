@@ -8,14 +8,9 @@ import { HttpClient } from '@angular/common/http';
 import { SideNavComponent } from './components/shared/side-nav/side-nav.component';
 import { LoginComponent } from './components/shared/login/login.component';
 import { ChatAIComponent } from './components/chat-ai/chat-ai.component';
-import { ToastModule } from 'primeng/toast';
+import { Toast, ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+ 
 
 @Component({
   selector: 'app-root',
@@ -28,20 +23,19 @@ interface WeatherForecast {
     SideNavComponent,
     LoginComponent,
     ChatAIComponent,
-    SideNavComponent,
-    ToastModule,
+     Toast,
   ],
-  providers: [HttpClient, MessageService],
+  providers: [ MessageService],
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  // public forecasts: WeatherForecast[] = [];
-
-  private http = inject(HttpClient);
-
+ 
+ 
   ngOnInit() {
     // this.getForecasts();
   }
+
+ 
 
   //title = 'realestatefullstackapp.client';
 }
