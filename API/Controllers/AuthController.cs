@@ -78,12 +78,14 @@ namespace API.Controllers
         }
 
 
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register ([FromBody] RegisterReq request, CancellationToken cancellationToken)
+        [HttpGet("validate-token")]
+        [Authorize]
+        public IActionResult ValidateToken()
         {
-            var result = await manager.Auth.RegisterAsync(request, cancellationToken);
-            return result is null ? BadRequest("failed") : Ok(result);
+            return Ok();
         }
+
+
+
     }
 }

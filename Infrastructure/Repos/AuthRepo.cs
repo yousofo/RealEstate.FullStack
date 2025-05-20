@@ -17,7 +17,7 @@ namespace Infrastructure.Repos
             AppUser? user = await userManager.FindByEmailAsync(email);
             if (user is null) throw new BadRequestException("email or pass incorrect");
             //AQAAAAIAAYagAAAAEKnxVxlk/0Smj677S6OBqx+zWe4QJLQvC2fj2A6+mnhDXYBTRiWuPApdBjJdjcSrvA== //reg
-            var passwordhash = userManager.PasswordHasher.HashPassword(user, password);
+            //var passwordhash = userManager.PasswordHasher.HashPassword(user, password); //testing
 
             var isPasswordValid = await userManager.CheckPasswordAsync(user, password);
             if (!isPasswordValid) throw new BadRequestException("email or pass incorrect");
@@ -93,7 +93,6 @@ namespace Infrastructure.Repos
         }
 
 
-
         public async Task<bool?> RevokeRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
         {
             var userId = jwtProvider.ValidateToken(token);
@@ -124,7 +123,7 @@ namespace Infrastructure.Repos
                 LastName = newUser.LastName,
                 PhoneNumber = newUser.PhoneNumber,
             };
-            var passwordhash = userManager.PasswordHasher.HashPassword(user, newUser.Password);
+            //var passwordhash = userManager.PasswordHasher.HashPassword(user, newUser.Password); testing
 
             var result = await userManager.CreateAsync(
                 user,

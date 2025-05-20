@@ -39,7 +39,9 @@ export class AuthService {
   private httpClient = inject(HttpClient);
   private router = inject(Router);
 
-  constructor() {}
+  constructor() {
+    this.validateToken();
+  }
 
   public isOwner = computed(() => {
     console.log('[computed] checking isOwner', this.user()?.roles);
@@ -48,24 +50,25 @@ export class AuthService {
 
   logout() {
     //clear set cookies from browser
-    const observable = this.httpClient.post<IUser>(
-      `${environment.apiUrl}/api/account/logout`,
-      null
-    );
+    // const observable = this.httpClient.post<IUser>(
+    //   `${environment.apiUrl}/api/account/logout`,
+    //   null
+    // );
 
-    observable.subscribe({
-      next: (user) => {
-        console.log(user);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-      complete: () => {
-        // this.loadingService.stop();
-      },
-    });
+    // observable.subscribe({
+    //   next: (user) => {
+    //     console.log(user);
+    //   },
+    //   error: (error) => {
+    //     console.error(error);
+    //   },
+    //   complete: () => {
+    //     // this.loadingService.stop();
+    //   },
+    // });
 
-    this.router.navigate(['/login']);
+    // this.router.navigate(['/login']);
+    storage.removeItem('appSession');
     this.user.set(null);
 
     this.dialogVisible.set(false);
@@ -110,7 +113,7 @@ export class AuthService {
     // this.loadingService.start();
 
     const observable = this.httpClient.get<IUser>(
-      `${environment.apiUrl}/api/account/user-info`
+      `${environment.apiUrl}/api/auth/validate-token`
     );
 
     observable.subscribe({
@@ -137,6 +140,18 @@ export class AuthService {
     });
 
     return observable;
+  }
+
+  validateToken() {
+    this.httpClient.get(
+      `${environment.apiUrl}/api/auth/validate-token`
+    ).subscribe({
+      error:(error) => {
+        console.log('validate token error', error);
+        this.user.set(null);
+        storage.removeItem('appSession');
+      }
+    })
   }
 
   openDieloag() {

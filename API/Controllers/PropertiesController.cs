@@ -13,7 +13,7 @@ namespace RealEstateFullStackApp.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PropertiesController(IServicesManager manager, ILogger<PropertiesController> logger) : ControllerBase
+     public class PropertiesController(IServicesManager manager, ILogger<PropertiesController> logger) : ControllerBase
     {
         [HttpGet("")]
         //[Authorize]
