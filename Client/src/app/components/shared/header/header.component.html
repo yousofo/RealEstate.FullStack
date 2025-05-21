@@ -53,7 +53,7 @@
     <a
       href="/add-property"
       (click)="addProperty($event)"
-      class="animate-pulse cursor-pointer "
+      class="animate-pulse cursor-pointer"
     >
       Add Property
     </a>
@@ -86,7 +86,7 @@
         class="cursor-pointer flex items-center gap-2 sm:gap-2.5 bg-secondary/10 hover:bg-secondary/20 rounded-full p-1 px-3 transition-all duration-300"
       >
         @if (authService.isAuthenticated()) {
-          <p>{{ authService.user()?.firstName }}</p>
+        <p>{{ authService.user()?.firstName }}</p>
         }
         <!-- <img
       src="{{ authService.authState().user?.image ?? '/placeholders/user.jpg' }}"
@@ -106,7 +106,33 @@
         [model]="items"
         [popup]="true"
         styleClass="mt-2 right-2 w-fit  "
-      />
+      >
+        <ng-template #item let-item>
+          <ng-container *ngIf="item.route; else elseBlock">
+            <a [routerLink]="item.route" class="p-menu-item-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+            </a>
+          </ng-container>
+          <ng-template #elseBlock>
+            <a [href]="item.url" class="p-menu-item-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+            </a>
+          </ng-template>
+        </ng-template>
+        <ng-template #end>
+          <button class="px-4 py-1 mb-1 flex items-center gap-2">
+            <p-toggleswitch
+              class="flex items-center"
+              [(ngModel)]="checked"
+              (ngModelChange)="toggleDarkMode()"
+              inputId="toggleDarkMode"
+            />
+            <label class="cursor-pointer" for="toggleDarkMode">Dark Mode</label>
+          </button>
+        </ng-template>
+      </p-menu>
     </div>
   </div>
 

@@ -23,6 +23,8 @@ import { ScrollService } from '../../../services/scroll/scroll.service';
 import { UiStateService } from '../../../services/UiState/ui-state.service';
 import { ProgressBar } from 'primeng/progressbar';
 import { LoadingService } from '../../../services/loading/loading.service';
+import { NgIf } from '@angular/common';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 // import { SearchService } from '../../services/search/search.service';
 @Component({
   selector: 'app-header',
@@ -41,6 +43,8 @@ import { LoadingService } from '../../../services/loading/loading.service';
     InputGroupAddonModule,
     InputTextModule,
     ProgressBar,
+    NgIf,
+    ToggleSwitch
   ],
   host: {
     onscroll: 'onScroll()',
@@ -49,8 +53,8 @@ import { LoadingService } from '../../../services/loading/loading.service';
 export class HeaderComponent implements OnInit {
   isDiscount: boolean = false;
   items: MenuItem[] | undefined;
-
   visible = signal(true);
+  checked = false;
 
   scrollService = inject(ScrollService);
   UiStateService = inject(UiStateService);
@@ -65,37 +69,33 @@ export class HeaderComponent implements OnInit {
   constructor() {
     effect(() => {
       this.items = [
+        // {
+        //   label: 'account',
+        //   icon: 'pi pi-cog',
+        //   routerLink: '/account',
+        // },
         {
-          label: 'Options',
-          items: [
-            // {
-            //   label: 'account',
-            //   icon: 'pi pi-cog',
-            //   routerLink: '/account',
-            // },
-            {
-              label: 'logout',
-              icon: 'pi pi-sign-out',
-              visible: this.authService.isAuthenticated(),
-              command: () => {
-                this.authService.logout();
-              },
-            },
-            {
-              label: 'login',
-              icon: 'pi pi-sign-in',
-              visible: !this.authService.isAuthenticated(),
-              command: () => {
-                this.authService.openDieloag();
-              },
-            },
-            {
-              label: 'sign up',
-              icon: 'pi pi-user-plus',
-              visible: !this.authService.isAuthenticated(),
-              routerLink: '/sign-up',
-            },
-          ],
+          label: 'logout',
+          icon: 'pi pi-sign-out',
+          visible: this.authService.isAuthenticated(),
+          command: () => {
+            this.authService.logout();
+          },
+        },
+        {
+          label: 'login',
+          icon: 'pi pi-sign-in',
+
+          visible: !this.authService.isAuthenticated(),
+          command: () => {
+            this.authService.openDieloag();
+          },
+        },
+        {
+          label: 'sign up',
+          icon: 'pi pi-user-plus',
+          visible: !this.authService.isAuthenticated(),
+          routerLink: '/sign-up',
         },
       ];
     });
@@ -113,5 +113,8 @@ export class HeaderComponent implements OnInit {
     }
 
     this.router.navigate(['/add-property']);
+  }
+  toggleDarkMode() {
+     document.querySelector('html')!.classList.toggle('my-app-dark');
   }
 }
