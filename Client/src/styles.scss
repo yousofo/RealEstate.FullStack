@@ -3,7 +3,6 @@
   @import "tailwindcss/theme.css";
   @import "tailwindcss/preflight.css";
   //at media of 3xl
-  
 }
 @theme {
   --color-primary: var(--p-primary-color);
@@ -45,7 +44,6 @@
     background-color: var(--p-secondary-bg);
   }
 
- 
   .bg-header {
     background-color: var(--p-header-bg);
   }
@@ -107,5 +105,20 @@
   }
   .btn-purple:active {
     background-color: var(--p-highlight-purple);
+  }
+
+  /* ----------------------------  */
+  .main-container {
+    max-width: 1920px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    @media screen and (min-width: 1024px) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    @media screen and (min-width: 1536px) {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
   }
 }

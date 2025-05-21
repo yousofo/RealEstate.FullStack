@@ -1,5 +1,5 @@
 <header
-  class="flex sm:grid grid-cols-2 [&>*]:flex justify-between p-2 px-4 shadow-yn bg-header max-h-52 transition-all duration-300 overflow-hidden"
+  class="flex main-container sm:grid grid-cols-2 [&>*]:flex justify-between p-2 shadow-yn bg-header max-h-52 transition-all duration-300 overflow-hidden"
   [class.small-screen-scroll-effect]="scrollService.isDown()"
 >
   <div class="flex items-center gap-2">
@@ -9,7 +9,7 @@
     >
       <i class="pi pi-bars text-2xl my-auto h-full"></i>
     </button>
-    <h1 class="ms-1 hidden sm:block">
+    <h1 class="ms-1 hidden sm:block italic font-bold text-lg text-primary/90">
       <a
         href="/"
         aria-label="Home"
@@ -17,11 +17,7 @@
         routerLinkActive="router-link-active"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        <img
-          src="/placeholders/logo-placeholder.png"
-          class="max-h-8"
-          alt="My app logo"
-        />
+        Logo here
       </a>
     </h1>
   </div>
