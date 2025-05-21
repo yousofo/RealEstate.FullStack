@@ -1,4 +1,12 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 // import { LoginService } from '../../services/popups/login/login.service';
 import { ButtonModule } from 'primeng/button';
@@ -21,6 +29,7 @@ import { LoadingService } from '../../../services/loading/loading.service';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
     RouterLinkActive,
@@ -48,48 +57,51 @@ export class HeaderComponent implements OnInit {
   authService = inject(AuthService);
   loadingService = inject(LoadingService);
   router = inject(Router);
-
+  cd = inject(ChangeDetectorRef);
   // searchInput: string = '';
 
   // loginService = inject(LoginService);
   // searchService = inject(SearchService);
-
+  constructor() {
+    effect(() => {
+      this.items = [
+        {
+          label: 'Options',
+          items: [
+            // {
+            //   label: 'account',
+            //   icon: 'pi pi-cog',
+            //   routerLink: '/account',
+            // },
+            {
+              label: 'logout',
+              icon: 'pi pi-sign-out',
+              visible: this.authService.isAuthenticated(),
+              command: () => {
+                this.authService.logout();
+              },
+            },
+            {
+              label: 'login',
+              icon: 'pi pi-sign-in',
+              visible: !this.authService.isAuthenticated(),
+              command: () => {
+                this.authService.openDieloag();
+              },
+            },
+            {
+              label: 'sign up',
+              icon: 'pi pi-user-plus',
+              visible: !this.authService.isAuthenticated(),
+              routerLink: '/sign-up',
+            },
+          ],
+        },
+      ];
+    });
+  }
   ngOnInit() {
     console.log('from header');
-    this.items = [
-      {
-        label: 'Options',
-        items: [
-          // {
-          //   label: 'account',
-          //   icon: 'pi pi-cog',
-          //   routerLink: '/account',
-          // },
-          {
-            label: 'logout',
-            icon: 'pi pi-sign-out',
-            visible: this.authService.isAuthenticated(),
-            command: () => {
-              this.authService.logout();
-            },
-          },
-          {
-            label: 'login',
-            icon: 'pi pi-sign-in',
-            visible: !this.authService.isAuthenticated(),
-            command: () => {
-              this.authService.openDieloag()
-            },
-          },
-          {
-            label: 'sign up',
-            icon: 'pi pi-user-plus',
-            visible: !this.authService.isAuthenticated(),
-            routerLink: '/sign-up',
-          },
-        ],
-      },
-    ];
   }
 
   addProperty(e: Event) {
