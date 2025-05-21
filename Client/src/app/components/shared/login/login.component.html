@@ -14,7 +14,7 @@
       <form
         #form="ngForm"
         (ngSubmit)="submit(form)"
-        class="flex flex-col px-8 py-8 gap-6 rounded-2xl"
+        class="flex flex-col px-8 py-8 gap-4 rounded-2xl"
         style="
           border-radius: 12px;
           background-image: radial-gradient(
@@ -39,7 +39,7 @@
             </svg> -->
 
         <!-- email -->
-        <div class="inline-flex flex-col gap-2">
+        <div class="inline-flex flex-col gap-2 ">
           <label
             for="email"
             aria-label="email address input"
@@ -54,7 +54,7 @@
             name="email"
             required
             #email="ngModel"
-            class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
+            class="bg-secondary/10 !border-0 !p-3 !text-primary-50 w-80"
           />
         </div>
 
@@ -66,7 +66,7 @@
           <input
             pInputText
             id="password"
-            class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
+            class="bg-secondary/10 !border-0 !p-3 !text-primary-50 w-80"
             type="password"
             [(ngModel)]="passwordInput"
             name="password"
@@ -80,14 +80,14 @@
             label="Cancel"
             (click)="closeDialog()"
             [text]="true"
-            styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
+            styleClass="!p-4 w-full !text-primary-50 !border !border-secondary/10 hover:!bg-white/10"
             class="w-full"
             type="button"
           />
           <p-button
             label="Sign-In"
             [text]="true"
-            styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
+            styleClass="!p-4 w-full !text-primary-50 !border !border-secondary/10 hover:!bg-white/10"
             class="w-full"
             type="submit"
           />
