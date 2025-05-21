@@ -7,10 +7,11 @@ type StorageObjectMap = {
         user: IAuthState['user'];
         token: string;
     };
+    darkMode: boolean;
     // appTheme: AppTheme;
 };
 
-export type StorageObjectType = 'appSession'; //| 'appTheme';
+export type StorageObjectType = 'appSession'|'darkMode'; //| 'appTheme';
 
 export type StorageObjectData<T extends StorageObjectType> = {
     type: T;

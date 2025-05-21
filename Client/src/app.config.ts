@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, provideAppInitializer } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
@@ -12,6 +12,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { loadingInterceptor } from './app/interceptors/loading/loading.interceptor';
 import { authInterceptor } from './app/interceptors/auth/auth.interceptor';
+import { storage } from './app/utils/storage/storage.utils';
 //naming pattern goes 'property' + 'in Dark/Light' => color //textLight = #131313 // => text color in light mode = #131313
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -138,14 +139,19 @@ const MyPreset = definePreset(Aura, {
   },
 });
 
+function loadThemePreference() {
+  const darkMode = storage.getItem('darkMode') ?? false;
+  if (darkMode) {
+    document.querySelector('html')!.classList.toggle('my-app-dark');
+  }
+}
+
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([
-      loadingInterceptor,
-      authInterceptor
-    ])),
+    provideHttpClient(withInterceptors([loadingInterceptor, authInterceptor])),
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
     provideAnimationsAsync(),
+    provideAppInitializer(loadThemePreference),
     providePrimeNG({
       theme: {
         preset: MyPreset,

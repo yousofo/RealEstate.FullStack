@@ -25,6 +25,7 @@ import { ProgressBar } from 'primeng/progressbar';
 import { LoadingService } from '../../../services/loading/loading.service';
 import { NgIf } from '@angular/common';
 import { ToggleSwitch } from 'primeng/toggleswitch';
+import { storage } from '../../../utils/storage/storage.utils';
 // import { SearchService } from '../../services/search/search.service';
 @Component({
   selector: 'app-header',
@@ -54,7 +55,7 @@ export class HeaderComponent implements OnInit {
   isDiscount: boolean = false;
   items: MenuItem[] | undefined;
   visible = signal(true);
-  checked = false;
+  checked = storage.getItem('darkMode') ?? false;
 
   scrollService = inject(ScrollService);
   UiStateService = inject(UiStateService);
@@ -115,6 +116,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/add-property']);
   }
   toggleDarkMode() {
+    console.log('this dark mode', this.checked);
+    storage.setItem('darkMode', this.checked);
+    console.log('storage dark mode after',storage.getItem('darkMode'));
      document.querySelector('html')!.classList.toggle('my-app-dark');
   }
 }
