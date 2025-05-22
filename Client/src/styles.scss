@@ -3,7 +3,11 @@
   @import "tailwindcss/theme.css";
   @import "tailwindcss/preflight.css";
   //at media of 3xl
+  
 }
+
+@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
+
 @theme {
   --color-primary: var(--p-primary-color);
   --color-secondary: var(--p-secondary-color);

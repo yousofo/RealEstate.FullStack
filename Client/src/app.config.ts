@@ -144,6 +144,9 @@ function loadThemePreference() {
   if (darkMode) {
     document.querySelector('html')!.classList.toggle('my-app-dark');
   }
+//   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+//     const newColorScheme = event.matches ? "dark" : "light";
+// })
 }
 
 export const appConfig: ApplicationConfig = {

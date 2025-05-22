@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  // darkMode: 'my-app-dark',
   content: [
     "./src/**/*.{html,ts,scss}", // <- SCSS not needed unless you use classes in .scss
   ],
