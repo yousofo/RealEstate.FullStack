@@ -8,7 +8,7 @@ Structure:
 
 - A backend API (ASP.NET Core Web API)
 - A customer-facing frontend (Angular)
-- An admin dashboard (Next.js)
+- An admin dashboard (Next.js) ([Demo](https://real-estate-admin-yn.vercel.app))
 
 Features:
 
