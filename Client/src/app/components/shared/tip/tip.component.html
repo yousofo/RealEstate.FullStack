@@ -1,0 +1,14 @@
+<div
+  class="absolute flex flex-col items-center justify-center gap-2 py-2 px-3 text-sm text-center bg-[#402d00]/60 text-yellow-500 rounded-lg bottom-full left-0 w-max max-w-[200px] h-fit z-50"
+  [class.bottom-full!]="direction() === 'top'"
+  [class.top-full!]="direction() === 'bottom'"
+  [class.close-animation]="!visible()"
+>
+  <div class="flex justify-between w-full items-center">
+    <i class="pi pi-info-circle"></i>
+    <i class="pi pi-times text-red-500 justify-self-end cursor-pointer" (click)="hideTip()"></i>
+  </div>
+  <p class="text-start">
+    {{ message() }}
+  </p>
+</div>

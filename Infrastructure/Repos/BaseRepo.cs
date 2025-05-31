@@ -17,10 +17,12 @@ namespace Infrastructure.Repos
 {
     public abstract class BaseRepo<T>(ApplicationDbContext context, ILogger logger) : IBaseRepo<T> where T : AuditableEntity
     {
+        public DbSet<T> DbSet { get { return context.Set<T>(); } }
         public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await context.Set<T>().ToListAsync(cancellationToken);
         }
+
         public virtual IQueryable<T> GetAllQuery(PaginatedSearchReq searchReq, DeletionType deletionType = DeletionType.NotDeleted, bool trackChanges = false)
         {
             IQueryable<T> query = context.Set<T>();
@@ -58,7 +60,7 @@ namespace Infrastructure.Repos
         {
             return context.Set<T>().Find(id);
         }
-        public async Task<bool> AddAsync(T item, bool trackChanges = false)
+        public virtual async Task<bool> AddAsync(T item, bool trackChanges = false)
         {
             try
             {

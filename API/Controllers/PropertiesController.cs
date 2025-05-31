@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Application.ReadOptions;
 using Domain.Enums;
 using Microsoft.AspNetCore.OutputCaching;
+using System.Security.Claims;
+using Application.Dtos.Request;
 namespace RealEstateFullStackApp.Server.Controllers
 {
     [ApiController]
@@ -38,12 +40,22 @@ namespace RealEstateFullStackApp.Server.Controllers
         }
 
 
+        [HttpGet("location")]
+        [OutputCache(PolicyName = "Duration")]
+        public async Task<IActionResult> GetLocationPage([FromQuery] PaginatedSearchReq searchReq,[FromQuery] LocationReq location)
+        {
+
+            var props = await manager.Properties.GetPageAsync(searchReq, location, DeletionType.All);
+            logger.LogInformation("Properties retrieved");
+            return Ok(props);
+        }
+
 
         [HttpPost("")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Create(PropertyCDTO property)
         {
-            //var user = User;
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = await manager.Properties.CreateAsync(property);
             if (result.IsSuccess)
             {

@@ -3,17 +3,18 @@ import { IProperty } from '../../types/properties';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../environments/environment';
-import { finalize } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import BaseService from '../types/BaseService';
+import { IPaginatedResponse } from '../types/IPaginatedResponse';
+import IPaginatedSearchRequest from '../types/IPaginatedSearchRequest';
+import { LocationsService } from '../locations/locations.service';
 @Injectable({
   providedIn: 'root',
 })
 export class PropertiesService extends BaseService<IProperty> {
   private _properties = signal<IProperty[]>([]);
-  override apiRoute = 'api/properties'; 
-   // messageService = inject(MessageService);
-
- 
+  override apiRoute = 'api/properties';
+  // messageService = inject(MessageService);
 
   get properties(): Signal<IProperty[]> {
     return this._properties.asReadonly();

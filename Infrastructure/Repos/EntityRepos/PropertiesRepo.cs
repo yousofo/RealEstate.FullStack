@@ -1,4 +1,5 @@
 ﻿using Application.Dtos;
+using Application.Dtos.Request;
 using Application.Interfaces.Repos.EntityRepos;
 using Application.ReadOptions;
 using Domain.Enums;
@@ -15,23 +16,32 @@ namespace Infrastructure.Repos.EntityRepos
 {
     public class PropertiesRepo(ApplicationDbContext context, ILogger logger) : BaseRepo<Property>(context, logger), IPropertiesRepo
     {
-        public override async Task<PaginatedRes<Property>> GetPageAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false)
+        public async Task<PaginatedRes<Property>> GetPageAsync(PaginatedSearchReq searchReq, LocationReq? location, DeletionType deletionType, bool trackChanges = false)
         {
-            var query = GetAllQuery(searchReq, deletionType, trackChanges)
-                .Include(p => p.Category)
-                .Include(p => p.Album.Images)
-                .Include(p => p.Album.Videos)
-                .Include(p => p.City)
-                .Include(p => p.Region.Country);
-                //.Include(p => p.City.State.Country)
-                
+            var query = GetAllQuery(searchReq, deletionType, trackChanges);
+
+            if (location is not null)
+            {
+                query = query
+                    .Where(p => p.Country.Name.Contains(location.CountryName ) &&
+                                p.Region.Name.Contains(location.RegionName ) &&
+                                p.City.Name.Contains(location.CityName ));
+            };
+
+            query.Include(p => p.Category)
+            .Include(p => p.Album.Images)
+            .Include(p => p.Album.Videos)
+            .Include(p => p.City)
+            .Include(p => p.Region)
+            .Include(p => p.Country);
+            //.Include(p => p.City.Region.Country)
+
 
             var pageItems = await query
                 .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
                 .Take(searchReq.PageSize)
                 .ToListAsync();
-            logger.LogError($"\n-----------------------------------------\n");
-            logger.LogError($"{pageItems[0].Category.Title}");
+
 
             var paginatedRes = new PaginatedRes<Property>
             {
@@ -44,5 +54,26 @@ namespace Infrastructure.Repos.EntityRepos
             return paginatedRes;
 
         }
+
+
+
+
+        public override async Task<bool> AddAsync(Property property, bool trackChanges = false)
+        {
+            try
+            {
+                context.Add(property);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("generic repo add exception", ex.Message, ex);
+                return false;
+            }
+
+        }
+
+
     }
 }

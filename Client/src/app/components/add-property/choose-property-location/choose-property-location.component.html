@@ -7,7 +7,8 @@
     amet consectetur.
   </p>
   <p class="text-yellow-500 bg-yellow-500/10 p-2 mt-2 text-sm rounded">
-    only [ Mansoura, Dakahlia, Egypt ] are supported <br /> <br>
+    only [ El Mansoura, Dakahlia, Egypt ] are supported <br />
+    <br />
     -- Google's places API is not supported YET --
   </p>
 </section>
@@ -32,20 +33,11 @@
     </p-inputgroup-addon>
   </p-inputgroup>
 
-    <p-listbox
-    [options]="locations()"
-    [(ngModel)]="selectedCountry"
-    optionLabel="name"
-    [lazy]="true"
-    class="w-full md:w-56"
-  >
-    <ng-template #item let-location>
-      <div class="flex items-center gap-2">
-        <!-- TODO: add flag based on country code  -->
-        <p>{{ getLocationText(location) }}</p>
-      </div>
-    </ng-template>
-  </p-listbox>
+  <ul class="w-full md:w-56">
+    @for (location of locations(); track $index) {
+    <li (click)="selectLocation(location)">{{ getLocationText(location) }}</li>
+    }
+  </ul>
 
   <!-- @for (item of propertyTypes(); track $index) {
   <button

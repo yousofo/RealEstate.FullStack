@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250524094305_PropertyStatusAndListingUpdate")]
+    partial class PropertyStatusAndListingUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -386,7 +389,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RegionId")
+                    b.Property<int>("RegionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -655,9 +658,6 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedById")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -720,8 +720,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
 
                     b.HasIndex("CreatedById");
 
@@ -1235,7 +1233,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.City", b =>
                 {
-                    b.HasOne("Domain.Models.Country", "Country")
+                    b.HasOne("Domain.Models.Country", null)
                         .WithMany("Cities")
                         .HasForeignKey("CountryId");
 
@@ -1252,9 +1250,9 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Models.Region", "Region")
                         .WithMany("Cities")
-                        .HasForeignKey("RegionId");
-
-                    b.Navigation("Country");
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CreatedBy");
 
@@ -1398,12 +1396,6 @@ namespace Infrastructure.Migrations
                         .WithMany("Properties")
                         .HasForeignKey("CityId");
 
-                    b.HasOne("Domain.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Auth.AppUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
@@ -1433,8 +1425,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("City");
-
-                    b.Navigation("Country");
 
                     b.Navigation("CreatedBy");
 

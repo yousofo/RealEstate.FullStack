@@ -1,14 +1,15 @@
 export interface IProperty {
   id: number;
   title: string;
+  price: number;
   description: string;
   addressDescription: string;
-  price: number;
   previewImageLink: string;
   status: string;
+  listingType: string;
   category: string;
-  thumbnail: string;
   album: string[];
+  thumbnail: string;
   location: {
     countryName: string;
     countryId: number;
@@ -17,4 +18,20 @@ export interface IProperty {
     cityName: string;
     cityId: number;
   };
+}
+export interface IPropertyCDTO {
+  title: string;
+  price: number;
+  description: string;
+  listingType: string;
+  addressDescription: string;
+  latitude: number;
+  longitude: number;
+  thumbnail: File;
+  Images: File[];
+  organizationId: number;
+  categoryId: string;
+  countryId: number;
+  regionId: number;
+  cityId: number;
 }

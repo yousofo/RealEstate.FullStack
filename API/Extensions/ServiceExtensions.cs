@@ -26,7 +26,7 @@ public static class ServiceExtensions
     public static IServiceCollection AddCustomDependencies(this IServiceCollection services, IConfiguration configuration)
     {
 
-        //services.AddCustomServices();
+        services.AddHttpClient();
         services.AddScoped<IServicesManager, ServicesManager>();
 
         //services.AddCustomRepos();

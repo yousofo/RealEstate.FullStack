@@ -1,6 +1,7 @@
 ﻿using Application.Dtos;
 using Application.ReadOptions;
 using Domain.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Application.Interfaces.Repos
 {
     public interface IBaseRepo<T> where T : class
     {
+        public DbSet<T> DbSet { get; }
         public Task<IEnumerable<T>> GetAllAsync( CancellationToken cancellationToken = default);
         public IQueryable<T> GetAllQuery(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false);
         public Task<PaginatedRes<T>> GetPageAsync(PaginatedSearchReq searchReq, DeletionType deletionType, bool trackChanges = false);

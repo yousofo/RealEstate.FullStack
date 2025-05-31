@@ -13,19 +13,8 @@ import { MessageService } from 'primeng/api';
 import { AddPropertyService } from '../../../services/properties/add-property.service';
 import { IPaginatedResponse } from '../../../services/types/IPaginatedResponse';
 import { NgClass } from '@angular/common';
+import { ILocation } from '../../../types/locations';
 
-interface Country {
-  name: string;
-  code: string;
-}
-interface ILocation {
-  countryId: number;
-  countryName: string;
-  regionId: number;
-  regionName: string;
-  cityId: number;
-  cityName: string;
-}
 @Component({
   selector: 'app-choose-property-location',
   imports: [
@@ -37,16 +26,14 @@ interface ILocation {
     ButtonModule,
     ListboxModule,
     FormsModule,
-    NgClass
+    NgClass,
   ],
   providers: [MessageService],
   templateUrl: './choose-property-location.component.html',
   styleUrl: './choose-property-location.component.scss',
 })
 export class ChoosePropertyLocationComponent {
-  countries!: Country[];
-
-  selectedCountry!: Country;
+  selectedLocation = signal<ILocation | null>(null);
 
   httpClient = inject(HttpClient);
   messageService = inject(MessageService);
@@ -75,14 +62,13 @@ export class ChoosePropertyLocationComponent {
   getLocations(query: string) {
     console.log(query);
     this.httpClient
-      .get<IPaginatedResponse<ILocation>>(
-        // `/locations/v1/search?apikey=${environment.placesApiKey}&q=${query}`
-        `${environment.apiUrl}/api/LocationsView/page?SearchTerm=${query}`
+      .get<ILocation[]>(
+        `${environment.apiUrl}/api/locations/${query}`
       )
       .subscribe({
         next: (data) => {
           console.log(data);
-          this.locations.set(data.items);
+          this.locations.set(data);
         },
         error: (error) => {
           this.messageService.add({
@@ -95,6 +81,9 @@ export class ChoosePropertyLocationComponent {
             this.addPropertyService.chooseLocation('Sydney');
           }, 2000);
         },
+        complete: () => {
+          console.log(this.locations());
+        },
       });
   }
   show() {
@@ -106,19 +95,11 @@ export class ChoosePropertyLocationComponent {
     });
   }
 
-  getLocationText({ cityName, regionName, countryName }: ILocation) {
-    if (cityName && regionName) {
-      return `${cityName}, ${regionName}, ${countryName}`;
-    }
+  selectLocation(location: ILocation) {
+    this.selectedLocation.set(location);
+   }
 
-    if (cityName) {
-      return `${cityName}, ${countryName}`;
-    }
-
-    if (regionName) {
-      return `${regionName}, ${countryName}`;
-    }
-
-    return countryName;
+  getLocationText({ display_name }: ILocation) {
+    return display_name;
   }
 }

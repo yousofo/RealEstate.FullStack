@@ -54,7 +54,7 @@ export default function UserInfoCard() {
                                 Phone
                             </p>
                             <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                                +09 363 398 46
+                                +20 101 6686 024
                             </p>
                         </div>
 
@@ -118,7 +118,7 @@ export default function UserInfoCard() {
                                         <Label>Facebook</Label>
                                         <Input
                                             type="text"
-                                            defaultValue="https://www.facebook.com/PimjoHQ"
+                                            defaultValue="https://www.facebook.com/placeholderHQ"
                                         />
                                     </div>
 
@@ -126,7 +126,7 @@ export default function UserInfoCard() {
                                         <Label>X.com</Label>
                                         <Input
                                             type="text"
-                                            defaultValue="https://x.com/PimjoHQ"
+                                            defaultValue="https://x.com/placeholderHQ"
                                         />
                                     </div>
 
@@ -134,7 +134,7 @@ export default function UserInfoCard() {
                                         <Label>Linkedin</Label>
                                         <Input
                                             type="text"
-                                            defaultValue="https://www.linkedin.com/company/pimjo"
+                                            defaultValue="https://www.linkedin.com/company/placeholder"
                                         />
                                     </div>
 
@@ -142,7 +142,7 @@ export default function UserInfoCard() {
                                         <Label>Instagram</Label>
                                         <Input
                                             type="text"
-                                            defaultValue="https://instagram.com/PimjoHQ"
+                                            defaultValue="https://instagram.com/placeholderHQ"
                                         />
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@ export default function UserInfoCard() {
                                         <Label>Phone</Label>
                                         <Input
                                             type="text"
-                                            defaultValue="+09 363 398 46"
+                                            defaultValue="+20 101 6686 024"
                                         />
                                     </div>
 

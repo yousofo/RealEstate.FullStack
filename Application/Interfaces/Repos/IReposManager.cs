@@ -14,6 +14,7 @@ namespace Application.Interfaces.Repos
         public ICategoriesRepo Categories{get;}
         public ICountriesRepo Countries{get;}
          public ICitiesRepo Cities{get;}
+        public IRegionsRepo Regions{get;}
         public IAuthRepo Auth{get;}
         public ILocationsViewRepo LocationsView{get;}
 
