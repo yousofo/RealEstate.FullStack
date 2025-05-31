@@ -14,6 +14,9 @@ import { AddPropertyService } from '../../../services/properties/add-property.se
 import { IPaginatedResponse } from '../../../services/types/IPaginatedResponse';
 import { NgClass } from '@angular/common';
 import { ILocation } from '../../../types/locations';
+import { TipComponent } from "../../shared/tip/tip.component";
+import { PropertySearchComponent } from "../../property-search/property-search.component";
+import { SearchLocationComponent } from "../../shared/search-location/search-location.component";
 
 @Component({
   selector: 'app-choose-property-location',
@@ -27,7 +30,10 @@ import { ILocation } from '../../../types/locations';
     ListboxModule,
     FormsModule,
     NgClass,
-  ],
+    TipComponent,
+    PropertySearchComponent,
+    SearchLocationComponent
+],
   providers: [MessageService],
   templateUrl: './choose-property-location.component.html',
   styleUrl: './choose-property-location.component.scss',

@@ -13,47 +13,10 @@
   </p>
 </section>
 
+
+
 <section class="max-w-3xl mx-auto h-full">
-  <p-inputgroup>
-    <input
-      #input
-      pInputText
-      appDebounce
-      (debounced)="getLocations(input.value)"
-      placeholder="Keyword"
-    />
-    <p-inputgroup-addon>
-      <p-button
-        icon="pi pi-search"
-        (debounced)="getLocations(input.value)"
-        appDebounce
-        severity="secondary"
-        variant="text"
-      />
-    </p-inputgroup-addon>
-  </p-inputgroup>
 
-  <ul class="w-full md:w-56">
-    @for (location of locations(); track $index) {
-    <li (click)="selectLocation(location)">{{ getLocationText(location) }}</li>
-    }
-  </ul>
+<app-search-location class="[&_input]:shadow [&_input]:shadow-secondary/10 w-full block px-0.5"/>
 
-  <!-- @for (item of propertyTypes(); track $index) {
-  <button
-    class="flex flex-col items-start gap-2 border border-primary/30 p-4 rounded cursor-pointer hover:bg-primary/10"
-    [ngClass]="item.value == addPropertyService.ownership() ? 'bg-primary/10' : ''"
-    (click)="selectPropertyType(item)"
-  >
-    <picture>
-      <source srcset="/icons/building.png" type="image/png" />
-      <img
-        class="h-6 lg:h-8 block dark:invert"
-        src="{{ item.image ?? '/icons/building.png' }}"
-        alt="{{ item.title }}"
-      />
-    </picture>
-    <p class="font-semibold">{{ item.title }}</p>
-  </button>
-  } -->
-</section>
+ </section>
