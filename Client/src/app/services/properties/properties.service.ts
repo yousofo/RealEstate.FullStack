@@ -8,6 +8,7 @@ import BaseService from '../types/BaseService';
 import { IPaginatedResponse } from '../types/IPaginatedResponse';
 import IPaginatedSearchRequest from '../types/IPaginatedSearchRequest';
 import { LocationsService } from '../locations/locations.service';
+import { ICategory } from '../../types/locations';
 @Injectable({
   providedIn: 'root',
 })
@@ -47,7 +48,7 @@ export class PropertiesService extends BaseService<IProperty> {
 
   getPropertyTypes() {
     return this.httpClient
-      .get<string[]>(environment.apiUrl + '/api/properties/types')
+      .get<ICategory[]>(environment.apiUrl + '/api/categories')
       .pipe(finalize(() => console.log('getPropertyTypes finalized')));
   }
 

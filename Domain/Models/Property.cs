@@ -22,7 +22,7 @@ namespace Domain.Models
         [StringLength(1500)]
         public string Thumbnail { get; set; }
         public PropertyStatusEnum Status { get; set; }
-        public PropertyListingType ListingType { get; set; }
+        public ICollection<PropertyListingType> ListingTypes { get; set; } = [];
         public AppUser Owner { get; set; }
         public string OwnerId { get; set; }
         [MaxLength(20)]

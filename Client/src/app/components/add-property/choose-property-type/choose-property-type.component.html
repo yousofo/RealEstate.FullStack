@@ -8,7 +8,7 @@
   @for (item of propertyTypes(); track $index) {
   <button
     class="flex flex-col items-start gap-2 border border-primary/30 p-4 rounded cursor-pointer hover:bg-primary/10"
-     [ngClass]="item.value == addPropertyService.type() ? 'bg-primary/10' : ''"
+     [ngClass]="item.id == addPropertyService.type() ? 'bg-primary/10' : ''"
     (click)="selectPropertyType(item)"
   >
     <picture>

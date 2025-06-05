@@ -33,7 +33,7 @@ namespace Infrastructure.Data
         public DbSet<OrganizationRole> OrganizationRoles { get; set; }
         public DbSet<OrganizationPermission> OrganizationPermissions { get; set; }
         public DbSet<OrganizationRolePermission> OrganizationRolePermissions { get; set; }
-
+        public DbSet<PropertyListingType> PropertyListingTypes { get; set; }
 
         //Views
         public DbSet<LocationView> LocationViews { get; set; }
@@ -100,14 +100,15 @@ namespace Infrastructure.Data
 
             foreach (var entity in entities)
             {
-                var currentUserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var currentUserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
                 if (entity.State == EntityState.Added)
                 {
-                    entity.Property(p => p.CreatedById).CurrentValue = "";
+                    entity.Property(p => p.CreatedById).CurrentValue = currentUserId;
+                    entity.Property(p => p.CreatedOn).CurrentValue = DateTime.UtcNow;
                 }
                 else if (entity.State == EntityState.Modified)
                 {
-                    entity.Property(p => p.ModifiedById).CurrentValue = "";
+                    entity.Property(p => p.ModifiedById).CurrentValue = currentUserId;
                     entity.Property(p => p.ModifiedOn).CurrentValue = DateTime.UtcNow;
                 }
             }

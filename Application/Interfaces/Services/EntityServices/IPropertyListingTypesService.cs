@@ -1,7 +1,7 @@
 ﻿using Application.Dtos.Create;
 using Application.Dtos.Read;
 using Application.Dtos.Update;
-using Application.Services;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces.Services.EntityServices
 {
-    public interface ICategoriesService: IBaseService<CategoryRDTO, CategoryCDTO, CategoryUDTO>
+    public interface IPropertyListingTypesService : IBaseService<PropertyListingTypeRDTO, PropertyListingTypeCDTO, PropertyListingTypeUDTO>
     {
     }
 }

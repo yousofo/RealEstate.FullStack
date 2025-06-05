@@ -22,3 +22,9 @@ export interface IAddress {
   country: string
   country_code: string
 }
+
+export interface ICategory {
+  id: number
+  title: string
+ image: string
+}

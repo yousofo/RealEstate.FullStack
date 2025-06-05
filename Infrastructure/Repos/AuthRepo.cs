@@ -22,7 +22,9 @@ namespace Infrastructure.Repos
             var isPasswordValid = await userManager.CheckPasswordAsync(user, password);
             if (!isPasswordValid) throw new BadRequestException("email or pass incorrect");
 
-            var (token, expiresIn) = jwtProvider.GenerateToken(user);
+            var roles = await userManager.GetRolesAsync(user);
+
+            var (token, expiresIn) = jwtProvider.GenerateToken(user,roles);
 
             var refreshToken = GenerateRefreshToken();
             var refreshTokenExpirationDate = DateTime.UtcNow.AddDays(_refreshTokenExpiryDays);
@@ -34,7 +36,6 @@ namespace Infrastructure.Repos
             });
 
             await userManager.UpdateAsync(user);
-            var roles = await userManager.GetRolesAsync(user);
 
             return new LoginRes(user.Id,
                 Email: user.Email!,
@@ -64,7 +65,9 @@ namespace Infrastructure.Repos
 
             userRefreshToken.RevokenOn = DateTime.UtcNow;
 
-            var (newToken, expriesIn) = jwtProvider.GenerateToken(user);
+            var roles = await userManager.GetRolesAsync(user);
+
+            var (newToken, expriesIn) = jwtProvider.GenerateToken(user, roles);
 
             var newRefreshToken = GenerateRefreshToken();
             var refreshTokenExpirationDate = DateTime.UtcNow.AddDays(_refreshTokenExpiryDays);
@@ -77,7 +80,6 @@ namespace Infrastructure.Repos
 
             await userManager.UpdateAsync(user);
 
-            var roles = await userManager.GetRolesAsync(user);
 
             return new LoginRes(user.Id,
                 Email: user.Email!,

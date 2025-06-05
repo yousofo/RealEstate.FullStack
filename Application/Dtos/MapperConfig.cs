@@ -16,10 +16,11 @@ namespace Application.Dtos
     {
         public MapperConfig()
         {
-            CreateMap<Property, PropertyCDTO>().ReverseMap();
             CreateMap<Property, PropertyRDTO>().ReverseMap();
             CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Category,
                 opt => opt.MapFrom(src => src.Category.Title));
+            CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Owner,
+                opt => opt.MapFrom(src => new OwnerRDTO { Id = src.OwnerId, FirstName = src.Owner.FirstName }));
             CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Location,
                 opt => opt.MapFrom(src => new LocationView()
                 {
@@ -31,11 +32,20 @@ namespace Application.Dtos
                     CountryId = src.Region.CountryId,
                 }
                 ));
-            //CreateMap<Property, PropertyRDTO>().ForMember(dto =>
-            //    dto.Location, opt=>
-            //        opt.MapFrom(src=>$"{src.Location.Title}")
-            //);
+
+            CreateMap<Property, PropertyCDTO>().ReverseMap();
+            CreateMap<PropertyCDTO, Property>().ForMember(e => e.ListingTypes, opts => opts.Ignore());
+            CreateMap<Property, PropertyCDTO>().ForMember(dto =>
+                dto.ListingTypes, opt =>
+                    opt.MapFrom(src => $"{src.ListingTypes.Select(e => e.Id)}")
+            );
+
             CreateMap<Property, PropertyUDTO>().ReverseMap();
+
+
+            CreateMap<PropertyListingType, PropertyListingTypeRDTO>().ReverseMap();
+            CreateMap<PropertyListingType, PropertyListingTypeCDTO>().ReverseMap();
+            CreateMap<PropertyListingType, PropertyListingTypeUDTO>().ReverseMap();
 
 
             CreateMap<Country, CountryRDTO>().ReverseMap();

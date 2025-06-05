@@ -52,11 +52,11 @@ namespace RealEstateFullStackApp.Server.Controllers
 
 
         [HttpPost("")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(PropertyCDTO property)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var result = await manager.Properties.CreateAsync(property);
+            var result = await manager.Properties.AddAsync(property);
             if (result.IsSuccess)
             {
                 return Created("/",result);
@@ -64,5 +64,16 @@ namespace RealEstateFullStackApp.Server.Controllers
 
             return BadRequest(result);
         }
+
+
+
+
+
+
+
+
+
+
+        
     }
 }

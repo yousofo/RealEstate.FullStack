@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import clientFetch from "@/utils/client-fetch";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import PageBreadcrumb from "@/components/common/PageBreadCrumb";
+import ComponentCard from "@/components/common/ComponentCard";
 
 const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 70 },
@@ -36,7 +38,6 @@ const Properties = () => {
     const [properties, setProperties] = useState([]);
 
     useEffect(() => {
-        
         console.log("env", process.env.NEXT_PUBLIC_API_URL);
         clientFetch()
             .then((res) => res.json())
@@ -47,27 +48,33 @@ const Properties = () => {
             .catch((err) => {
                 toast.error("Error fetching data", {
                     autoClose: false,
-                    className: "shadow-lg! shadow-red-200! border-red-100! border-2",
+                    className:
+                        "shadow-lg! shadow-red-200! border-red-100! border-2",
                 });
                 console.log("Error fetching data", err);
             });
     }, []);
     return (
-        <Container maxWidth="xl">
-            <Paper sx={{ height: 400, width: "100%" }}>
-                <DataGrid
-                    rows={properties}
-                    columns={columns}
-                    initialState={{ pagination: { paginationModel } }}
-                    pageSizeOptions={[10, 10]}
-                    checkboxSelection
-                    sx={{ border: 0 }}
-                />
-                <Link href="/">
-                    hi
-                </Link>
-            </Paper>
-        </Container>
+        <div>
+            <PageBreadcrumb pageTitle="Properties" />
+            <div className="space-y-6">
+                <ComponentCard title="Properties Table" desc="This is a table of properties fetched from the API.">
+                    <DataGrid
+                        rows={properties}
+                        columns={columns}
+                        initialState={{ pagination: { paginationModel } }}
+                        pageSizeOptions={[10, 10]}
+                        checkboxSelection
+                        sx={{ border: 0 }}
+                    />
+                </ComponentCard>
+            </div>
+        </div>
+        // <Container maxWidth="xl">
+        //     <Paper sx={{ height: 400, width: "100%" }}>
+
+        //     </Paper>
+        // </Container>
     );
 };
 

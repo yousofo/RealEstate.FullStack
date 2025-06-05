@@ -5,6 +5,7 @@ using Application.Interfaces.Services.EntityServices;
 using Application.Interfaces.Services.ViewServices;
 using Application.Services.EntityServices;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,23 +15,25 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class ServicesManager(IReposManager reposManager, IMapper mapper): IServicesManager
+    public class ServicesManager(IReposManager reposManager,IHttpContextAccessor httpContextAccessor, IMapper mapper) : IServicesManager
     {
-        Lazy<IPropertiesService> _properties = new(() => new PropertiesService(reposManager, mapper));
-        Lazy<ICategoriesService> _categories = new(() => new CategoriesService(reposManager, mapper));
-        Lazy<ICountriesService> _countries = new(() => new CountriesService(reposManager, mapper));
-        Lazy<IStatesService> _states = new(() => new StatesService(reposManager, mapper));
-        Lazy<ICitiesService> _cities = new(() => new CitiesService(reposManager, mapper));
-        Lazy<ILocationsViewService> _locationsView = new(() => new LocationsViewService(reposManager, mapper));
-        Lazy<IAuthService> _auth= new(() => new AuthService(reposManager.Auth));
+        Lazy<PropertiesService> _properties = new(() => new(reposManager, mapper));
+        Lazy<CategoriesService> _categories = new(() => new(reposManager, mapper));
+        Lazy<CountriesService> _countries = new(() => new(reposManager, mapper));
+        Lazy<StatesService> _states = new(() => new(reposManager, mapper));
+        Lazy<CitiesService> _cities = new(() => new(reposManager, mapper));
+        Lazy<LocationsViewService> _locationsView = new(() => new(reposManager, mapper));
+        Lazy<PropertyListingTypesService> _propertyListingTypesService = new(() => new(reposManager, mapper));
+        Lazy<AuthService> _auth = new(() => new(reposManager.Auth));
 
 
-
+        public IHttpContextAccessor HttpContextAccessor=> httpContextAccessor;
         public IPropertiesService Properties => _properties.Value;
         public ICategoriesService Categories => _categories.Value;
         public ICountriesService Countries => _countries.Value;
         public IStatesService States => _states.Value;
         public ICitiesService Cities => _cities.Value;
+        public IPropertyListingTypesService PropertyListingTypes => _propertyListingTypesService.Value;
         public IAuthService Auth => _auth.Value;
 
         public ILocationsViewService LocationsView => _locationsView.Value;

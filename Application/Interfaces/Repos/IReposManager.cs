@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Repos.EntityRepos;
 using Domain.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Application.Interfaces.Repos
     public interface IReposManager
     {
         public IPropertiesRepo Properties{ get; }
+        public IPropertyListingTypesRepo PropertyListingTypes{ get; }
+        public IHttpContextAccessor HttpContextAccessor { get; }
         public ICategoriesRepo Categories{get;}
         public ICountriesRepo Countries{get;}
          public ICitiesRepo Cities{get;}

@@ -7,8 +7,8 @@ This project is a full-stack real estate application featuring a backend API, a 
 Structure:
 
 - A backend API (ASP.NET Core Web API)
-- A customer-facing frontend (Angular)
-- An admin dashboard (Next.js) ([Demo](https://real-estate-admin-yn.vercel.app))
+- A customer-facing frontend (Angular)([Live link](https://real-estate-full-stack-yn.vercel.app/))
+- An admin dashboard (Next.js) ([Live link](https://real-estate-admin-yn.vercel.app))
 
 Features:
 
@@ -43,7 +43,7 @@ Features:
 
 ## 3. Customer Frontend
 
-Built with: **Angular ([Navigate](url))**
+Built with: **Angular**
 UI Kits: **(PrimeNG - TailwindCSS - SASS)**
 Features:
 - Property: 
@@ -60,7 +60,7 @@ Features:
 
 ## 4. Admin Frontend
 
-- Built with: **Next.js ([Navigate](url))**
+- Built with: **Next.js**
 - UI Kits: **(MUI - TailwindCSS - SASS - Chart.js)**
 - Features:
   - Admin authentication

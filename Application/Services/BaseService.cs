@@ -53,9 +53,16 @@ namespace Application.Services
 
 
 
-        public virtual async Task<Result> CreateAsync(CDTO property)
+        public virtual async Task<Result> AddAsync(CDTO dto)
         {
-            throw new NotImplementedException();
+            var entity = mapper.Map<T>(dto);
+            var isAdded = await repo.AddAsync(entity);
+            if(isAdded)
+            {
+                return new Result(true, null);
+            }
+
+            return new Result(false, new("","couldn't create"));
         }
 
         public bool IsSameType(Type o1, Type o2)
@@ -63,5 +70,9 @@ namespace Application.Services
             return o1 == o2;
         }
 
+        public Task<Result> DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

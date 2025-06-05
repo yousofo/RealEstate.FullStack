@@ -21,7 +21,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Result>> Create(CountryCDTO cDTO)
         {
-            var result = await manager.Countries.CreateAsync(cDTO);
+            var result = await manager.Countries.AddAsync(cDTO);
 
             if (result.IsSuccess)
             {

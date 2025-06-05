@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dtos.Create
+namespace Application.Dtos.Read
 {
-    public class CategoryCDTO
+    public class PropertyListingTypeRDTO
     {
-        [StringLength(100), Required]
+        public int Id { get; set; }
         public string Title { get; set; }
     }
 }

@@ -7,7 +7,7 @@ import { inject, Injectable, signal, effect, computed } from '@angular/core';
 export class AddPropertyService {
   httpClient = inject(HttpClient);
 
-  type = signal<string>('house');
+  type = signal<number>(1);
   ownership = signal<string>('full');
   location = signal<string>('');
 
@@ -20,8 +20,8 @@ export class AddPropertyService {
   currentStep = signal<number>(0);
   constructor() {}
 
-  chooseType(type: any) {
-    this.type.set(type);
+  chooseType(id: number) {
+    this.type.set(id);
   }
 
   chooseOwnership(ownership: any) {

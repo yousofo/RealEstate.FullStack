@@ -30,8 +30,8 @@ import { storage } from '../../../utils/storage/storage.utils';
 @Component({
   selector: 'app-header',
   standalone: true,
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  templateUrl: './header.html',
+  styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
@@ -51,7 +51,7 @@ import { storage } from '../../../utils/storage/storage.utils';
     onscroll: 'onScroll()',
   },
 })
-export class HeaderComponent implements OnInit {
+export class Header implements OnInit {
   isDiscount: boolean = false;
   items: MenuItem[] | undefined;
   visible = signal(true);

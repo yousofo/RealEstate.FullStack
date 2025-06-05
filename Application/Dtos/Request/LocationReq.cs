@@ -9,12 +9,12 @@ namespace Application.Dtos.Request
 {
     public class LocationReq
     {
- 
-        public string CountryName { get; set; }
+
+        public string CountryName { get; set; } = "";
 
  
-        public string? RegionName { get; set; }
- 
-        public string? CityName { get; set; }
+        public string? RegionName { get; set; } = "";
+
+        public string? CityName { get; set; } = "";
     }
 }

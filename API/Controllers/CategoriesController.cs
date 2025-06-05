@@ -1,35 +1,56 @@
-﻿using Application.ReadOptions;
+﻿using Application.Dtos.Create;
+using Application.Dtos.Read;
+using Application.Interfaces.Services;
+using Application.ReadOptions;
+using Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/categories")]
-    public class CategoriesController():ControllerBase
+    [Route("api/[controller]")]
+    public class CategoriesController(IServicesManager manager):ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAll()
+        //[Authorize(Roles = "Owner,Admin,Employee")]
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
+ 
+             var categories = await manager.Categories.GetAllAsync(cancellationToken);
+            return Ok(categories);
+        }
+
+
+        [HttpGet("listing-types")]
+        public async Task<IActionResult> GetListingTypes([FromQuery] PaginatedSearchReq searchReq)
+        {
+            var listingTypes = new List<PropertyListingTypeRDTO>();
             return Ok();
         }
 
 
-        [HttpGet("page")]
-        public async Task<IActionResult> GetPage([FromQuery] PaginatedSearchReq searchReq)
-        {
-            throw new NotImplementedException();
-        }
-
-
         [HttpPost("")]
-        public async Task<IActionResult> Create([FromBody] object categoryCDTO)
+        //[Authorize(Roles = "Owner,Admin,Employee")]
+
+        public async Task<IActionResult> Create([FromBody] CategoryCDTO categoryCDTO)
         {
-            throw new NotImplementedException();
+            var result = await manager.Categories.AddAsync(categoryCDTO);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
         }
 
 
 
         [HttpPut("")]
+        //[Authorize(Roles = "Owner,Admin,Employee")]
+
         public async Task<IActionResult> Update([FromBody] object categoryUDTO)
         {
             throw new NotImplementedException();
@@ -47,6 +68,8 @@ namespace API.Controllers
 
 
         [HttpPost("unassign")]
+        //[Authorize(Roles = "Owner,Admin,Employee")]
+
         public async Task<IActionResult> Unassign([FromBody] object userRole)
         {
             throw new NotImplementedException();
@@ -55,9 +78,12 @@ namespace API.Controllers
 
 
         [HttpDelete("{id}")]
+        //[Authorize(Roles = "Owner,Admin,Employee")]
+
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            var ttt = await manager.Categories.DeleteAsync(id);
+            return Ok(ttt);
         }
     }
 }

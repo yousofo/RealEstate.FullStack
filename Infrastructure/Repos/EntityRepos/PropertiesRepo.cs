@@ -23,17 +23,19 @@ namespace Infrastructure.Repos.EntityRepos
             if (location is not null)
             {
                 query = query
-                    .Where(p => p.Country.Name.Contains(location.CountryName ) &&
-                                p.Region.Name.Contains(location.RegionName ) &&
-                                p.City.Name.Contains(location.CityName ));
+                    .Where(p => p.Country.Name.Contains(location.CountryName) &&
+                                p.Region.Name.Contains(location.RegionName) &&
+                                p.City.Name.Contains(location.CityName));
             };
 
-            query.Include(p => p.Category)
-            .Include(p => p.Album.Images)
-            .Include(p => p.Album.Videos)
-            .Include(p => p.City)
-            .Include(p => p.Region)
-            .Include(p => p.Country);
+            query.Include(p => p.Owner)
+                .Include(p => p.ListingTypes)
+                .Include(p => p.Category)
+                .Include(p => p.Country)
+                .Include(p => p.Region)
+                .Include(p => p.City)
+                .Include(p => p.Album.Images)
+                .Include(p => p.Album.Videos);
             //.Include(p => p.City.Region.Country)
 
 

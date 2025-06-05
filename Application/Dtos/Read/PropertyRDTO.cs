@@ -20,6 +20,8 @@ namespace Application.Dtos.Read
         public Album Album { get; set; }
         public string Category { get; set; }
         public LocationView Location { get; set; }
+        public OwnerRDTO Owner { get; set; }
+        public ICollection<PropertyListingTypeRDTO> ListingTypes { get; set; }
 
     }
 }

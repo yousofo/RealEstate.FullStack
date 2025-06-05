@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "../context/SidebarContext";
 import {
+    BoltIcon,
     BoxCubeIcon,
     CalenderIcon,
     ChevronDownIcon,
@@ -31,6 +32,19 @@ const navItems: NavItem[] = [
         icon: <GridIcon />,
         name: "Dashboard",
         subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+    },
+    {
+        icon: <ListIcon />,
+        name: "Properties",
+        subItems: [
+            { name: "All Properties", path: "/properties", pro: false },
+            { name: "Add Property", path: "/add-property", pro: false },
+        ],
+    },
+    {
+        icon: <BoltIcon />,
+        name: "Categories",
+        path: "/categories",
     },
     {
         icon: <CalenderIcon />,

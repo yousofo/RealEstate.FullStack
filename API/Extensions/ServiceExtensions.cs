@@ -101,6 +101,7 @@ public static class ServiceExtensions
             //so when using [auth] attr with actions or controllers, dont need to keep specifying the token type is bearer
             opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(opts =>
         {
             //read from cookie => XXS attacks

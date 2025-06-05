@@ -37,15 +37,20 @@ namespace Infrastructure.Utils
             }
         }
 
-        public (string token, int expiresIn) GenerateToken(AppUser user)
+        public (string token, int expiresIn) GenerateToken(AppUser user, IList<string> roles)
         {
-            Claim[] claims = [
+            List<Claim> claims = [
                 new(JwtRegisteredClaimNames.Sub,user.Id),
                 new(JwtRegisteredClaimNames.Email,user.Email!),
                 new(JwtRegisteredClaimNames.GivenName,user.FirstName),
                 new(JwtRegisteredClaimNames.FamilyName,user.LastName),
                 new(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
             ];
+            
+            foreach(var role  in roles)
+            {
+               claims.Add(new(ClaimTypes.Role, role));
+            }
 
             //encryption 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
