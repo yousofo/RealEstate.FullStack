@@ -5,7 +5,7 @@ import {
   AfterViewChecked,
   OnInit,
 } from '@angular/core';
-import { GeminiService } from '../../services/gemini.service';
+// import { GeminiService } from '../../services/gemini.service';
 import { FormsModule } from '@angular/forms';
 import { NgClass, NgFor, NgIf, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -30,7 +30,7 @@ export class ChatAIComponent implements OnInit, AfterViewChecked {
   isTyping: boolean = false;
 
   constructor(
-    private geminiService: GeminiService,
+    // private geminiService: GeminiService,
     private sanitizer: DomSanitizer
   ) {}
 
@@ -72,33 +72,33 @@ export class ChatAIComponent implements OnInit, AfterViewChecked {
     // Show typing indicator
     this.isTyping = true;
 
-    try {
-      // Get AI response
-      const aiResponse = await this.geminiService.getChatResponse(userMessage);
+    // try {
+    //   // Get AI response
+    //   // const aiResponse = await this.geminiService.getChatResponse(userMessage);
 
-      // Hide typing indicator
-      this.isTyping = false;
+    //   // Hide typing indicator
+    //   this.isTyping = false;
 
-      // Add AI response to chat
-      this.chatHistory.push({
-        role: 'assistant', // Changed from 'bot' to match your HTML/CSS
-        content: aiResponse,
-        timestamp: new Date(),
-      });
-    } catch (error) {
-      console.error('Error getting response from Gemini:', error);
+    //   // Add AI response to chat
+    //   this.chatHistory.push({
+    //     role: 'assistant', // Changed from 'bot' to match your HTML/CSS
+    //     content: aiResponse,
+    //     timestamp: new Date(),
+    //   });
+    // } catch (error) {
+    //   console.error('Error getting response from Gemini:', error);
 
-      // Hide typing indicator
-      this.isTyping = false;
+    //   // Hide typing indicator
+    //   this.isTyping = false;
 
-      // Add error message
-      this.chatHistory.push({
-        role: 'assistant',
-        content:
-          'Sorry, I encountered an error processing your request. Please try again.',
-        timestamp: new Date(),
-      });
-    }
+    //   // Add error message
+    //   this.chatHistory.push({
+    //     role: 'assistant',
+    //     content:
+    //       'Sorry, I encountered an error processing your request. Please try again.',
+    //     timestamp: new Date(),
+    //   });
+    // }
   }
 
   // Format message to handle markdown-like syntax
