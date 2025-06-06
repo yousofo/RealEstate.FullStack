@@ -39,8 +39,7 @@ import { SearchLocationComponent } from "../../shared/search-location/search-loc
   styleUrl: './choose-property-location.component.scss',
 })
 export class ChoosePropertyLocationComponent {
-  selectedLocation = signal<ILocation | null>(null);
-
+ 
   httpClient = inject(HttpClient);
   messageService = inject(MessageService);
   addPropertyService = inject(AddPropertyService);
@@ -65,33 +64,7 @@ export class ChoosePropertyLocationComponent {
     //   });
   }
 
-  getLocations(query: string) {
-    console.log(query);
-    this.httpClient
-      .get<ILocation[]>(
-        `${environment.apiUrl}/api/locations/${query}`
-      )
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-          this.locations.set(data);
-        },
-        error: (error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'sorry, api quota ran out :(, will use mock data for now',
-            life: 2000,
-          });
-          setTimeout(() => {
-            this.addPropertyService.chooseLocation('Sydney');
-          }, 2000);
-        },
-        complete: () => {
-          console.log(this.locations());
-        },
-      });
-  }
+  
   show() {
     this.messageService.add({
       severity: 'info',
@@ -101,11 +74,5 @@ export class ChoosePropertyLocationComponent {
     });
   }
 
-  selectLocation(location: ILocation) {
-    this.selectedLocation.set(location);
-   }
-
-  getLocationText({ display_name }: ILocation) {
-    return display_name;
-  }
+ 
 }

@@ -53,7 +53,7 @@ namespace RealEstateFullStackApp.Server.Controllers
 
         [HttpPost("")]
         //[Authorize]
-        public async Task<IActionResult> Create(PropertyCDTO property)
+        public async Task<IActionResult> Create([FromForm]PropertyCDTO property)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = await manager.Properties.AddAsync(property);

@@ -15,6 +15,7 @@ export interface ILocation {
 }
 
 export interface IAddress {
+  [key: string]: string
   name: string
   county: string
   state: string
@@ -23,8 +24,3 @@ export interface IAddress {
   country_code: string
 }
 
-export interface ICategory {
-  id: number
-  title: string
- image: string
-}

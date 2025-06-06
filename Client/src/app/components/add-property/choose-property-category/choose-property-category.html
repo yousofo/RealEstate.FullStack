@@ -5,11 +5,11 @@
 <section
   class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto"
 >
-  @for (item of propertyTypes(); track $index) {
+  @for (item of propertyCategories(); track $index) {
   <button
     class="flex flex-col items-start gap-2 border border-primary/30 p-4 rounded cursor-pointer hover:bg-primary/10"
-     [ngClass]="item.id == addPropertyService.type() ? 'bg-primary/10' : ''"
-    (click)="selectPropertyType(item)"
+     [ngClass]="item.id == addPropertyService.cateogryId() ? 'bg-primary/10' : ''"
+    (click)="selectPropertyCategory(item)"
   >
     <picture>
       <source srcset="/icons/building.png" type="image/png" />

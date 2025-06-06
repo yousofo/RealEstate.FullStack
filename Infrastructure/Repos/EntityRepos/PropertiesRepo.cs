@@ -23,12 +23,12 @@ namespace Infrastructure.Repos.EntityRepos
             if (location is not null)
             {
                 query = query
-                    .Where(p => p.Country.Name.Contains(location.CountryName) &&
-                                p.Region.Name.Contains(location.RegionName) &&
+                    .Where(p => p.Country.Name.Contains(location.CountryName) ||
+                                p.Region.Name.Contains(location.RegionName) ||
                                 p.City.Name.Contains(location.CityName));
             };
 
-            query.Include(p => p.Owner)
+            query = query.Include(p => p.Owner)
                 .Include(p => p.ListingTypes)
                 .Include(p => p.Category)
                 .Include(p => p.Country)
@@ -44,6 +44,11 @@ namespace Infrastructure.Repos.EntityRepos
                 .Take(searchReq.PageSize)
                 .ToListAsync();
 
+            //if (pageItems.Count() > 0)
+            //{
+            //    Console.WriteLine("\n\n\n\n");
+            //    Console.WriteLine(pageItems.First().Category.Title);
+            //}
 
             var paginatedRes = new PaginatedRes<Property>
             {

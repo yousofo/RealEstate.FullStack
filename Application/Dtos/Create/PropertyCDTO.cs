@@ -15,7 +15,7 @@ namespace Application.Dtos.Create
         public decimal Price { get; set; }
         public string Description { get; set; }
         //public PropertyStatusEnum Status { get; set; } = PropertyStatusEnum.Pending;
-        public int[] ListingTypes { get; set; }
+        public int[] ListingTypesIds { get; set; }
 
 
 

@@ -1,5 +1,5 @@
-<div class="h-full flex flex-col p-4 pb-0 overflow-y-hidden">
-  <div class="overflow-y-auto max-w-2xl w-full mx-auto flex-1">
+<div class="h-full flex flex-col  pb-0 overflow-y-hidden">
+  <div class="overflow-y-auto  w-full mx-auto flex-1 p-4">
     <swiper-container
       #swiperContainer
       allow-touch-move="false"
@@ -8,39 +8,45 @@
       effect="fade"
       fade-effect-cross-fade="true"
     >
-      <swiper-slide><app-choose-property-type /></swiper-slide>
-      <swiper-slide><app-choose-property-ownership-type /></swiper-slide>
+      <swiper-slide><app-choose-property-category /></swiper-slide>
+      <!-- <swiper-slide><app-choose-property-ownership-type /></swiper-slide> -->
+      <swiper-slide><app-choose-property-listing-types /></swiper-slide>
       <swiper-slide><app-choose-property-location /></swiper-slide>
       <swiper-slide><app-choose-property-geolocation /></swiper-slide>
+      <swiper-slide><app-enter-property-info /></swiper-slide>
     </swiper-container>
   </div>
 
- <section class="pt-2">
-   <p-progressbar
-    styleClass="h-2 "
-    [value]="(this.addPropertyService.currentStep() / 4) * 100"
-  >
-    <ng-template #content>
-      <!-- <span>{{value}}/100</span> -->
-    </ng-template>
-  </p-progressbar>
-  
-  <nav class="flex justify-between p-4">
-    <p-button
-      styleClass="underline"
-      variant="text"
-      severity="secondary"
-      label="Back"
-      (click)="slidePrev()"
-    />
-    <p-button
-      severity="primary"
-      styleClass="px-10"
-      [raised]="true"
-      label="Next"
-      styleClass="hover:bg-primary/70 border-0 px-10 "
-      (click)="slideNext()"
-    />
-  </nav>
- </section>
+  <section class="p-4 pt-2">
+    <p-progressbar
+      styleClass="h-2 "
+      [value]="
+        (this.addPropertyService.currentStep() /
+          this.addPropertyService.steps.length) *
+        100
+      "
+    >
+      <ng-template #content>
+        <!-- <span>{{value}}/100</span> -->
+      </ng-template>
+    </p-progressbar>
+
+    <nav class="flex justify-between p-4">
+      <p-button
+        styleClass="underline"
+        variant="text"
+        severity="secondary"
+        label="Back"
+        (click)="slidePrev()"
+      />
+      <p-button
+        severity="primary"
+        styleClass="px-10"
+        [raised]="true"
+        label="Next"
+        styleClass="hover:bg-primary/70 border-0 px-10 "
+        (click)="slideNext()"
+      />
+    </nav>
+  </section>
 </div>

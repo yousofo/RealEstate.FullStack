@@ -11,7 +11,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CategoriesController(IServicesManager manager):ControllerBase
+    public class CategoriesController(IServicesManager manager,IWebHostEnvironment t):ControllerBase
     {
         [HttpGet]
         //[Authorize(Roles = "Owner,Admin,Employee")]

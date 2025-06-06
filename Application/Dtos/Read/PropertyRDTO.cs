@@ -18,7 +18,7 @@ namespace Application.Dtos.Read
         public string Status { get; set; }
          public string? AddressDescription { get; set; }
         public Album Album { get; set; }
-        public string Category { get; set; }
+        public CategoryRDTO Category { get; set; }
         public LocationView Location { get; set; }
         public OwnerRDTO Owner { get; set; }
         public ICollection<PropertyListingTypeRDTO> ListingTypes { get; set; }

@@ -17,13 +17,13 @@ namespace Domain.Models.Views
         [Searchable]
         public string CountryName { get; set; }
 
-        public int RegionId { get; set; }
+        public int? RegionId { get; set; }
         [Searchable]
-        public string RegionName { get; set; }
+        public string? RegionName { get; set; }
 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
         [Searchable]
-        public string CityName { get; set; }
+        public string? CityName { get; set; }
 
     }
 }

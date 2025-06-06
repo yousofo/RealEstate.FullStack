@@ -4,10 +4,12 @@ using Application.Dtos.Read;
 using Application.Dtos.Request;
 using Application.Interfaces.Repos;
 using Application.Interfaces.Services.EntityServices;
+using Application.Options;
 using Application.ReadOptions;
 using AutoMapper;
 using Domain.Enums;
 using Domain.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -47,7 +49,7 @@ namespace Application.Services.EntityServices
             var property = mapper.Map<Property>(dto);
 
             //listing types
-            var listingTypes = await manager.PropertyListingTypes.DbSet.Where(l => dto.ListingTypes.Contains(l.Id)).ToListAsync();
+            var listingTypes = await manager.PropertyListingTypes.DbSet.Where(l => dto.ListingTypesIds.Contains(l.Id)).ToListAsync();
             foreach (var type in listingTypes)
             {
                 property.ListingTypes.Add(type);
@@ -77,23 +79,39 @@ namespace Application.Services.EntityServices
             }
             else
             {
-                property.CountryId=countryId;
+                property.CountryId = countryId;
 
                 var regionId = await manager.Regions.DbSet.Where(c => c.Name == dto.RegionName && c.CountryId == countryId).Select(e => e.Id).FirstOrDefaultAsync();
-                if(regionId>0) property.RegionId = regionId;
+                if (regionId > 0) property.RegionId = regionId;
 
                 var cityId = await manager.Cities.DbSet.Where(c => c.Name == dto.CityName && c.CountryId == countryId).Select(e => e.Id).FirstOrDefaultAsync();
-                if(cityId>0) property.CityId = cityId;
+                if (cityId > 0) property.CityId = cityId;
             }
 
             //owner
-            property.OwnerId=manager.HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
+            property.OwnerId = manager.HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
 
 
-            property.Thumbnail = "test link";
+            var album = new Album { PropertyId = property.Id };
+            await manager.Albums.AddAsync(album, true);
+
+            //thumbnail
+            var thumbnailLink = await FilesService.SaveAsync(dto.Thumbnail, FileType.Image);
+            property.Thumbnail = thumbnailLink;
+
+            //images
+            foreach (var image in dto.Images)
+            {
+                var link = await FilesService.SaveAsync(image, FileType.Image);
+                album.Images.Add(new Image { Title = image.FileName, Description = "property image description", Link = link });
+            }
+
             bool isAdded = await manager.Properties.AddAsync(property);
             return new Result(isAdded, null);
         }
+
+
+
 
     }
 }

@@ -25,6 +25,7 @@ namespace Infrastructure.Repos
          Lazy<CitiesRepo> _cities = new(() => new(context, logger));
          Lazy<RegionsRepo> _regions = new(() => new(context, logger));
          Lazy<PropertyListingTypesRepo> _propertyListingTypesRepo = new(() => new(context, logger));
+         Lazy<AlbumsRepo> _albumsRepo = new(() => new(context, logger));
         Lazy<AuthRepo> _auth = new(() => new (userManager, new JwtProvider(configuration)));
         Lazy<LocationsViewRepo> _locationView = new(() => new (context, logger));
         
@@ -34,6 +35,7 @@ namespace Infrastructure.Repos
         public IHttpContextAccessor HttpContextAccessor => httpContextAccessor;
         public IPropertiesRepo Properties => _properties.Value;
         public ICategoriesRepo Categories => _categories.Value;
+        public IAlbumsRepo Albums => _albumsRepo.Value;
         public IRegionsRepo Regions => _regions.Value;
         public ICountriesRepo Countries => _countries.Value;
         public IPropertyListingTypesRepo PropertyListingTypes => _propertyListingTypesRepo.Value;

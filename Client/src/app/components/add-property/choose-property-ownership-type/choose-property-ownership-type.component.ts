@@ -22,11 +22,11 @@ export class ChoosePropertyOwnershipTypeComponent {
   addPropertyService = inject(AddPropertyService);
 
   ngOnInit() {
-    this.propertiesService.getPropertyTypes().subscribe((e) => console.log(e));
+    this.propertiesService.getPropertyCategories().subscribe((e) => console.log(e));
   }
 
   selectPropertyType(propertyType: IOwnership) {
  
-    this.addPropertyService.chooseOwnership(propertyType.value);
+    // this.addPropertyService.chooseOwnership(propertyType.value);
   }
 }

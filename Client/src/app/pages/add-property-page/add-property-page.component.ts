@@ -9,12 +9,14 @@ import {
 } from '@angular/core';
 import { ProgressBar } from 'primeng/progressbar';
 import { SwiperContainer, SwiperSlide } from 'swiper/element';
-import { ChoosePropertyTypeComponent } from '../../components/add-property/choose-property-type/choose-property-type.component';
+import { ChoosePropertyCategoryComponent } from '../../components/add-property/choose-property-category/choose-property-category';
 import { AddPropertyService } from '../../services/properties/add-property.service';
 import { ChoosePropertyOwnershipTypeComponent } from '../../components/add-property/choose-property-ownership-type/choose-property-ownership-type.component';
 import { Button } from 'primeng/button';
-import { ChoosePropertyLocationComponent } from "../../components/add-property/choose-property-location/choose-property-location.component";
-import { ChoosePropertyGeolocationComponent } from "../../components/add-property/choose-property-geolocation/choose-property-geolocation.component";
+import { ChoosePropertyLocationComponent } from '../../components/add-property/choose-property-location/choose-property-location.component';
+import { ChoosePropertyGeolocationComponent } from '../../components/add-property/choose-property-geolocation/choose-property-geolocation.component';
+import { ChoosePropertyListingTypes } from "../../components/add-property/choose-property-listing-types/choose-property-listing-types";
+import { EnterPropertyInfo } from "../../components/add-property/enter-property-info/enter-property-info";
 export interface IPropertyType {
   image: string | null;
   title: string;
@@ -24,11 +26,13 @@ export interface IPropertyType {
   selector: 'app-add-property-page',
   imports: [
     ProgressBar,
-    ChoosePropertyTypeComponent,
+    ChoosePropertyCategoryComponent,
     ChoosePropertyOwnershipTypeComponent,
     Button,
     ChoosePropertyLocationComponent,
-    ChoosePropertyGeolocationComponent
+    ChoosePropertyGeolocationComponent,
+    ChoosePropertyListingTypes,
+    EnterPropertyInfo
 ],
   templateUrl: './add-property-page.component.html',
   styleUrl: './add-property-page.component.scss',
@@ -49,7 +53,7 @@ export class AddPropertyPageComponent {
   }
 
   slideNext() {
-    if (this.addPropertyService.currentStep() >= 3) return;
+    if (this.addPropertyService.currentStep() >= this.addPropertyService.steps.length-1) return;
     this.addPropertyService.currentStep.update((s) => s + 1);
   }
   slidePrev() {

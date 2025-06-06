@@ -1,5 +1,5 @@
 import { inject, Injectable, Signal, signal } from '@angular/core';
-import { IProperty } from '../../types/properties';
+import { IListingType, IProperty } from '../../types/properties';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../environments/environment';
@@ -8,7 +8,7 @@ import BaseService from '../types/BaseService';
 import { IPaginatedResponse } from '../types/IPaginatedResponse';
 import IPaginatedSearchRequest from '../types/IPaginatedSearchRequest';
 import { LocationsService } from '../locations/locations.service';
-import { ICategory } from '../../types/locations';
+import { ICategory } from '../../types/properties';
 @Injectable({
   providedIn: 'root',
 })
@@ -46,9 +46,14 @@ export class PropertiesService extends BaseService<IProperty> {
       });
   }
 
-  getPropertyTypes() {
+  getPropertyCategories() {
     return this.httpClient
       .get<ICategory[]>(environment.apiUrl + '/api/categories')
+      .pipe(finalize(() => console.log('getPropertyTypes finalized')));
+  }
+  getPropertyListingTypes() {
+    return this.httpClient
+      .get<IListingType[]>(environment.apiUrl + '/api/listingtypes')
       .pipe(finalize(() => console.log('getPropertyTypes finalized')));
   }
 

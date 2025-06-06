@@ -1,0 +1,83 @@
+<h2 class="text-xl lg:text-2xl font-bold text-primary mb-10 max-w-3xl mx-auto">
+  Enter property info
+</h2>
+
+<section class="grid grid-cols-1 gap-4 max-w-3xl mx-auto h-fit">
+  <!-- enter title -->
+  <div class="flex flex-col gap-2">
+    <label for="title">Title</label>
+    <input
+      pInputText
+      #title
+      id="title"
+      aria-describedby="price-help"
+      [value]="addPropertyService.info().title"
+      (input)="updateTitle(title.value!)"
+    />
+    <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+  </div>
+
+  <!-- Price -->
+  <div class="flex flex-col gap-2">
+    <label for="price">Price</label>
+    <input
+      pInputText
+      #price
+      type="number"
+      id="price"
+      min="0"
+      aria-describedby="price-help"
+      [value]="addPropertyService.info().price"
+      (input)="updatePrice(price.value)"
+    />
+  </div>
+
+  <!-- description -->
+  <div class="flex flex-col gap-2">
+    <label for="description">Description</label>
+    <input
+      pInputText
+      #description
+      id="description"
+      aria-describedby="description-help"
+      [value]="addPropertyService.info().description"
+      (input)="updateDescription(description.value!)"
+    />
+  </div>
+
+  <!-- Address Description -->
+  <div class="flex flex-col gap-2">
+    <label for="addressDescription">Address Description</label>
+    <input
+      pInputText
+      #addressDescription
+      id="addressDescription"
+      aria-describedby="addressDescription-help"
+      [value]="addPropertyService.info().addressDescription"
+      (input)="updateAddressDescription(addressDescription.value!)"
+    />
+  </div>
+
+  <!-- Thumbnail -->
+  <div class="flex flex-col gap-2">
+    <label for="username">Thumbnail</label>
+    <div class="relative cursor-pointer hover:opacity-80 rounded-4xl overflow-hidden">
+      <input
+        type="file"
+        #thumbnailVar
+        id="username"
+        aria-describedby="username-help"
+        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        (input)="updateThumbnail(thumbnailVar.files![0])"
+      />
+      <img
+        [src]="thumbnail()??'/placeholders/image.webp'"
+        alt="thumbnail"
+        class="w-full"
+      />
+      <button class="pointer-events-none absolute border border-yellow-100/50 text-primay bg-secondary top-1/2 left-1/2 shadow-black drop-shadow-lg -translate-x-1/2 -translate-y-1/2   py-2 px-6 rounded-full z-101">
+        Add
+      </button>
+    </div>
+  </div>
+</section>

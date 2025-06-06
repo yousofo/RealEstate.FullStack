@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 using System;
@@ -13,6 +14,8 @@ namespace Infrastructure.EntityConfigs
     {
         public void Configure(EntityTypeBuilder<Album> builder)
         {
+            builder.ConfigureAuditing();
+
             builder.HasIndex(a => new { a.PropertyId, a.UserId }).IsUnique();
 
             builder.HasOne(a => a.Property)

@@ -15,6 +15,7 @@ namespace Application.Interfaces.Repos
         public IPropertyListingTypesRepo PropertyListingTypes{ get; }
         public IHttpContextAccessor HttpContextAccessor { get; }
         public ICategoriesRepo Categories{get;}
+        public IAlbumsRepo Albums{get;}
         public ICountriesRepo Countries{get;}
          public ICitiesRepo Cities{get;}
         public IRegionsRepo Regions{get;}

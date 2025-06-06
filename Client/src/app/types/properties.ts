@@ -35,3 +35,14 @@ export interface IPropertyCDTO {
   regionId: number;
   cityId: number;
 }
+
+export interface ICategory {
+  id: number
+  title: string
+ image: string
+}
+export interface IListingType {
+  id: number
+  title: string
+ image: string
+}

@@ -3,7 +3,33 @@
   class="flex items-center border border-secondary/20 p-4 rounded-full [&>span]:mx-2 w-fit max-w-3xl mx-auto relative"
 >
   <!-- location search -->
-  <div class="flex flex-col px-4 location-search-con">
+  <app-search-location class="ps-2"/>
+  <!-- separator -->
+  <span class="w-px h-8 bg-secondary/40"></span>
+  <!-- contract type -->
+  <p-select
+    [options]="contractTypes"
+    [(ngModel)]="selectedContractType"
+    [ngModelOptions]="{ standalone: true }"
+    optionLabel="name"
+    placeholder="Select Type"
+    class="w-auto bg-transparent text-primary/80 border-0 [&>*]:w-fit [&>*]:p-0 [&>span]:me-2 p-2"
+  />
+  <!-- separator -->
+  <span class="w-px h-8 bg-secondary/40"></span>
+  <!-- contract type -->
+  <p-select
+    [options]="propertyTypes"
+    [(ngModel)]="selectedPropertyType"
+    [ngModelOptions]="{ standalone: true }"
+    optionLabel="name"
+    placeholder="Select Type"
+    class="w-auto bg-transparent text-primary/80 border-0 [&>*]:w-fit [&>*]:p-0 [&>span]:me-2 p-2"
+  />
+</form>
+
+
+<!-- <div class="flex flex-col px-4 location-search-con">
     <label
       for="locationSearchInput"
       class="search-input-placeholder text-sm text-secondary/80"
@@ -50,27 +76,4 @@
         }
       </ul>
     </div>
-  </div>
-  <!-- separator -->
-  <span class="w-px h-8 bg-secondary/40"></span>
-  <!-- contract type -->
-  <p-select
-    [options]="contractTypes"
-    [(ngModel)]="selectedContractType"
-    [ngModelOptions]="{ standalone: true }"
-    optionLabel="name"
-    placeholder="Select Type"
-    class="w-auto bg-transparent text-primary/80 border-0 [&>*]:w-fit [&>*]:p-0 [&>span]:me-2 p-2"
-  />
-  <!-- separator -->
-  <span class="w-px h-8 bg-secondary/40"></span>
-  <!-- contract type -->
-  <p-select
-    [options]="propertyTypes"
-    [(ngModel)]="selectedPropertyType"
-    [ngModelOptions]="{ standalone: true }"
-    optionLabel="name"
-    placeholder="Select Type"
-    class="w-auto bg-transparent text-primary/80 border-0 [&>*]:w-fit [&>*]:p-0 [&>span]:me-2 p-2"
-  />
-</form>
+  </div> -->

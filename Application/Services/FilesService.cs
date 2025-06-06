@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Options;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,15 @@ namespace Application.Services
 {
     public class FilesService
     {
-        public static async Task<string?> SaveFileAsync(IFormFile image)
+        public static async Task<string> SaveAsync(IFormFile image,FileType fileType)
         {
+            var fileCategory = fileType == FileType.Image ? "images" : "videos";
             
             if (image != null && image.Length > 0)
             {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
 
-                string fullPath = Path.Combine(Environment.CurrentDirectory, "wwwroot", "images", fileName);
+                string fullPath = Path.Combine(Environment.CurrentDirectory, "wwwroot", fileCategory, fileName);
 
                 using (var file = File.Create(fullPath))
                 {
@@ -25,7 +27,7 @@ namespace Application.Services
                 return fileName;
 
             }
-            return null;
+            return string.Empty;
         }
     }
 }

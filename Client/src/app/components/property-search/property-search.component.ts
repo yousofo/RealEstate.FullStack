@@ -7,10 +7,11 @@ import { TipComponent } from '../shared/tip/tip.component';
 import { DebounceDirective } from '../../directives/debounce.directive';
 import { ILocation } from '../../types/locations';
 import { NgClass, NgIf } from '@angular/common';
+import { SearchLocationComponent } from "../shared/search-location/search-location.component";
 
 @Component({
   selector: 'app-property-search',
-  imports: [Select, FormsModule, InputTextModule, TipComponent,DebounceDirective,NgIf,NgClass],
+  imports: [Select, FormsModule, InputTextModule, TipComponent, DebounceDirective, NgIf, NgClass, SearchLocationComponent],
   templateUrl: './property-search.component.html',
   styleUrl: './property-search.component.scss',
 })
@@ -33,23 +34,23 @@ export class PropertySearchComponent {
     { name: 'Cabin', code: 'CBN' },
   ];
 
-  search(query: string) {
-    this.locationsService
-      .getLocations(query)
-      .then((locations) => {
-        this.locations.set(locations);
-        console.log('Locations fetched:', locations);
-      })
-      .catch((error) => {
-        console.error('Error fetching locations:', error);
-      });
-  }
+  // search(query: string) {
+  //   this.locationsService
+  //     .getLocations(query)
+  //     .then((locations) => {
+  //       this.locations.set(locations);
+  //       console.log('Locations fetched:', locations);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching locations:', error);
+  //     });
+  // }
 
-  selectLocation(location: ILocation,event: Event) {
-    event.stopPropagation();
-    event.preventDefault();
-    console.log(this.inputEl());
-    this.inputEl()!.nativeElement.value = location.display_name;
-    this.selectedLocation = location;
-  }
+  // selectLocation(location: ILocation,event: Event) {
+  //   event.stopPropagation();
+  //   event.preventDefault();
+  //   console.log(this.inputEl());
+  //   this.inputEl()!.nativeElement.value = location.display_name;
+  //   this.selectedLocation = location;
+  // }
 }

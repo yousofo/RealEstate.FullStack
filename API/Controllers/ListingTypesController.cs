@@ -27,7 +27,7 @@ namespace API.Controllers
 
 
         [HttpPost("")]
-        [Authorize(Roles ="Owner, Admin")]
+        //[Authorize(Roles ="Owner, Admin")]
         public async Task<IActionResult> Create(PropertyListingTypeCDTO dto)
         {
              var result = await manager.PropertyListingTypes.AddAsync(dto);

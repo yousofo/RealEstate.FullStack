@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Album:BaseEntity
+    public class Album: AuditableEntity
     {
         public AppUser User { get; set; }
         public string? UserId { get; set; }

@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChoosePropertyTypeComponent } from './choose-property-type.component';
+import { ChoosePropertyCategoryComponent } from './choose-property-category';
 
 describe('ChoosePropertyTypeComponent', () => {
-  let component: ChoosePropertyTypeComponent;
-  let fixture: ComponentFixture<ChoosePropertyTypeComponent>;
+  let component: ChoosePropertyCategoryComponent;
+  let fixture: ComponentFixture<ChoosePropertyCategoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChoosePropertyTypeComponent]
-    })
-    .compileComponents();
+      imports: [ChoosePropertyCategoryComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(ChoosePropertyTypeComponent);
+    fixture = TestBed.createComponent(ChoosePropertyCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
