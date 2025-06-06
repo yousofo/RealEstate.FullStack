@@ -43,7 +43,7 @@ Features:
 
 ## 3. Customer Frontend
 
-Built with: **Angular ([Navigate](url))**
+Built with: **Angular**
 UI Kits: **(PrimeNG - TailwindCSS - SASS)**
 Features:
 - Property: 
@@ -60,7 +60,7 @@ Features:
 
 ## 4. Admin Frontend
 
-- Built with: **Next.js ([Navigate](url))**
+- Built with: **Next.js**
 - UI Kits: **(MUI - TailwindCSS - SASS - Chart.js)**
 - Features:
   - Admin authentication
