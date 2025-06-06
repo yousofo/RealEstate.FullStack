@@ -10,7 +10,7 @@ import { LoginComponent } from './components/shared/login/login.component';
 import { ChatAIComponent } from './components/chat-ai/chat-ai.component';
 import { Toast, ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-
+import { inject as injectAnalytics } from "@vercel/analytics"
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -30,6 +30,7 @@ import { MessageService } from 'primeng/api';
 export class AppComponent implements OnInit {
   ngOnInit() {
     // this.getForecasts();
+    injectAnalytics();
   }
 
   //title = 'realestatefullstackapp.client';
