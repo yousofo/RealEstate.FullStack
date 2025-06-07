@@ -1,19 +1,22 @@
 <figure class="flex flex-col">
   <img
     class="w-full rounded-3xl aspect-video"
-    [src]="data()?.previewImageLink ?? '/placeholders/room.jpg'"
+    [src]="api + '/images/' + data()?.thumbnail"
     alt="property-picture"
+    onerror="this.src='/placeholders/image.webp'"
   />
   <figcaption class="py-2">
     <h4 class="md:text-lg">
-      {{ data()?.title }} in {{ data()?.location?.regionName }}
+      {{ data()?.title }} in {{ formatLocation(data()?.location!)}}
     </h4>
-    <div class="flex items-center gap-2 text-xs text-secondary/90 dark:text-secondary/70">
-      <p class=" uppercase">
+    <div
+      class="flex items-center gap-2 text-xs text-secondary/90 dark:text-secondary/70"
+    >
+      <p class="uppercase">
         {{ data()?.price | currency : "EGP " }}
       </p>
       <p class="font-light">
-      {{ data()?.description }}
+        {{ data()?.description }}
       </p>
     </div>
   </figcaption>

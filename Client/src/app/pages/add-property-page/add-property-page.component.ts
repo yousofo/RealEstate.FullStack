@@ -17,6 +17,7 @@ import { ChoosePropertyLocationComponent } from '../../components/add-property/c
 import { ChoosePropertyGeolocationComponent } from '../../components/add-property/choose-property-geolocation/choose-property-geolocation.component';
 import { ChoosePropertyListingTypes } from "../../components/add-property/choose-property-listing-types/choose-property-listing-types";
 import { EnterPropertyInfo } from "../../components/add-property/enter-property-info/enter-property-info";
+import { MessageService } from 'primeng/api';
 export interface IPropertyType {
   image: string | null;
   title: string;
@@ -32,7 +33,7 @@ export interface IPropertyType {
     ChoosePropertyLocationComponent,
     ChoosePropertyGeolocationComponent,
     ChoosePropertyListingTypes,
-    EnterPropertyInfo
+    EnterPropertyInfo,
 ],
   templateUrl: './add-property-page.component.html',
   styleUrl: './add-property-page.component.scss',
@@ -41,7 +42,9 @@ export interface IPropertyType {
 export class AddPropertyPageComponent {
   // currentStep=signal(0);
   swiperElment = viewChild<ElementRef<SwiperContainer>>('swiperContainer');
+
   addPropertyService = inject(AddPropertyService);
+  messageService = inject(MessageService);
 
   constructor() {
     this.addPropertyService.currentStep.set(0);
@@ -53,7 +56,17 @@ export class AddPropertyPageComponent {
   }
 
   slideNext() {
-    if (this.addPropertyService.currentStep() >= this.addPropertyService.steps.length-1) return;
+    if (this.addPropertyService.currentStep() >= this.addPropertyService.steps.length-1) {
+      this.addPropertyService.createProperty().subscribe({
+        next: (res) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Property created successfully',
+          })
+        },
+      })
+    };
     this.addPropertyService.currentStep.update((s) => s + 1);
   }
   slidePrev() {

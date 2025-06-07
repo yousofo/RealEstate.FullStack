@@ -40,9 +40,9 @@ namespace RealEstateFullStackApp.Server.Controllers
         }
 
 
-        [HttpGet("location")]
+        [HttpGet("page/location")]
         [OutputCache(PolicyName = "Duration")]
-        public async Task<IActionResult> GetLocationPage([FromQuery] PaginatedSearchReq searchReq,[FromQuery] LocationReq location)
+        public async Task<IActionResult> GetPageByLocation([FromQuery] PaginatedSearchReq searchReq,[FromQuery] LocationReq location)
         {
 
             var props = await manager.Properties.GetPageAsync(searchReq, location, DeletionType.All);

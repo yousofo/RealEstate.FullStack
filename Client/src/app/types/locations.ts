@@ -24,3 +24,20 @@ export interface IAddress {
   country_code: string
 }
 
+
+export interface ILocationRDTO{
+  cityId: number;
+  cityName: string;
+  regionId: number;
+  regionName: string;
+  countryId: number;
+  countryName: string;
+}
+
+
+
+export interface ILocationDTO {
+  cityName: string;
+  regionName: string;
+  countryName: string;
+}

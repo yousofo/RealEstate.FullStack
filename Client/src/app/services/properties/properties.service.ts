@@ -9,6 +9,7 @@ import { IPaginatedResponse } from '../types/IPaginatedResponse';
 import IPaginatedSearchRequest from '../types/IPaginatedSearchRequest';
 import { LocationsService } from '../locations/locations.service';
 import { ICategory } from '../../types/properties';
+import { ILocationDTO, ILocationRDTO } from '../../types/locations';
 @Injectable({
   providedIn: 'root',
 })
@@ -107,4 +108,28 @@ export class PropertiesService extends BaseService<IProperty> {
   filter(predicate: (property: IProperty) => boolean) {
     this._properties.update((e) => e.filter(predicate));
   }
+
+
+  getPageByLocation(searchRequest: IPaginatedSearchRequest = this.pageConfig, location:ILocationDTO|null=null)  {
+      this.pageConfig = searchRequest;
+  
+      // this.checkLoading();
+      // console.log(`${this.urls.getPage}?`);
+      return this.httpClient
+        .get<IPaginatedResponse<IProperty>>(
+          `${this.urls.getPage}/location?` +
+            `pageNumber=${this.pageConfig?.pageNumber ?? 1}&` +
+            `pageSize=${this.pageConfig?.pageSize ?? 10}&` +
+            `searchTerm=${this.pageConfig?.searchTerm ?? ''}&` +
+            `orderBy=${this.pageConfig?.orderBy ?? 'id'}&`+
+            `CountryName=${location?.countryName ?? ''}&`+
+            `RegionName=${location?.regionName ?? ''}&`+
+            `CityName=${location?.cityName ?? ''}`
+        )
+        .pipe(
+          finalize(() => {
+            console.log('finalized from base get page');
+          })
+        );
+    }
 }

@@ -17,28 +17,50 @@ namespace Application.Dtos
     {
         public MapperConfig()
         {
-            CreateMap<Property, PropertyRDTO>();
-            CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Category,
-                opt => opt.MapFrom(src => src.Category.Title));
-            CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Location,
-               opt => opt.MapFrom(src => MapUtils.MapLocation(src))
-              );
-            CreateMap<PropertyRDTO, Property>().ForMember(p => p.Owner,
-                opt => opt.Ignore());
-            //CreateMap<Property, PropertyRDTO>().ForMember(dto => dto.Owner,
-            //    opt => opt.MapFrom(src => new OwnerRDTO { Id = src.OwnerId, FirstName = src.Owner.FirstName }));
+            CreateMap<Property, PropertyRDTO>()
+                .ForMember(dto => dto.ListingTypes,
+                   opt => opt.MapFrom(src => src.ListingTypes.Select(e => new PropertyListingTypeRDTO { Id = e.Id, Title = e.Title }))
+                )
+                .ForMember(dto => dto.Location,
+                   opt => opt.MapFrom(src => new LocationView()
+                   {
+                       CountryId = src.CountryId,
+                       CountryName = src.Country != null ? src.Country.Name : null,
+                       RegionId = src.RegionId,
+                       RegionName = src.Region != null ? src.Region.Name : null,
+                       CityId = src.CityId,
+                       CityName = src.City != null ? src.City.Name : null
+                   }));
+            //.AfterMap((src, dest) => {
+            //       dest.Location = new LocationView
+            //       {
+            //           CountryId = src.CountryId,
+            //           CountryName = src.Country.Name,
+            //           RegionId = src.RegionId,
+            //           RegionName = src.Region.Name,
+            //           CityId = src.CityId,
+            //           CityName = src.City.Name
+            //       };
+
+            //   });
 
 
-            CreateMap<PropertyCDTO, Property>();
+            CreateMap<Album, AlbumRDTO>();
+            CreateMap<Video, VideoRDTO>();
+            CreateMap<Image, ImageRDTO>();
+
+
             CreateMap<PropertyCDTO, Property>().ForMember(e => e.ListingTypes, opts => opts.Ignore());
 
+            // Create a mapping for LocationView
 
-            CreateMap<Property, PropertyUDTO>();
 
 
-            CreateMap<PropertyListingType, PropertyListingTypeRDTO>().ReverseMap();
-            CreateMap<PropertyListingType, PropertyListingTypeCDTO>().ReverseMap();
-            CreateMap<PropertyListingType, PropertyListingTypeUDTO>().ReverseMap();
+
+
+            //CreateMap<PropertyListingType, PropertyListingTypeRDTO>().ReverseMap();
+            //CreateMap<PropertyListingType, PropertyListingTypeCDTO>().ReverseMap();
+            //CreateMap<PropertyListingType, PropertyListingTypeUDTO>().ReverseMap();
 
 
             CreateMap<Country, CountryRDTO>().ReverseMap();
@@ -57,14 +79,19 @@ namespace Application.Dtos
     {
         public static LocationView MapLocation(Property src)
         {
-            return new LocationView
+            Console.WriteLine("\n\n\n\n\n");
+            Console.WriteLine("mapper config");
+            Console.WriteLine(src.Country.Name);
+            Console.WriteLine("\n\n\n\n\n");
+
+            return new LocationView()
             {
-                CityId = src.CityId ?? 0,
-                CityName = src.City?.Name,
+                CountryId = src.CountryId,
+                CountryName = src.Country.Name,
                 RegionId = src.RegionId ?? 0,
                 RegionName = src.Region?.Name,
-                CountryId = src.CountryId,
-                CountryName = src.Country.Name
+                CityId = src.CityId ?? 0,
+                CityName = src.City?.Name
             };
         }
 

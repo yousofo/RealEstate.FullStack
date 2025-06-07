@@ -13,6 +13,10 @@ namespace Domain.Models.Views
     [Keyless]
     public class LocationView
     {
+        public LocationView()
+        {
+            
+        }
         public int CountryId { get; set; }
         [Searchable]
         public string CountryName { get; set; }

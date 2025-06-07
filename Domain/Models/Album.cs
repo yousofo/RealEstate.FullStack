@@ -15,7 +15,7 @@ namespace Domain.Models
         public string? UserId { get; set; }
         public Property Property { get; set; }
         public int? PropertyId { get; set; }
-        public ICollection<Video> Videos { get; set; }
-        public ICollection<Image> Images { get; set; }
+        public virtual ICollection<Video> Videos { get; set; }= new List<Video>();
+        public virtual ICollection<Image> Images { get; set; }=new List<Image>();
     }
 }

@@ -11,6 +11,7 @@ import { ILocation } from '../../../types/locations';
 import { NgClass, NgIf } from '@angular/common';
 import { DebounceDirective } from '../../../directives/debounce.directive';
 import { AddPropertyService } from '../../../services/properties/add-property.service';
+import { PropertiesService } from '../../../services/properties/properties.service';
 
 @Component({
   selector: 'app-search-location',
@@ -25,6 +26,7 @@ export class SearchLocationComponent {
 
   locationsService = inject(LocationsService);
   addPropertyService = inject(AddPropertyService);
+  propertiesService = inject(PropertiesService);
 
   search(query: string) {
     this.locationsService
@@ -47,6 +49,10 @@ export class SearchLocationComponent {
       regionName: this.getRegion(address),
       countryName: address.country,
     });
+    console.log(this.addPropertyService.location());
+    if (window.location.pathname !== '/add-property') {
+      this.propertiesService.getPageByLocation(undefined, this.addPropertyService.location()!).subscribe();
+    }
   }
 
   getCity(address: ILocation['address']) {

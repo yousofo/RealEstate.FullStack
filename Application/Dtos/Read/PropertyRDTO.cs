@@ -10,6 +10,10 @@ namespace Application.Dtos.Read
 {
     public class PropertyRDTO
     {
+        public PropertyRDTO()
+        {
+            
+        }
         public int Id { get; set; }
         public string Title { get; set; }
         public decimal Price { get; set; }
@@ -17,11 +21,11 @@ namespace Application.Dtos.Read
         public string Thumbnail { get; set; }
         public string Status { get; set; }
          public string? AddressDescription { get; set; }
-        public Album Album { get; set; }
+        public AlbumRDTO Album { get; set; }
         public CategoryRDTO Category { get; set; }
-        public LocationView Location { get; set; }
+        public LocationView Location { get; set; } = new();
         public OwnerRDTO Owner { get; set; }
-        public ICollection<PropertyListingTypeRDTO> ListingTypes { get; set; }
+        public IEnumerable<PropertyListingTypeRDTO> ListingTypes { get; set; } = [];
 
     }
 }

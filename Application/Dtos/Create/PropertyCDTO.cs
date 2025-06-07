@@ -20,7 +20,7 @@ namespace Application.Dtos.Create
 
 
         public IFormFile Thumbnail { get; set; }
-        public IEnumerable<IFormFile>? Images { get; set; }
+        public IEnumerable<IFormFile> Images { get; set; } = [];
         public int? OrganizationId { get; set; }
         public int CategoryId { get; set; }
 

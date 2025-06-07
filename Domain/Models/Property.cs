@@ -30,6 +30,7 @@ namespace Domain.Models
         public Category Category { get; set; }
         public int CategoryId { get; set; }
 
+
         //
         public Auction Auction { get; set; }
 
@@ -43,7 +44,8 @@ namespace Domain.Models
 
 
         //location
-        public string? AddressDescription { get; set; }
+        [NotMapped]
+         public string? AddressDescription { get; set; }
         public string? latitude { get; set; }
         public string? longitude { get; set; }
         public int CountryId { get; set; }

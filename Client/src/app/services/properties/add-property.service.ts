@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, effect, computed } from '@angular/core';
+import { finalize } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { ILocationDTO } from '../../types/locations';
 
-interface ILocationDto {
-  cityName: string;
-  regionName: string;
-  countryName: string;
-}
 interface IGeoLocation {
   latitude: number;
   longitude: number;
@@ -31,12 +29,12 @@ export class AddPropertyService {
     addressDescription: '',
   });
   // ownership = signal<string>('full');
-  location = signal<ILocationDto|null>(null);
-  geoLocation = signal<IGeoLocation|null>(null);
+  location = signal<ILocationDTO | null>(null);
+  geoLocation = signal<IGeoLocation | null>(null);
   listingTypesIds = signal<number[]>([]);
-  thumbnail = signal<File|null>(null);
+  thumbnail = signal<File | null>(null);
   images = signal<File[]>([]);
-  organizationId = signal<number|null>(null);
+  organizationId = signal<number | null>(null);
 
   steps = [
     { name: 'Category', value: 'category' },
@@ -69,7 +67,7 @@ export class AddPropertyService {
     this.location.set(location);
   }
 
-  selectLocation(location: ILocationDto) {
+  selectLocation(location: ILocationDTO) {
     this.location.set(location);
   }
 
@@ -85,24 +83,40 @@ export class AddPropertyService {
     this.thumbnail.set(thumbnail);
   }
 
+  updateImages(images: File[]) {
+    this.images.set(images);
+  }
+
   createProperty() {
     let formData = new FormData();
+
     formData.append('title', this.info().title);
     formData.append('price', this.info().price.toString());
     formData.append('description', this.info().description);
-    formData.append('listingTypesIds', this.listingTypesIds().join(','));
+
+    Object.values(this.listingTypesIds()).forEach((id) =>
+      formData.append('listingTypesIds', id.toString())
+    );
+
+    Object.values(this.images()!).forEach((image) =>
+      formData.append('images', image)
+    );
+
     formData.append('thumbnail', this.thumbnail()!);
-    formData.append('images', this.images().join(','));
-    formData.append('organizationId', this.organizationId()!.toString());
+    formData.append('organizationId', this.organizationId()?.toString() ?? '');
     formData.append('categoryId', this.cateogryId().toString());
     formData.append('countryName', this.location()!.countryName!);
     formData.append('regionName', this.location()!.regionName!);
     formData.append('cityName', this.location()!.cityName!);
     formData.append('addressDescription', this.info().addressDescription);
-    formData.append('latitude', this.geoLocation()!.latitude.toString());
-    formData.append('longitude', this.geoLocation()!.longitude.toString());
+    formData.append('latitude', this.geoLocation()?.latitude.toString() ?? '');
+    formData.append(
+      'longitude',
+      this.geoLocation()?.longitude.toString() ?? ''
+    );
 
-
-    return this.httpClient.post('/api/properties', formData);
+    return this.httpClient
+      .post(environment.apiUrl + '/api/properties', formData)
+      .pipe(finalize(() => console.log('Property added')));
   }
 }

@@ -255,7 +255,7 @@ export class AdminPropertiesPageComponent {
         });
       } else {
         this.property.id = this.createId();
-        this.property.previewImageLink = 'property-placeholder.svg';
+        this.property.thumbnail = 'property-placeholder.svg';
         this.propertiesService.add(this.property);
         this.messageService.add({
           severity: 'success',

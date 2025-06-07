@@ -23,9 +23,10 @@ namespace Infrastructure.Repos.EntityRepos
             if (location is not null)
             {
                 query = query
-                    .Where(p => p.Country.Name.Contains(location.CountryName) ||
-                                p.Region.Name.Contains(location.RegionName) ||
-                                p.City.Name.Contains(location.CityName));
+                    .Where(p => (p.Country.Name.Contains(location.CountryName) && !string.IsNullOrEmpty(location.CountryName) ) ||
+                                (p.Region.Name.Contains(location.RegionName) && !string.IsNullOrEmpty(location.RegionName)) ||
+                                (p.City.Name.Contains(location.CityName) && !string.IsNullOrEmpty(location.CityName))
+                                );
             };
 
             query = query.Include(p => p.Owner)
@@ -44,11 +45,40 @@ namespace Infrastructure.Repos.EntityRepos
                 .Take(searchReq.PageSize)
                 .ToListAsync();
 
-            //if (pageItems.Count() > 0)
-            //{
-            //    Console.WriteLine("\n\n\n\n");
-            //    Console.WriteLine(pageItems.First().Category.Title);
-            //}
+ 
+
+            var paginatedRes = new PaginatedRes<Property>
+            {
+                PageNumber = searchReq.PageNumber,
+                PageSize = searchReq.PageSize,
+                TotalCount = await query.CountAsync(),
+                Items = pageItems
+            };
+
+            return paginatedRes;
+
+        }
+        public override async Task<PaginatedRes<Property>> GetPageAsync(PaginatedSearchReq searchReq , DeletionType deletionType, bool trackChanges = false)
+        {
+            var query = GetAllQuery(searchReq, deletionType, trackChanges);
+
+
+            query = query.Include(p => p.Owner)
+                .Include(p => p.ListingTypes)
+                .Include(p => p.Category)
+                .Include(p => p.Country)
+                .Include(p => p.Region)
+                .Include(p => p.City)
+                .Include(p => p.Album.Images)
+                .Include(p => p.Album.Videos);
+ 
+
+            var pageItems = await query
+                .Skip((searchReq.PageNumber - 1) * searchReq.PageSize)
+                .Take(searchReq.PageSize)
+                .ToListAsync();
+
+ 
 
             var paginatedRes = new PaginatedRes<Property>
             {

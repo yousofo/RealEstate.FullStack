@@ -95,7 +95,7 @@
 <p-dialog [(visible)]="propertyDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
     <ng-template #content>
         <div class="flex flex-col gap-6">
-            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/property/' + property?.previewImageLink" [alt]="property?.previewImageLink" class="block m-auto pb-4" *ngIf="property?.previewImageLink" />
+            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/property/' + property?.thumbnail" [alt]="property?.thumbnail" class="block m-auto pb-4" *ngIf="property?.thumbnail" />
             <div>
                 <label for="ti?.title" class="block font-bold mb-3">Name</label>
                 <input type="text" pInputText id="ti?.title" [(ngModel)]="property!.title" required autofocus fluid />

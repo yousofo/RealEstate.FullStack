@@ -36,6 +36,13 @@ namespace Application.Services.EntityServices
                 Items = mapper.Map<IEnumerable<PropertyRDTO>>(modelsPage.Items)
             };
 
+            //if (dtosPage.Items.Count() > 0)
+            //{
+            //    Console.WriteLine("\n\n\n\n");
+            //    Console.WriteLine("service");
+            //    Console.WriteLine(modelsPage.Items.First().Country.Name);
+            //    Console.WriteLine(dtosPage.Items.First().Location.CountryName);
+            //}
 
 
             return dtosPage;
@@ -92,6 +99,11 @@ namespace Application.Services.EntityServices
             property.OwnerId = manager.HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
 
 
+            
+
+            bool isAdded = await manager.Properties.AddAsync(property);
+
+
             var album = new Album { PropertyId = property.Id };
             await manager.Albums.AddAsync(album, true);
 
@@ -106,7 +118,7 @@ namespace Application.Services.EntityServices
                 album.Images.Add(new Image { Title = image.FileName, Description = "property image description", Link = link });
             }
 
-            bool isAdded = await manager.Properties.AddAsync(property);
+            await manager.SaveAsync();
             return new Result(isAdded, null);
         }
 

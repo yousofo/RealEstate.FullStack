@@ -61,7 +61,9 @@
   <!-- Thumbnail -->
   <div class="flex flex-col gap-2">
     <label for="username">Thumbnail</label>
-    <div class="relative cursor-pointer hover:opacity-80 rounded-4xl overflow-hidden">
+    <div
+      class="relative cursor-pointer hover:opacity-80 rounded-4xl overflow-hidden"
+    >
       <input
         type="file"
         #thumbnailVar
@@ -75,9 +77,69 @@
         alt="thumbnail"
         class="w-full"
       />
-      <button class="pointer-events-none absolute border border-yellow-100/50 text-primay bg-secondary top-1/2 left-1/2 shadow-black drop-shadow-lg -translate-x-1/2 -translate-y-1/2   py-2 px-6 rounded-full z-101">
+      <button
+        class="pointer-events-none absolute border border-yellow-100/50 text-primay bg-secondary top-1/2 left-1/2 shadow-black drop-shadow-lg -translate-x-1/2 -translate-y-1/2 py-2 px-6 rounded-full z-101"
+      >
         Add
       </button>
     </div>
+  </div>
+<p-divider />
+  <!-- Images -->
+  <div class="flex flex-col gap-2">
+    <label for="username"></label>
+    <div
+      class="relative cursor-pointer hover:opacity-80 rounded-4xl overflow-hidden"
+    >
+      <input
+        type="file"
+        multiple
+        #imagesVar
+        id="username"
+        aria-describedby="username-help"
+        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        (input)="updateImages(imagesVar.files!)"
+      />
+      <button
+        class="pointer-events-none border block mx-auto border-yellow-100/50 text-primay bg-secondary shadow-black drop-shadow-lg py-2 px-6 rounded-full z-101"
+      >
+        Add more images
+      </button>
+    </div>
+    <p-carousel
+      [value]="images()"
+      [numVisible]="3"
+      [numScroll]="1"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template let-image #item>
+        <div
+          class="border border-gray-200/30 dark:border-gray-700/30 rounded m-2 p-4"
+        >
+          <div class="mb-4">
+            <div class="relative mx-auto">
+              <img
+                [src]="image.image"
+                alt="extra image"
+                class="w-full rounded-border aspect-video object-cover"
+              />
+              <p-tag
+                [value]="'1'"
+                [severity]="'danger'"
+                class="absolute"
+                styleClass="dark:!bg-surface-900"
+                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
+              />
+            </div>
+          </div>
+          <div class=" font-medium flex justify-between">
+            <button class="text-sm text-secondary/70">Image {{ image.index +1 }}</button>
+            <p-button label="Remove" variant="outlined" severity="danger" styleClass="py-0.5 text-sm " (click)="removeImage(image.index)"/>
+
+          </div>
+ 
+        </div>
+      </ng-template>
+    </p-carousel>
   </div>
 </section>

@@ -3,13 +3,12 @@ export interface IProperty {
   title: string;
   price: number;
   description: string;
+  thumbnail: string;
   addressDescription: string;
-  previewImageLink: string;
   status: string;
   listingType: string;
   category: string;
   album: string[];
-  thumbnail: string;
   location: {
     countryName: string;
     countryId: number;
