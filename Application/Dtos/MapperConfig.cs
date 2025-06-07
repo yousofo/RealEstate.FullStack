@@ -31,18 +31,7 @@ namespace Application.Dtos
                        CityId = src.CityId,
                        CityName = src.City != null ? src.City.Name : null
                    }));
-            //.AfterMap((src, dest) => {
-            //       dest.Location = new LocationView
-            //       {
-            //           CountryId = src.CountryId,
-            //           CountryName = src.Country.Name,
-            //           RegionId = src.RegionId,
-            //           RegionName = src.Region.Name,
-            //           CityId = src.CityId,
-            //           CityName = src.City.Name
-            //       };
 
-            //   });
 
 
             CreateMap<Album, AlbumRDTO>();
@@ -58,9 +47,9 @@ namespace Application.Dtos
 
 
 
-            //CreateMap<PropertyListingType, PropertyListingTypeRDTO>().ReverseMap();
-            //CreateMap<PropertyListingType, PropertyListingTypeCDTO>().ReverseMap();
-            //CreateMap<PropertyListingType, PropertyListingTypeUDTO>().ReverseMap();
+            CreateMap<PropertyListingType, PropertyListingTypeRDTO>();
+            CreateMap<PropertyListingTypeCDTO, PropertyListingType>();
+            CreateMap<PropertyListingTypeUDTO, PropertyListingType>();
 
 
             CreateMap<Country, CountryRDTO>().ReverseMap();
